@@ -30,9 +30,9 @@ public class KlingonBrel extends HullClass {
     public KlingonBrel() {
         super("B'rel class", "A small warship", "kli_16x16.png", "kli_brel.png",
                 12, 1100, 280, 210, 40, 8, false, 170, 4);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH2,
                 TechnologyGenerator.CONSTRUCTION_TECH2,
                 TechnologyGenerator.ENERGY_TECH2,

@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2012 FrostVoid Software
  *
@@ -16,6 +15,18 @@
  */
 package com.frostvoid.trekwar.client;
 
+import com.frostvoid.trekwar.client.gui.BottomMenu.BottomMenuPanel;
+import com.frostvoid.trekwar.client.gui.BottomMenu.BottomMenuToolbarPanel;
+import com.frostvoid.trekwar.client.gui.*;
+import com.frostvoid.trekwar.client.net.ClientCommunication;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
+import com.frostvoid.trekwar.common.utils.Language;
+import org.jvnet.substance.SubstanceLookAndFeel;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
@@ -28,35 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Properties;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.*;
-
-import com.frostvoid.trekwar.client.gui.BottomMenu.BottomMenuPanel;
-import com.frostvoid.trekwar.client.net.ClientCommunication;
-import com.frostvoid.trekwar.common.*;
-import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
-import com.frostvoid.trekwar.client.gui.BottomMenu.BottomMenuToolbarPanel;
-import com.frostvoid.trekwar.client.gui.CargoTransferWindow;
-import com.frostvoid.trekwar.client.gui.ChatWindow;
-import com.frostvoid.trekwar.client.gui.LoginDialog;
-import com.frostvoid.trekwar.client.gui.MapBorder;
-import com.frostvoid.trekwar.client.gui.MapPanel;
-import com.frostvoid.trekwar.client.gui.MinimapWindow;
-import com.frostvoid.trekwar.client.gui.ResearchWindow;
-import com.frostvoid.trekwar.client.gui.ShipDesignerWindow;
-import com.frostvoid.trekwar.client.gui.SystemControlWindow;
-import com.frostvoid.trekwar.client.gui.TopMenuPanel;
-import com.frostvoid.trekwar.client.gui.TrekwarSkin;
-import com.frostvoid.trekwar.client.gui.TroopTransferWindow;
-import com.frostvoid.trekwar.common.utils.Language;
-import org.jvnet.substance.SubstanceLookAndFeel;
+import java.util.logging.*;
 
 /**
  * Trekwar client entrypoint and big collection of things and stuff :D
@@ -200,20 +183,20 @@ public class Client extends JFrame {
                 while (getMapFromServerThreadRunning) {
                     System.out.print("Reload Thread:  ");
                     try {
-                        
+
                         // DOWNLOAD CHAT + SYNC TIME WITH SERVER EVERY X SECONDS
                         if (comm.isLoggedIn() && localGalaxy != null) {
-                            
+
                             if (lastSyncTimestamp < System.currentTimeMillis() - SYNC_UPDATE_TIME) {
                                 final ArrayList<ChatLine> chatLines = comm.server_getChat();
                                 final ArrayList<User> userList = Client.getInstance().getComm().server_getUserList();
                                 comm.sync();
                                 lastSyncTimestamp = System.currentTimeMillis();
-                                
-                                if(Client.getInstance().getLocalGalaxy() != null && comm.getCurrentServerTurn() > Client.getInstance().getLocalGalaxy().getCurrentTurn()) {
+
+                                if (Client.getInstance().getLocalGalaxy() != null && comm.getCurrentServerTurn() > Client.getInstance().getLocalGalaxy().getCurrentTurn()) {
                                     downloadNeeded = true;
                                 }
-                                if(chatLines != null) {
+                                if (chatLines != null) {
                                     chatQueue.addAll(chatLines);
                                 }
                                 while (chatQueue.size() > 300) {
@@ -277,7 +260,6 @@ public class Client extends JFrame {
         };
 
 
-
         // Set up GUI
         desktop = new JDesktopPane();
 //        ImageIcon bgImage = ImageManager.getInstance().getImage("graphics/bg.jpg");
@@ -308,7 +290,6 @@ public class Client extends JFrame {
                 resizeAndPosition();
             }
         });
-
 
 
         addWindowListener(
@@ -572,7 +553,7 @@ public class Client extends JFrame {
 
     /**
      * Shows a message as a dialog window
-     * 
+     *
      * @param message the message to show
      */
     public void showMessage(final String message) {
@@ -587,11 +568,11 @@ public class Client extends JFrame {
 
     /**
      * Shows an error message
-     * 
-     * @param message the message to show
-     * @param e the exception that caused the error (printed to log/console)
+     *
+     * @param message  the message to show
+     * @param e        the exception that caused the error (printed to log/console)
      * @param terminal true if the error should cause the game to terminate
-     * @param logout true if error should log server out of server
+     * @param logout   true if error should log server out of server
      */
     public final void showError(final String message, final Exception e, final boolean terminal, final boolean logout) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -627,7 +608,7 @@ public class Client extends JFrame {
 
     /**
      * Gets the currently logged in user or null if not logged in
-     * 
+     *
      * @return the user playing the game
      */
     public User getLocalUser() {
@@ -640,7 +621,7 @@ public class Client extends JFrame {
 
     /**
      * Gets the local galaxy map
-     * 
+     *
      * @return galaxy map
      */
     public StarSystem[][] getLocalMap() {
@@ -661,7 +642,7 @@ public class Client extends JFrame {
 
     /**
      * Gets the sound system components, used for playing sounds
-     * 
+     *
      * @return sound system
      */
     public SoundSystem getSoundSystem() {
@@ -670,9 +651,8 @@ public class Client extends JFrame {
 
     /**
      * Gets a user by username from the local galaxy object
-     * 
+     *
      * @param username the username to find
-     * 
      * @return the User object or null if not found
      */
     public User getUserByUsername(String username) {
@@ -686,7 +666,7 @@ public class Client extends JFrame {
 
     /**
      * Gets the local galaxy object
-     * 
+     *
      * @return galaxy object
      */
     public Galaxy getLocalGalaxy() {
@@ -699,7 +679,7 @@ public class Client extends JFrame {
 
     /**
      * Gets the I18N system
-     * 
+     *
      * @return language system
      */
     public static Language getLanguage() {
@@ -793,7 +773,7 @@ public class Client extends JFrame {
         }
 
         System.out.println("====== galaxyDownloaded() " + new Date() + "  CURRENT TURN= " + localGalaxy.getCurrentTurn());
-        
+
         downloadNeeded = false;
 
         // Initial map setup (done once)
@@ -835,26 +815,26 @@ public class Client extends JFrame {
                 if (localUser.getCurrentResearch() != null) {
                     bottomMenuPanel.setResearchProgress(localUser);
                 } else {
-                    if(localUser.getTechs().size() < TechnologyGenerator.getAllTechs().size()) {
+                    if (localUser.getTechs().size() < TechnologyGenerator.getAllTechs().size()) {
                         bottomMenuPanel.setNoResearch(true);
                     }
                 }
             }
         });
-      
+
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
                 if (topMenuPanel != null) {
-                
+
                     topMenuPanel.setCurrentTurn(localGalaxy.getCurrentTurn());
                     topMenuPanel.setUpkeep(localUser.getShipUpkeepSupply(), localUser.getShipUpkeepUsed());
                 }
 
                 if (Client.getInstance().getMapPanel().getLastClickedTile() != null) {
                     bottomMenuPanel.displaySystem(localGalaxy.getMap()[Client.getInstance().getMapPanel().getLastClickedTile().getXloc()]
-                                                                      [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
+                            [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
                 }
 
                 if (researchWindow != null && researchWindow.isVisible()) {
@@ -867,7 +847,7 @@ public class Client extends JFrame {
 
                 if (systemControlWindow != null && systemControlWindow.isVisible()) {
                     systemControlWindow.setStarSystem(localGalaxy.getMap()[Client.getInstance().getMapPanel().getLastClickedTile().getXloc()]
-                                                                          [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
+                            [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
                 }
 
                 if (minimapWindow != null && minimapWindow.isVisible()) {

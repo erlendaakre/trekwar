@@ -15,13 +15,17 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Point;
+import com.frostvoid.trekwar.client.Animation;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.FontFactory;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.orders.MoveOrder;
+import com.frostvoid.trekwar.common.orders.Order;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,16 +35,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-import javax.swing.*;
-import javax.swing.border.Border;
-
-import com.frostvoid.trekwar.client.Animation;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.FontFactory;
-import com.frostvoid.trekwar.common.*;
-import com.frostvoid.trekwar.common.orders.MoveOrder;
-import com.frostvoid.trekwar.common.orders.Order;
-import com.frostvoid.trekwar.client.ImageManager;
 
 /**
  * Panel for drawing the main game board
@@ -110,12 +104,12 @@ public class MapPanel extends JPanel {
         mapTiles = new MapTile[Client.getInstance().getLocalMap().length][Client.getInstance().getLocalMap()[0].length];
         for (int i = 0; i < mapTiles.length; i++) {
             for (int j = 0; j < mapTiles[i].length; j++) {
-                mapTiles[i][j] = new MapTile(i,j);
+                mapTiles[i][j] = new MapTile(i, j);
                 add(mapTiles[i][j]);
                 tileNumbers.add(prng.nextInt(25) + 1);
             }
         }
-        
+
         moveToTileGraphicsImage = new ImageIcon(new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB));
 
         shipIconCardassian = ImageManager.getInstance().getImage("graphics/map_icons/car.png");
@@ -173,7 +167,7 @@ public class MapPanel extends JPanel {
         }
 
         // map border
-        Border border = new MapBorder(new Insets(borderHeight, borderWidth, borderHeight*3, borderWidth));
+        Border border = new MapBorder(new Insets(borderHeight, borderWidth, borderHeight * 3, borderWidth));
         setBorder(border);
 
 
@@ -200,10 +194,10 @@ public class MapPanel extends JPanel {
                 Point pos = view.getViewPosition();
                 int newX = pos.x - deltaX;
                 int newY = pos.y - deltaY;
-                if(newX < 0) {
+                if (newX < 0) {
                     newX = 0;
                 }
-                if(newY < 0) {
+                if (newY < 0) {
                     newY = 0;
                 }
                 view.setViewPosition(new Point(newX, newY));
@@ -340,9 +334,9 @@ public class MapPanel extends JPanel {
 
                         // add star image
                         tile.addImage(ImageManager.getInstance().getImage("graphics/map_icons/" + map[i][j].getImageFile()));
-                        
+
                         // add shipyard icon
-                        if(!map[i][j].getUser().equals(StaticData.nobodyUser) && map[i][j].hasShipyard()) {
+                        if (!map[i][j].getUser().equals(StaticData.nobodyUser) && map[i][j].hasShipyard()) {
                             tile.addImage(ImageManager.getInstance().getImage("graphics/map_icons/shipyard.png"));
                         }
                     }
@@ -377,8 +371,8 @@ public class MapPanel extends JPanel {
 
                     @Override
                     public void mouseReleased(MouseEvent me) {
-                                
-                        if(isDraggingMap) {
+
+                        if (isDraggingMap) {
                             isDraggingMap = false;
                             return;
                         }
@@ -394,7 +388,7 @@ public class MapPanel extends JPanel {
                             if (lastClicked != null) {
                                 lastClicked.setSelected(false);
                             }
-                            
+
                             tile.setSelected(true);
                             lastClicked = tile;
                             Client.getInstance().getBottomGuiPanel().displaySystem(s);
@@ -406,7 +400,7 @@ public class MapPanel extends JPanel {
                             currentActionObject = null;
                             Client.getInstance().getSoundSystem().play_movefleet();
                             Client.getInstance().getComm().server_moveFleet(f.getName(), s.getX(), s.getY());
-                            
+
                             ArrayList<Fleet> localFleets = Client.getInstance().getLocalUser().getFleets();
                             for (Fleet localFleet : localFleets) {
                                 if (localFleet.getName().equals(f.getName()) && f.getUser().equals(localFleet.getUser())) {
@@ -425,15 +419,15 @@ public class MapPanel extends JPanel {
                     public void mouseEntered(MouseEvent e) {
                         if (currentAction == ACTION_MOVEFLEET) {
                             mapTiles[s.getX()][s.getY()].addAnimation(Animation.fleetMovementCursorAnimation);
-                            
-                            if(moveToTileGraphicsImage.getImage().getGraphics() instanceof Graphics2D) {
+
+                            if (moveToTileGraphicsImage.getImage().getGraphics() instanceof Graphics2D) {
                                 Graphics2D g2d = (Graphics2D) moveToTileGraphicsImage.getImage().getGraphics();
-                                g2d.setBackground(new Color(0,0,0,0));
+                                g2d.setBackground(new Color(0, 0, 0, 0));
                                 g2d.clearRect(0, 0, 40, 40);
-                                
+
                                 g2d.setColor(Color.BLACK);
                                 g2d.fillRect(0, 2, 20, 12);
-                                
+
                                 g2d.setColor(Color.red);
                                 g2d.setFont(FontFactory.getInstance().getPocketPixel(Font.BOLD, 10));
                                 int srcX = ((Fleet) currentActionObject).getX();
@@ -442,14 +436,14 @@ public class MapPanel extends JPanel {
                                 g2d.drawString("" + dst, 0, 12);
                             }
                             mapTiles[s.getX()][s.getY()].addImage(moveToTileGraphicsImage);
-                            
+
                         }
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
                         if (currentAction == ACTION_MOVEFLEET) {
-                            mapTiles[s.getX()][s.getY()].removeAnimation(Animation.fleetMovementCursorAnimation); 
+                            mapTiles[s.getX()][s.getY()].removeAnimation(Animation.fleetMovementCursorAnimation);
                             mapTiles[s.getX()][s.getY()].removeImage(moveToTileGraphicsImage);
                         }
                     }
@@ -531,7 +525,7 @@ public class MapPanel extends JPanel {
 
     private void drawPath(ArrayList<Point> pathLabels, int fuel, int usage) {
         fuel += usage; // compensate for drawing line in tile fleet is already in
-        
+
         for (int i = 0; i < pathLabels.size(); i++) {
             Point last = null;
             Point current = pathLabels.get(i);
@@ -653,7 +647,7 @@ public class MapPanel extends JPanel {
     public JScrollPane getScrollPane() {
         return scrollpane;
     }
-    
+
     public MapTile getLastClickedTile() {
         return lastClicked;
     }
@@ -792,7 +786,7 @@ public class MapPanel extends JPanel {
     private ImageIcon MakeFleetCountIcon(Faction faction, int count, FleetCountType type) {
         int x = 0;
         int y = 10;
-        if(type.equals(FleetCountType.ALLY)) {
+        if (type.equals(FleetCountType.ALLY)) {
             y += 20;
         }
 

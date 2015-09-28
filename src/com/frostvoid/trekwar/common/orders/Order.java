@@ -34,6 +34,7 @@ public abstract class Order implements Serializable {
     /**
      * this method is called on every turn, should at one
      * point change the orderCompleted flag to true
+     *
      * @see orderCompleted
      */
     public abstract void execute();
@@ -41,6 +42,7 @@ public abstract class Order implements Serializable {
     /**
      * this method is called when the isCompleted() method
      * return true, will cause the order object to be destroyed
+     *
      * @see isCompleted
      */
     public abstract void onComplete();
@@ -52,12 +54,14 @@ public abstract class Order implements Serializable {
 
     /**
      * Gets a string representation of this order
+     *
      * @return description of the order
      */
     public abstract String toString();
 
     /**
      * Checks if the order has been completed
+     *
      * @return true if order has been completed
      */
     public boolean isCompleted() {
@@ -66,6 +70,7 @@ public abstract class Order implements Serializable {
 
     /**
      * Gets the number of turns until this order is completed/done
+     *
      * @return number of turns to completion
      */
     public int getTurnsLeft() {
@@ -74,7 +79,7 @@ public abstract class Order implements Serializable {
 
     /**
      * Sets number of turns left until order is executed.
-     * 
+     *
      * @param turnsLeft number of turns left
      */
     public void setTurnsLeft(int turnsLeft) {

@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class ColonizeResponse extends Response {
     private boolean colonizationStarted;
-    
+
     public ColonizeResponse(boolean colonizationStarted) {
         this.colonizationStarted = colonizationStarted;
     }
-    
+
     public ColonizeResponse(String errorMessage) {
         colonizationStarted = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isColonizationStarted() {
         return colonizationStarted;
     }

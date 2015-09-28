@@ -15,17 +15,17 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
-import java.util.Random;
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
 import com.frostvoid.trekwar.common.exceptions.ShipException;
 import com.frostvoid.trekwar.common.exceptions.SlotException;
 import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.server.utils.MiscTools;
-import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
 import com.frostvoid.trekwar.server.TrekwarServer;
+import com.frostvoid.trekwar.server.utils.MiscTools;
+
+import java.util.Random;
+import java.util.logging.Level;
 
 /**
  * An order to build a starship at a given starsystem
@@ -83,9 +83,9 @@ public class BuildShipOrder extends Order {
             for (Fleet f : starsystem.getFleets()) {
                 if (f.getName().length() == 10 &&
                         (f.getName().endsWith("th fleet") ||
-                        f.getName().endsWith("st fleet") ||
-                        f.getName().endsWith("nd fleet") ||
-                        f.getName().endsWith("rd fleet"))
+                                f.getName().endsWith("st fleet") ||
+                                f.getName().endsWith("nd fleet") ||
+                                f.getName().endsWith("rd fleet"))
                         ) {
                     fleet = f;
                     break;
@@ -132,7 +132,7 @@ public class BuildShipOrder extends Order {
             s.applyTemplate(template);
             s.initShip();
             fleet.addShip(s);
-            
+
             // if colonyship, add population
             if (s.canColonize()) {
                 int colonists = Math.min(s.getColonistCapacity(), starsystem.getPopulation() - 200);

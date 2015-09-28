@@ -28,7 +28,7 @@ public class BuildShipRequest extends Request {
     private int x;
     private int y;
     private String template;
-    
+
     public BuildShipRequest(int x, int y, String template) {
         this.x = x;
         this.y = y;

@@ -15,10 +15,10 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Faction;
+
+import java.awt.*;
 
 /**
  * Icon for empire
@@ -28,14 +28,14 @@ import com.frostvoid.trekwar.common.Faction;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuEmpireIcon extends BottomMenuToolbarIcon {
-    
+
     private Image img;
-    
+
     public BottomMenuEmpireIcon(String filename, Faction f) {
         super("empire", f, false);
         img = ImageManager.getInstance().getImage("graphics/avatars/" + filename).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);

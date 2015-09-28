@@ -15,16 +15,13 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.gui.SimpleBar;
 import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.client.Colors;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Shows the textarea with fleet info + bars with shield/hp/armor/fuel/etc..
@@ -69,9 +66,9 @@ public class FleetKPIPanel extends JPanel {
     public void paint(Graphics g) {
         paintComponents(g);
     }
-    
+
     private void setFleetInfoText(Fleet fleet) {
-        int fleetStrength =  (fleet.getDefence()/2) + fleet.getWeapons();
+        int fleetStrength = (fleet.getDefence() / 2) + fleet.getWeapons();
         StringBuilder sb = new StringBuilder();
         sb.append(Client.getLanguage().getU("owner")).append(": ").append(fleet.getUser().getUsername()).append("\n");
         sb.append(Client.getLanguage().getU("number_of_ships")).append(": ").append(fleet.getShips().size()).append("\n");
@@ -115,20 +112,18 @@ public class FleetKPIPanel extends JPanel {
         barPanel.add(fleetFuelBar);
 
 
-
-
         if (f.canLoadUnloadCargo()) {
             // if cargo space is full, no background for ore/deuterium bar
             int spaceLeft = f.getMaxCargoSpace() - (f.getCargoDeuterium() + f.getCargoOre());
             Color barBackground = Color.DARK_GRAY;
-            if(spaceLeft < 1) {
+            if (spaceLeft < 1) {
                 barBackground = new Color(0, 0, 0, 0); // black, 100% transparent
             }
-            
+
             SimpleBar oreCargoBar = new SimpleBar(barHeight, barWidth, (int) ((100D / f.getMaxCargoSpace()) * f.getCargoOre()), Colors.BARCOLOR_ORE, barBackground, SimpleBar.Alignment.HORIZONTAL);
             oreCargoBar.setToolTipText(Client.getLanguage().get("ore") + ": " + f.getCargoOre() + " / " + f.getMaxCargoSpace());
             oreCargoBar.setBounds(0, 55, barWidth, barHeight);
-        
+
             barPanel.add(oreCargoBar);
 
             SimpleBar deuteriumCargoBar = new SimpleBar(barHeight, barWidth, (int) ((100D / f.getMaxCargoSpace()) * f.getCargoDeuterium()), Colors.BARCOLOR_DEUTERIUM, barBackground, SimpleBar.Alignment.HORIZONTAL);

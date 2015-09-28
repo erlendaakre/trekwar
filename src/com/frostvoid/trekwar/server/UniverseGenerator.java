@@ -15,31 +15,25 @@
  */
 package com.frostvoid.trekwar.server;
 
-import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.security.*;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.*;
+
+import java.awt.*;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import com.frostvoid.trekwar.common.*;
-import com.frostvoid.trekwar.common.exceptions.AddUserException;
-import com.frostvoid.trekwar.common.exceptions.SlotException;
-import com.frostvoid.trekwar.common.exceptions.UniverseGeneratorException;
-import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
-import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
-
 /**
  * Contains all the support functions used when making a new galaxy/game
- * 
+ * <p>
  * TODO: replace sysout's with proper logging
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -84,7 +78,7 @@ public class UniverseGenerator {
     private static final int OCEANIC_MAXPOP = 160;
     private static final int OCEANIC_MAXSTRUCTURE = 2;
     private static final double OCEANIC_FERTILITY = 0.6;
-    
+
     private static final int GASGIANT_MAXPOP = 0;
     private static final int GASGIANT_MAXSTRUCTURE = 0;
     private static final double GASGIANT_FERTILITY = 0;
@@ -135,21 +129,19 @@ public class UniverseGenerator {
 
     /**
      * Generates a new galaxy object
-     * 
-     * @param length the length of the map
-     * @param width the width of the map
-     * @param turnSpeed the turn speed in seconds
-     * @param maxUsers maximum number of allowed users
-     * @param starDensity the star density (percentage)
+     *
+     * @param length        the length of the map
+     * @param width         the width of the map
+     * @param turnSpeed     the turn speed in seconds
+     * @param maxUsers      maximum number of allowed users
+     * @param starDensity   the star density (percentage)
      * @param asteroidCount number of asteroid fields
-     * @param nebulaCount number of nebula
-     * 
+     * @param nebulaCount   number of nebula
      * @return the galaxy object
-     * 
      * @throws UniverseGeneratorException
      */
     public Galaxy makeGalaxy(int length, int width, long turnSpeed, int maxUsers, int starDensity, int asteroidCount, int nebulaCount) throws UniverseGeneratorException {
-        
+
         if (length * width < 225) {
             throw new UniverseGeneratorException("Galaxy must have at least 225 tiles (15x15)");
         }
@@ -179,12 +171,11 @@ public class UniverseGenerator {
     }
 
     /**
-     * Makes a single normal starsystem 
-     * 
+     * Makes a single normal starsystem
+     *
      * @param user the owner of the system
-     * @param x system location in galaxy (x)
-     * @param y system location in galaxy (y)
-     * 
+     * @param x    system location in galaxy (x)
+     * @param y    system location in galaxy (y)
      * @return the starsystem object
      */
     private StarSystem makeSystem(User user, int x, int y) {
@@ -193,12 +184,12 @@ public class UniverseGenerator {
         StarSystem starsystem = new StarSystem(user, x, y, getRandomStarSystemName(), StarSystemClassification.starSystem);
         starsystem.setSensorCost(SENSORCOST_STARSYSTEM);
         starsystem.setImageFile(getRandomStarSystemImage());
-        
+
         ArrayList<Planet> planets = new ArrayList<Planet>(numberOfPlanets);
         for (int i = 0; i < numberOfPlanets; i++) {
             planets.add(makePlanet(starsystem, i));
         }
-        
+
         // sort planets
         Collections.sort(planets, new Comparator<Planet>() {
             @Override
@@ -206,24 +197,23 @@ public class UniverseGenerator {
                 return o1.getSortOrder() - o2.getSortOrder();
             }
         });
-        
+
         for (int i = 0; i < numberOfPlanets; i++) {
-            planets.get(i).setPlanetNumber(i+1);
+            planets.get(i).setPlanetNumber(i + 1);
             starsystem.addPlanet(planets.get(i));
         }
-        
+
         // uncomment for statistical whimsy
         // System.out.println("" + numberOfPlanets + "," + starsystem.getMaxStructures() + "," + starsystem.getDeuteriumPerTurn() + "," + starsystem.getMaxPopulation());
-        
+
         return starsystem;
     }
 
     /**
      * Makes a single planet
-     * 
-     * @param system the system this planet is in
+     *
+     * @param system    the system this planet is in
      * @param planetNum the planets number in the system
-     * 
      * @return a freshly baked Planet object
      */
     private Planet makePlanet(StarSystem system, int planetNum) {
@@ -232,7 +222,7 @@ public class UniverseGenerator {
         int sortOrder = 0;
         int maximumPopulation = 0;
         int maximumStructures = 0;
-        double fertility = rand.nextDouble()/4;
+        double fertility = rand.nextDouble() / 4;
         HashMap<Integer, Point> surfaceMap = null;
 
         int planetType = rand.nextInt(8) + 1;
@@ -242,7 +232,7 @@ public class UniverseGenerator {
                 sortOrder = 10;
                 maximumPopulation = ARCTIC_MAXPOP;
                 maximumStructures = ARCTIC_MAXSTRUCTURE;
-                 fertility += ARCTIC_FERTILITY;
+                fertility += ARCTIC_FERTILITY;
                 surfaceMap = ARCTIC_SURFACE_MAP;
                 break;
             case 2:
@@ -320,10 +310,10 @@ public class UniverseGenerator {
 
     /**
      * Generates a number of asteroid belts in a galaxy
-     * 
-     * @param galaxy the galaxy to generate belts in
+     *
+     * @param galaxy        the galaxy to generate belts in
      * @param numberOfBelts number of belts to generate
-     * @param baseBeltSize the base size of each belt
+     * @param baseBeltSize  the base size of each belt
      */
     private void generateAsteroidBelts(Galaxy galaxy, int numberOfBelts, int baseBeltSize) {
         System.out.println("generating " + numberOfBelts + " asteroid belts");
@@ -361,9 +351,9 @@ public class UniverseGenerator {
                     current.setStarSystemClassification(StarSystemClassification.asteroid);
                     current.setName("Asteroids");
                     current.setSensorCost(SENSORCOST_ASTEROID);
-                    int numberOfResources = (StaticData.MAX_ASTEROID_RESOURCES/5) + (rand.nextInt(StaticData.MAX_ASTEROID_RESOURCES) / 2);
+                    int numberOfResources = (StaticData.MAX_ASTEROID_RESOURCES / 5) + (rand.nextInt(StaticData.MAX_ASTEROID_RESOURCES) / 2);
                     String filename = "";
-                    for (int k = 0; k < numberOfResources/4000; k++) {
+                    for (int k = 0; k < numberOfResources / 4000; k++) {
                         int imgfile = 1 + rand.nextInt(10); // 1 - 10
                         filename += imgfile + ".";
                     }
@@ -384,10 +374,10 @@ public class UniverseGenerator {
 
     /**
      * Generates a set of nebulae in a galaxy
-     * 
-     * @param galaxy the galaxy to put the nebulae in
+     *
+     * @param galaxy          the galaxy to put the nebulae in
      * @param numberOfNebulae number of nebulae
-     * @param baseNebulaSize the base size of each nebula
+     * @param baseNebulaSize  the base size of each nebula
      */
     private void generateNebulas(Galaxy galaxy, int numberOfNebulae, int baseNebulaSize) {
         System.out.println("generating " + numberOfNebulae + " nebulae");
@@ -427,7 +417,7 @@ public class UniverseGenerator {
                     current.setStarSystemClassification(StarSystemClassification.nebula);
                     current.setName("Nebula");
                     current.setSensorCost(SENSORCOST_NEBULA);
-                    int numberOfResources = (StaticData.MAX_NEBULA_RESOURCES/5) + (rand.nextInt(StaticData.MAX_NEBULA_RESOURCES/2));
+                    int numberOfResources = (StaticData.MAX_NEBULA_RESOURCES / 5) + (rand.nextInt(StaticData.MAX_NEBULA_RESOURCES / 2));
                     int imgfile = 1 + rand.nextInt(11); // 1 - 11
                     String filename = "nebula_" + nebulaType + "_" + imgfile + ".png";
                     current.setImageFile(filename);
@@ -446,7 +436,7 @@ public class UniverseGenerator {
 
     /**
      * Generates a random star system name
-     * 
+     *
      * @return a starsystem name
      */
     private String getRandomStarSystemName() {
@@ -481,10 +471,9 @@ public class UniverseGenerator {
      * and make the User object a valid user in the galaxy
      * Setting up a start planet with a few basic structures
      * and adding a few ships to the User
-     * 
-     * @param g the Galaxy object
+     *
+     * @param g       the Galaxy object
      * @param newUser the user to add
-     * 
      * @throws AddUserException if the user can not be added
      */
     public void initUser(Galaxy g, User newUser) throws AddUserException {
@@ -507,7 +496,7 @@ public class UniverseGenerator {
 
             s = g.getMap()[galaxyX][galaxyY];
             if (s.getStarSystemClassification().equals(StarSystemClassification.empty)) {
-                if(makeStartingSystem(g, newUser, galaxyX, galaxyY)) {
+                if (makeStartingSystem(g, newUser, galaxyX, galaxyY)) {
                     // Create Starter system, add population
                     for (Planet p : s.getPlanets()) {
                         p.setPopulation(p.getMaximumPopulation() / 10);
@@ -521,24 +510,22 @@ public class UniverseGenerator {
 
                     // create fog of war over entire map for user
                     int[][] sensorOverlay = new int[g.getWidth()][g.getHeight()];
-                    for(int i = 0; i < sensorOverlay.length; i++) {
-                        for(int j = 0; j < sensorOverlay[i].length; j++) {
-                            sensorOverlay[i][j]  = Integer.MIN_VALUE;
+                    for (int i = 0; i < sensorOverlay.length; i++) {
+                        for (int j = 0; j < sensorOverlay[i].length; j++) {
+                            sensorOverlay[i][j] = Integer.MIN_VALUE;
                         }
                     }
                     newUser.setSensorOverlay(sensorOverlay);
-                    
+
                     // add user to galaxy
                     g.addUser(newUser);
 
                     System.out.println("initUser() Found: " + galaxyX + ":" + galaxyY + " for user: " + newUser.getUsername());
                     break;
-                }
-                else {
+                } else {
                     TrekwarServer.LOG.log(Level.SEVERE, "UniverseGenerator unable to make starting system from empty system at {0}:{1}", new Object[]{galaxyX, galaxyY});
                 }
-            }
-            else {
+            } else {
                 notFound--;
                 continue;
             }
@@ -547,106 +534,105 @@ public class UniverseGenerator {
 
     /**
      * Turns an empty starsystem into a default user star system
-     * 
+     *
      * @param g the galaxy object
      * @param u the owner (user) of this system
      * @param x starsystem x location
      * @param y starsystem y location
-     * 
      * @return true if successful, false if failed
      */
     private boolean makeStartingSystem(Galaxy g, User u, int x, int y) {
-            StarSystem s = g.getMap()[x][y];
-            if(s.getStarSystemClassification().equals(StarSystemClassification.empty)) {
-                s.setStarSystemClassification(StarSystemClassification.starSystem);
-                s.setSensorCost(SENSORCOST_STARSYSTEM);
-                s.setName(getRandomStarSystemName());
-                s.setImageFile(getRandomStarSystemImage());
-                s.setUser(u);
-                u.addSystem(s);
+        StarSystem s = g.getMap()[x][y];
+        if (s.getStarSystemClassification().equals(StarSystemClassification.empty)) {
+            s.setStarSystemClassification(StarSystemClassification.starSystem);
+            s.setSensorCost(SENSORCOST_STARSYSTEM);
+            s.setName(getRandomStarSystemName());
+            s.setImageFile(getRandomStarSystemImage());
+            s.setUser(u);
+            u.addSystem(s);
 
-                int p = 0;
-                Planet p0 = new Planet(PlanetClassification.volcanic, s, p++, VOLCANIC_MAXPOP, VOLCANIC_FERTILITY, VOLCANIC_MAXSTRUCTURE);
-                p0.setSurfaceMap(VOLCANIC_SURFACE_MAP);
-                Planet p1 = new Planet(PlanetClassification.desert, s, p++, DESERT_MAXPOP, DESERT_FERTILITY, DESERT_MAXSTRUCTURE);
-                p1.setSurfaceMap(DESERT_SURFACE_MAP);
-                Planet p2 = new Planet(PlanetClassification.terran, s, p++, TERRAN_MAXPOP, TERRAN_FERTILITY, TERRAN_MAXSTRUCTURE);
-                p2.setSurfaceMap(TERRAN_SURFACE_MAP);
-                Planet p4 = new Planet(PlanetClassification.jungle, s, p++, JUNGLE_MAXPOP, JUNGLE_FERTILITY, JUNGLE_MAXSTRUCTURE);
-                p4.setSurfaceMap(JUNGLE_SURFACE_MAP);
-                Planet p5 = new Planet(PlanetClassification.oceanic, s, p++, OCEANIC_MAXPOP, OCEANIC_FERTILITY, OCEANIC_MAXSTRUCTURE);
-                p5.setSurfaceMap(OCEANIC_SURFACE_MAP);
-                Planet p6 = new Planet(PlanetClassification.barren, s, p++, BARREN_MAXPOP, BARREN_FERTILITY, BARREN_MAXSTRUCTURE);
-                p6.setSurfaceMap(BARREN_SURFACE_MAP);
-                Planet p8 = new Planet(PlanetClassification.gasGiant, s, p++, GASGIANT_MAXPOP, GASGIANT_FERTILITY, GASGIANT_MAXSTRUCTURE);
-                p8.setDeuteriumPerTurn(65);
-                p8.setSurfaceMap(GASGIANT_SURFACE_MAP);
-                Planet p9 = new Planet(PlanetClassification.gasGiant, s, p++, GASGIANT_MAXPOP, GASGIANT_FERTILITY, GASGIANT_MAXSTRUCTURE);
-                p9.setDeuteriumPerTurn(65);
-                p9.setSurfaceMap(GASGIANT_SURFACE_MAP);
-                Planet p10 = new Planet(PlanetClassification.arctic, s, p++, ARCTIC_MAXPOP, ARCTIC_FERTILITY, ARCTIC_MAXSTRUCTURE);
-                p10.setSurfaceMap(ARCTIC_SURFACE_MAP);
+            int p = 0;
+            Planet p0 = new Planet(PlanetClassification.volcanic, s, p++, VOLCANIC_MAXPOP, VOLCANIC_FERTILITY, VOLCANIC_MAXSTRUCTURE);
+            p0.setSurfaceMap(VOLCANIC_SURFACE_MAP);
+            Planet p1 = new Planet(PlanetClassification.desert, s, p++, DESERT_MAXPOP, DESERT_FERTILITY, DESERT_MAXSTRUCTURE);
+            p1.setSurfaceMap(DESERT_SURFACE_MAP);
+            Planet p2 = new Planet(PlanetClassification.terran, s, p++, TERRAN_MAXPOP, TERRAN_FERTILITY, TERRAN_MAXSTRUCTURE);
+            p2.setSurfaceMap(TERRAN_SURFACE_MAP);
+            Planet p4 = new Planet(PlanetClassification.jungle, s, p++, JUNGLE_MAXPOP, JUNGLE_FERTILITY, JUNGLE_MAXSTRUCTURE);
+            p4.setSurfaceMap(JUNGLE_SURFACE_MAP);
+            Planet p5 = new Planet(PlanetClassification.oceanic, s, p++, OCEANIC_MAXPOP, OCEANIC_FERTILITY, OCEANIC_MAXSTRUCTURE);
+            p5.setSurfaceMap(OCEANIC_SURFACE_MAP);
+            Planet p6 = new Planet(PlanetClassification.barren, s, p++, BARREN_MAXPOP, BARREN_FERTILITY, BARREN_MAXSTRUCTURE);
+            p6.setSurfaceMap(BARREN_SURFACE_MAP);
+            Planet p8 = new Planet(PlanetClassification.gasGiant, s, p++, GASGIANT_MAXPOP, GASGIANT_FERTILITY, GASGIANT_MAXSTRUCTURE);
+            p8.setDeuteriumPerTurn(65);
+            p8.setSurfaceMap(GASGIANT_SURFACE_MAP);
+            Planet p9 = new Planet(PlanetClassification.gasGiant, s, p++, GASGIANT_MAXPOP, GASGIANT_FERTILITY, GASGIANT_MAXSTRUCTURE);
+            p9.setDeuteriumPerTurn(65);
+            p9.setSurfaceMap(GASGIANT_SURFACE_MAP);
+            Planet p10 = new Planet(PlanetClassification.arctic, s, p++, ARCTIC_MAXPOP, ARCTIC_FERTILITY, ARCTIC_MAXSTRUCTURE);
+            p10.setSurfaceMap(ARCTIC_SURFACE_MAP);
 
-                s.addPlanet(p0);
-                s.addPlanet(p1);
-                s.addPlanet(p2);
-                s.addPlanet(p4);
-                s.addPlanet(p5);
-                s.addPlanet(p6);
-                s.addPlanet(p8);
-                s.addPlanet(p9);
-                s.addPlanet(p10);
+            s.addPlanet(p0);
+            s.addPlanet(p1);
+            s.addPlanet(p2);
+            s.addPlanet(p4);
+            s.addPlanet(p5);
+            s.addPlanet(p6);
+            s.addPlanet(p8);
+            s.addPlanet(p9);
+            s.addPlanet(p10);
 
 
-                // Populate starting system with structures
-                s.addStructure(p2, 1, StaticData.factory1);
-                p2.setStructureEnabled(1, true);
+            // Populate starting system with structures
+            s.addStructure(p2, 1, StaticData.factory1);
+            p2.setStructureEnabled(1, true);
 
-                s.addStructure(p2, 2, StaticData.power1);
-                p2.setStructureEnabled(2, true);
-                
-                s.addStructure(p2, 3, StaticData.power1);
-                p2.setStructureEnabled(3, true);
-                
-                s.addStructure(p2, 6, StaticData.power1);
-                p2.setStructureEnabled(6, true);
+            s.addStructure(p2, 2, StaticData.power1);
+            p2.setStructureEnabled(2, true);
 
-                s.addStructure(p2, 5, StaticData.factory1);
-                p2.setStructureEnabled(5, true);
-                
-                s.addStructure(p2, 9, StaticData.factory1);
-                p2.setStructureEnabled(9, true);
+            s.addStructure(p2, 3, StaticData.power1);
+            p2.setStructureEnabled(3, true);
 
-                s.addStructure(p2, 10, StaticData.deuteriumProcessingPlant1);
-                p2.setStructureEnabled(10, true);
+            s.addStructure(p2, 6, StaticData.power1);
+            p2.setStructureEnabled(6, true);
 
-                s.addStructure(p2, 8, StaticData.farm1);
-                p2.setStructureEnabled(8, true);
-                
-                s.addStructure(p2, 4, StaticData.farm1);
-                p2.setStructureEnabled(4, true);
-                
-                s.addStructure(p2, 12, StaticData.farm1);
-                p2.setStructureEnabled(12, true);
+            s.addStructure(p2, 5, StaticData.factory1);
+            p2.setStructureEnabled(5, true);
 
-                s.addStructure(p2, 7, StaticData.shipyard1);
-                p2.setStructureEnabled(7, true);
+            s.addStructure(p2, 9, StaticData.factory1);
+            p2.setStructureEnabled(9, true);
 
-                s.addStructure(p2, 11, StaticData.lab1);
-                p2.setStructureEnabled(11, true);
-                
-                s.addStructure(p1, 4, StaticData.lab1);
-                p1.setStructureEnabled(4, true);
+            s.addStructure(p2, 10, StaticData.deuteriumProcessingPlant1);
+            p2.setStructureEnabled(10, true);
 
-                return true;
-            }
-            return false;
+            s.addStructure(p2, 8, StaticData.farm1);
+            p2.setStructureEnabled(8, true);
+
+            s.addStructure(p2, 4, StaticData.farm1);
+            p2.setStructureEnabled(4, true);
+
+            s.addStructure(p2, 12, StaticData.farm1);
+            p2.setStructureEnabled(12, true);
+
+            s.addStructure(p2, 7, StaticData.shipyard1);
+            p2.setStructureEnabled(7, true);
+
+            s.addStructure(p2, 11, StaticData.lab1);
+            p2.setStructureEnabled(11, true);
+
+            s.addStructure(p1, 4, StaticData.lab1);
+            p1.setStructureEnabled(4, true);
+
+            return true;
+        }
+        return false;
     }
 
-    
+
     /**
      * Generates a random deuterium output for a gas giant
-     * 
+     *
      * @return random deuterium output
      */
     private int getGasGiantDeuteriumProduction() {
@@ -655,17 +641,17 @@ public class UniverseGenerator {
 
     /**
      * Sets up the default starting techs for a user
-     * 
+     *
      * @param u the user
      * @param s the start system
      */
     private void setUpStartingTechs(User u, StarSystem s) {
-        
+
         // FOR TESTING
 //        for(Technology t : TechnologyGenerator.getAllTechs()) {
 //            u.addTech(t);
 //        }
-        
+
         u.addTech(TechnologyGenerator.BIO_TECH0);
         u.addTech(TechnologyGenerator.COMPUTER_TECH0);
         u.addTech(TechnologyGenerator.CONSTRUCTION_TECH0);
@@ -694,10 +680,9 @@ public class UniverseGenerator {
 
     /**
      * Sets up default starting templates and ships + fleets for a user
-     * 
-     * @param u the user 
+     *
+     * @param u the user
      * @param s the home star system
-     * 
      * @return true if successful
      */
     private boolean setUpStartingShips(User u, StarSystem s) {
@@ -725,7 +710,7 @@ public class UniverseGenerator {
 
         Ship scout = new Ship(u, f1, "scoutship", u.getNextShipId(), StaticData.civilian_scoutship);
         Ship colonyship = new Ship(u, f2, "colonyship", u.getNextShipId(), StaticData.civilian_colonyship);
-        
+
         try {
             scout.applyTemplate(starterScout);
             scout.initShip();
@@ -755,7 +740,7 @@ public class UniverseGenerator {
 
     /**
      * Gets a random background image for a star system
-     * 
+     *
      * @return random image file
      */
     private String getRandomStarSystemImage() {

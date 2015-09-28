@@ -32,7 +32,7 @@ public class MilitaryOutpost extends Structure {
 
     public MilitaryOutpost(String name, int cost, int power, int research, int food, int industry, String imageFileName, int troopCapacity, int troopProduction) {
         super(name, "Military outpost provides this planet with troops to defend against invaders",
-                cost,  power,  research,  food,  industry, imageFileName, Structure.mode.ONEPERPLANET);
+                cost, power, research, food, industry, imageFileName, Structure.mode.ONEPERPLANET);
 
         this.troopCapacity = troopCapacity;
         this.troopProduction = troopProduction;

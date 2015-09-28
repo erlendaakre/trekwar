@@ -15,29 +15,21 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
- * The top menu of the game (always visible), has option button, current turn 
+ * The top menu of the game (always visible), has option button, current turn
  * and turn progress bar
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -135,13 +127,12 @@ public class TopMenuPanel extends JPanel {
             turnProgressBar.setBackground(Color.GRAY);
         }
     }
-    
+
     public void setUpkeep(int produced, int used) {
         upkeepLabel.setText("" + used + " / " + produced);
-        if(used > produced) {
+        if (used > produced) {
             upkeepLabel.setForeground(Color.red);
-        }
-        else {
+        } else {
             upkeepLabel.setForeground(Color.white);
         }
     }

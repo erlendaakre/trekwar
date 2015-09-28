@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class HarvestRequest extends Request {
     private String fleetName;
-    
+
     public HarvestRequest(String fleetName) {
         this.fleetName = fleetName;
     }
-    
+
     public String getFleetName() {
         return fleetName;
     }

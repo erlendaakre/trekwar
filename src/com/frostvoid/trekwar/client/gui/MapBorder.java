@@ -15,12 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
-import javax.swing.ImageIcon;
-import javax.swing.border.AbstractBorder;
 import com.frostvoid.trekwar.client.ImageManager;
+
+import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import java.awt.*;
 
 /**
  * Used to draw the map background image
@@ -42,16 +41,16 @@ public class MapBorder extends AbstractBorder {
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         int offsetX = 0;
         int offsetY = 0;
-        while(offsetY < height) {
-        while(offsetX < width) {
-            g.drawImage(borderImage.getImage(),offsetX,offsetY, null);
-            offsetX += borderImage.getIconWidth();
-        }
-        offsetY += borderImage.getIconHeight();
-        offsetX = 0;
+        while (offsetY < height) {
+            while (offsetX < width) {
+                g.drawImage(borderImage.getImage(), offsetX, offsetY, null);
+                offsetX += borderImage.getIconWidth();
+            }
+            offsetY += borderImage.getIconHeight();
+            offsetX = 0;
         }
     }
-    
+
 
     @Override
     public Insets getBorderInsets(Component c) {

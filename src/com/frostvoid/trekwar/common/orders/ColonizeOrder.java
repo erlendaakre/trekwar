@@ -15,29 +15,22 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.TurnReportItem.TurnReportSeverity;
+import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
+import com.frostvoid.trekwar.common.shipComponents.ColonizationModule;
+import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
+import com.frostvoid.trekwar.common.structures.Structure;
+import com.frostvoid.trekwar.common.utils.Calculations;
+import com.frostvoid.trekwar.common.utils.Language;
+import com.frostvoid.trekwar.server.TrekwarServer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-
-import com.frostvoid.trekwar.common.Planet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.shipComponents.ColonizationModule;
-import com.frostvoid.trekwar.common.structures.Structure;
-import com.frostvoid.trekwar.common.utils.Calculations;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.TurnReportItem;
-import com.frostvoid.trekwar.common.TurnReportItem.TurnReportSeverity;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
-import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
-import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.server.TrekwarServer;
 
 /**
  * An order for a ship with a colonization module to start a new colony
@@ -78,15 +71,15 @@ public class ColonizeOrder extends Order {
         if (starsystem.getMaxStructures() < 8) {
             throw new InvalidOrderException("Starsystem to small, max structures = " + starsystem.getMaxStructures());
         }
-        
-        
+
+
         numberOfColonyModules = 0;
         for (ShipComponent c : colonyship.getComponents().values()) {
             if (c instanceof ColonizationModule) {
                 numberOfColonyModules++;
             }
         }
-        switch(numberOfColonyModules) {
+        switch (numberOfColonyModules) {
             case 1:
                 progressPerTurn = 15;
                 break;
@@ -144,15 +137,15 @@ public class ColonizeOrder extends Order {
 
         // Sort planets by size, then make list of all planet / slots combos
         // this makes buildings favor being built on the larger planets.
-        ArrayList<Planet> sortedPlanets = (ArrayList<Planet>)starsystem.getPlanets().clone();
+        ArrayList<Planet> sortedPlanets = (ArrayList<Planet>) starsystem.getPlanets().clone();
         Collections.sort(sortedPlanets, new Comparator<Planet>() {
             @Override
             public int compare(Planet o1, Planet o2) {
                 return o2.getMaximumStructures() - o1.getMaximumStructures();
             }
-            
+
         });
-        
+
         ArrayList<String> locs = new ArrayList<String>(); //"planet-number slot-number"
         for (Planet p : sortedPlanets) {
             for (int i : p.getSurfaceMap().keySet()) {
@@ -170,12 +163,12 @@ public class ColonizeOrder extends Order {
         structuresToBuild.add(StaticData.lab1);
         structuresToBuild.add(StaticData.lab1);
         structuresToBuild.add(StaticData.deuteriumProcessingPlant1);
-        
-        for(int i = 1; i < numberOfColonyModules; i++) {
+
+        for (int i = 1; i < numberOfColonyModules; i++) {
             structuresToBuild.add(StaticData.factory1);
             structuresToBuild.add(StaticData.factory1);
-            structuresToBuild.add(StaticData.power1);        
-        }        
+            structuresToBuild.add(StaticData.power1);
+        }
 
         try {
             // Add structures
@@ -193,7 +186,7 @@ public class ColonizeOrder extends Order {
 
         // add some troops
         starsystem.setTroopCount(getInitialTroopCount());
-        
+
         starsystem.setDeuterium(colonyship.getCurrentDeuterium());
 
         // notify turn report
@@ -201,16 +194,16 @@ public class ColonizeOrder extends Order {
         tr.setSummary(Language.pop(Client.getLanguage().get("turn_report_colonized_1"), starsystem.getName()));
         tr.setDetailed(Language.pop(Client.getLanguage().get("turn_report_colonized_2"), starsystem.getPopulation(), starsystem.getTroopCount()));
         user.addTurnReport(tr);
-        
+
         TrekwarServer.getLog().log(Level.INFO, "User {0} has colonized system {1}", new Object[]{user.getUsername(), starsystem.getName()});
 
         colonyship.destroy();
         fleet.setOrder(null);
     }
-    
+
     private int getInitialTroopCount() {
         int troops = 0;
-        for(Planet p : starsystem.getPlanets()) {
+        for (Planet p : starsystem.getPlanets()) {
             troops += p.getMaximumStructures() / 3;
         }
         return troops;

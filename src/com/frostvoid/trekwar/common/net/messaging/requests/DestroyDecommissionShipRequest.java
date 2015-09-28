@@ -28,7 +28,7 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
 public class DestroyDecommissionShipRequest extends Request {
     private String sourceFleet;
     private int shipID;
-    
+
     public DestroyDecommissionShipRequest(String sourceFleet, int shipID) {
         this.sourceFleet = sourceFleet;
         this.shipID = shipID;
@@ -46,5 +46,5 @@ public class DestroyDecommissionShipRequest extends Request {
      */
     public int getShipID() {
         return shipID;
-    }  
+    }
 }

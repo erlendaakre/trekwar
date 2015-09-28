@@ -15,16 +15,13 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.StarSystem;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Displays a sensor icon + sensor value
@@ -34,21 +31,21 @@ import com.frostvoid.trekwar.client.ImageManager;
  * @author http://www.frostvoid.com
  */
 public class SensorPanel extends JPanel {
-    
+
     private JLabel sensorLabel;
-    
+
     public SensorPanel() {
         setOpaque(false);
         setSize(210, 140);
         setLayout(null);
-        
+
         int width = 80;
-        int x_offset = width+10;
+        int x_offset = width + 10;
         int y = 0;
         int y_increment = 25;
-        
-        y = y_increment*4;
-        
+
+        y = y_increment * 4;
+
         sensorLabel = new JLabel(ImageManager.getInstance().getImage("graphics/misc_icons/remote.png"));
         sensorLabel.setHorizontalAlignment(SwingConstants.LEFT);
         sensorLabel.setBounds(x_offset, y, width, 25);
@@ -56,13 +53,13 @@ public class SensorPanel extends JPanel {
         sensorLabel.setForeground(Color.BLACK);
         add(sensorLabel);
     }
-    
+
     public void setSystem(StarSystem s) {
         int num = Client.getInstance().getLocalUser().getSensorOverlay()[s.getX()][s.getY()];
         sensorLabel.setText("" + num);
         repaint();
     }
-    
+
     @Override
     public void paint(Graphics g) {
         paintComponents(g);

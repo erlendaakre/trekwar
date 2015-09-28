@@ -24,19 +24,19 @@ package com.frostvoid.trekwar.common.exceptions;
  */
 public class NotUniqueException extends Exception {
 
-   private String message;
+    private String message;
 
-   public NotUniqueException(String attribute) {
-      this.message = attribute + " has to be unique";
-   }
-
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public NotUniqueException(String attribute) {
+        this.message = attribute + " has to be unique";
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

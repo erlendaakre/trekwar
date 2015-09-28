@@ -23,7 +23,7 @@ package com.frostvoid.trekwar.common.net.messaging;
  * @author http://www.frostvoid.com
  */
 public class Response extends Message {
-    
+
     private String errorMessage = "";
 
     /**

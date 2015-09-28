@@ -15,6 +15,16 @@
  */
 package com.frostvoid.trekwar.client.net;
 
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
+import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
+import com.frostvoid.trekwar.common.net.messaging.*;
+import com.frostvoid.trekwar.common.net.messaging.requests.*;
+import com.frostvoid.trekwar.common.net.messaging.responses.*;
+import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
+import com.frostvoid.trekwar.common.structures.Structure;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,24 +36,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
-import com.frostvoid.trekwar.common.net.messaging.*;
-import com.frostvoid.trekwar.common.net.messaging.requests.*;
-import com.frostvoid.trekwar.common.net.messaging.responses.*;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.CargoClassification;
-import com.frostvoid.trekwar.common.ChatLine;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Planet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.ShipTemplate;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.Technology;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
-import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
-import com.frostvoid.trekwar.common.structures.Structure;
 
 /**
  * Communicates with the Server
@@ -121,14 +113,14 @@ public class ClientCommunication {
     public void resetNextTurnDate() {
         nextTurnDate = -1;
     }
-    
+
     public long getCurrentServerTurn() {
         return currentServerTurn;
     }
 
     /**
      * Downloads the main galaxy object for the logged in user
-     * 
+     *
      * @return true if galaxy downloaded, false if not
      */
     public void downloadGalaxy() {
@@ -161,6 +153,7 @@ public class ClientCommunication {
 
     /**
      * Syncs up the time with the server, calculating time to next turn starts
+     *
      * @throws IOException if shit hits the fan
      */
     public void sync() throws IOException {
@@ -178,7 +171,7 @@ public class ClientCommunication {
 
     public ArrayList<User> server_getUserList() {
         ArrayList<User> users = new ArrayList<User>();
-        
+
         synchronized (out) {
             try {
                 sendRequest(new ListUsersRequest());
@@ -197,7 +190,7 @@ public class ClientCommunication {
                 Client.getInstance().showError("Error getting user list: ", ioe, false, true);
             }
         }
-        
+
         // alphabetical sort
         Collections.sort(users, new Comparator<User>() {
 
@@ -262,7 +255,7 @@ public class ClientCommunication {
                 }
                 sendRequest(req);
                 UpdateTemplateResponse res = (UpdateTemplateResponse) readResponse();
-                if(!res.isTemplateUpdated()) {
+                if (!res.isTemplateUpdated()) {
                     throw new ServerCommunicationException("Unable to update template: " + res.getErrorMessage());
                 }
             } catch (IOException ex) {
@@ -304,7 +297,7 @@ public class ClientCommunication {
         }
         return false;
     }
-    
+
     public boolean server_cancelFleetOrders(String fleetname) {
         synchronized (out) {
             try {
@@ -365,7 +358,7 @@ public class ClientCommunication {
         }
         return false;
     }
-    
+
     public boolean server_decommissionDestroyShip(Ship ship) {
         synchronized (out) {
             try {

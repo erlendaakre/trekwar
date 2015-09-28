@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.TechnologyGenerator;
  * @author http://www.frostvoid.com
  */
 public class CivilianScoutship extends HullClass {
-    
+
     public CivilianScoutship() {
-        super("Civilian scoutship", "A small scoutship with limited equipment slots and defences", "civ_scoutship_16x16.png", "civ_scoutship.png", 
+        super("Civilian scoutship", "A small scoutship with limited equipment slots and defences", "civ_scoutship_16x16.png", "civ_scoutship.png",
                 4, 230, 35, 40, 50, 3, true, 50, 0);
-        
+
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);
         addTechRequirement(TechnologyGenerator.BIO_TECH0, TechnologyGenerator.CONSTRUCTION_TECH0,
                 TechnologyGenerator.ENERGY_TECH0, TechnologyGenerator.PROPULSION_TECH0,

@@ -20,36 +20,35 @@ import com.frostvoid.trekwar.common.User;
 
 /**
  * Simple static calculations
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
 public class Calculations {
-    
+
     /**
      * Calculates how many turns are left until a research is completed
+     *
      * @param user the user doing the research
      * @param tech the research being done
-     * 
      * @return the number of turns required until the research is done
      */
     public static int turnsLeftToResearch(User user, Technology tech) {
-        double turnsLeft = Math.ceil((tech.getResearchCost() - user.getResearchPoints()) / (double)user.getResearchOutput());
-        return (int)turnsLeft;
+        double turnsLeft = Math.ceil((tech.getResearchCost() - user.getResearchPoints()) / (double) user.getResearchOutput());
+        return (int) turnsLeft;
     }
-    
+
     /**
      * Calculates how long is left on a general operation
-     * 
-     * @param target target value
+     *
+     * @param target  target value
      * @param current current value
      * @param perTurn increase per turn
-     * 
      * @return turns left
      */
     public static int turnsLeft(int target, int current, int perTurn) {
-        double res = Math.ceil( ((double)target - (double)current) / perTurn);
-        return (int)res;
+        double res = Math.ceil(((double) target - (double) current) / perTurn);
+        return (int) res;
     }
 }

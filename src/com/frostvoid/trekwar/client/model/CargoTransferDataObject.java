@@ -20,7 +20,7 @@ import com.frostvoid.trekwar.common.CargoClassification;
 /**
  * This object holds information used for when doing cargo transfers.
  * Used then doing drag/drop in the CargoTransferWindow
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com

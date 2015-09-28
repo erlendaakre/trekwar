@@ -15,27 +15,18 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.Vector;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Ship;
 import com.frostvoid.trekwar.common.ShipTemplate;
 import com.frostvoid.trekwar.common.exceptions.SlotException;
 import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.client.ImageManager;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.Vector;
 
 /**
  * Shows detailed stats + info about a single ship
@@ -50,69 +41,70 @@ public class ShipInfoWindow extends JInternalFrame {
 
     public ShipInfoWindow(String name, Icon icon, int x, int y, Ship ship) {
         super(name + ": " + ship.getName(),
-              false, //resizable
-              true, //closable
-              false, //maximizable
-              false);//iconifiable
+                false, //resizable
+                true, //closable
+                false, //maximizable
+                false);//iconifiable
 
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         this.ship = ship;
 
         setBackground(Colors.TREKWAR_BG_COLOR);
-        
+
         setFrameIcon(new ImageIcon(((ImageIcon) icon).getImage().getScaledInstance(-1, 18, 0)));
 
-        int random = (int) ((Math.random()*30) + 5);
-        setLocation(x+random, y+random);
-        
+        int random = (int) ((Math.random() * 30) + 5);
+        setLocation(x + random, y + random);
+
         makeGUI();
         pack();
     }
-    
+
     public ShipInfoWindow(String name, Icon icon, int x, int y, ShipTemplate template) {
         super(name + ": " + template.getName(),
-              false, //resizable
-              true, //closable
-              false, //maximizable
-              false);//iconifiable
+                false, //resizable
+                true, //closable
+                false, //maximizable
+                false);//iconifiable
 
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        
+
         ship = new Ship(Client.getInstance().getLocalUser(), null, template.getName(), -1, template.getHullClass());
         try {
             ship.applyTemplate(template);
             ship.initShip();
-        } catch (SlotException ex) {  }
+        } catch (SlotException ex) {
+        }
 
         setBackground(Colors.TREKWAR_BG_COLOR);
-        
+
         setFrameIcon(new ImageIcon(((ImageIcon) icon).getImage().getScaledInstance(-1, 18, 0)));
 
-        int random = (int) ((Math.random()*30) + 5);
-        setLocation(x+random, y+random);
-        
+        int random = (int) ((Math.random() * 30) + 5);
+        setLocation(x + random, y + random);
+
         makeGUI();
         pack();
     }
-    
+
     private void makeGUI() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(null);
         contentPanel.setSize(new Dimension(400, 400));
         contentPanel.setPreferredSize(new Dimension(400, 400));
         contentPanel.setMinimumSize(new Dimension(400, 400));
-        
+
         JPanel topPanel = new JPanel();
         topPanel.setLayout(null);
-        topPanel.setBounds(0,0,400,100);
-        
+        topPanel.setBounds(0, 0, 400, 100);
+
         JLabel hullImage = new JLabel();
         hullImage.setIcon(ImageManager.getInstance().getImage("graphics/ship_icons/120x91/" + ship.getHullClass().getShipdesignerImageFileName()));
         hullImage.setBounds(3, 3, 120, 91);
-        
+
         JLabel nameLabel = new JLabel("<html><h3>" + ship.getName() + "</h3></html>");
         nameLabel.setBounds(130, 2, 275, 25);
-        
+
         JTextArea descriptionArea = new JTextArea();
         descriptionArea.setEditable(false);
         descriptionArea.setWrapStyleWord(true);
@@ -123,13 +115,13 @@ public class ShipInfoWindow extends JInternalFrame {
         topPanel.add(hullImage);
         topPanel.add(nameLabel);
         topPanel.add(descriptionArea);
-        
-        
+
+
         JPanel dataPanel = new JPanel();
-        dataPanel.setLayout(new GridLayout(1,1));
-        dataPanel.setBounds(0,100,400,300);
-        
-        
+        dataPanel.setLayout(new GridLayout(1, 1));
+        dataPanel.setBounds(0, 100, 400, 300);
+
+
         JTable infoTable = new JTable();
         infoTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         infoTable.setColumnSelectionAllowed(false);
@@ -138,14 +130,14 @@ public class ShipInfoWindow extends JInternalFrame {
         infoTable.setShowVerticalLines(false);
         JScrollPane infoTableSP = new JScrollPane(infoTable);
         infoTableSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        
+
         DefaultTableModel dtm = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
+
         Language lang = Client.getLanguage();
         dtm.addColumn(lang.get("hullinfo_stat"));
         dtm.addColumn(lang.get("hullinfo_value"));
@@ -155,13 +147,12 @@ public class ShipInfoWindow extends JInternalFrame {
         data.add(lang.get("shipinfo_name"));
         data.add("" + ship.getName());
         dtm.addRow(data);
-        
+
         data = new Vector<String>(2);
         data.add(lang.get("fleet"));
-        if(ship.getFleet() != null) {
+        if (ship.getFleet() != null) {
             data.add(ship.getFleet().getName());
-        }
-        else {
+        } else {
             data.add("NULL");
         }
         dtm.addRow(data);
@@ -175,12 +166,12 @@ public class ShipInfoWindow extends JInternalFrame {
         data.add(lang.get("shipinfo_faction"));
         data.add("" + ship.getUser().getFaction().getName());
         dtm.addRow(data);
-        
+
         data = new Vector<String>(2);
         data.add(lang.get("shipinfo_cost"));
         data.add("" + ship.getCost());
         dtm.addRow(data);
-        
+
         data = new Vector<String>(2);
         data.add(lang.get("shipinfo_upkeep"));
         data.add("" + ship.getUpkeepCost());
@@ -270,14 +261,14 @@ public class ShipInfoWindow extends JInternalFrame {
         data.add(lang.get("shipinfo_id"));
         data.add("" + ship.getShipId());
         dtm.addRow(data);
-        
-       
+
+
         dataPanel.add(infoTableSP);
-        
+
         contentPanel.add(topPanel);
         contentPanel.add(dataPanel);
-        
-        setLayout(new GridLayout(1,1));
+
+        setLayout(new GridLayout(1, 1));
         getContentPane().add(contentPanel);
     }
 }

@@ -16,11 +16,7 @@
 package com.frostvoid.trekwar.common.orders;
 
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.StarSystemClassification;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
 
 /**
@@ -45,10 +41,10 @@ public class HarvestDeuteriumOrder extends Order {
         this.fleet = fleet;
 
 
-        if(! fleet.canHarvestDeuterium()) {
+        if (!fleet.canHarvestDeuterium()) {
             throw new InvalidOrderException("The fleet is not equipped to harvest deuterium");
         }
-        if(! starsystem.getStarSystemClassification().equals(StarSystemClassification.nebula)) {
+        if (!starsystem.getStarSystemClassification().equals(StarSystemClassification.nebula)) {
             throw new InvalidOrderException("Not a nebula: " + starsystem.getStarSystemClassification());
         }
     }
@@ -57,21 +53,21 @@ public class HarvestDeuteriumOrder extends Order {
     public void execute() {
         if (!orderCompleted) {
             int amountHarvested = 0;
-            for(Ship s : fleet.getShips()) {
-                if(starsystem.getResourcesLeft() <= 0) {
+            for (Ship s : fleet.getShips()) {
+                if (starsystem.getResourcesLeft() <= 0) {
                     starsystem.setStarSystemClassification(StarSystemClassification.empty);
                     orderCompleted = true;
                     break;
                 }
-                if(s.canHarvestDeuterium() && s.getAvailableCargoSpace() > 0) {
+                if (s.canHarvestDeuterium() && s.getAvailableCargoSpace() > 0) {
                     int amount = s.getBussardCollectorCapacity();
-                    if(amount > starsystem.getResourcesLeft())
+                    if (amount > starsystem.getResourcesLeft())
                         amount = starsystem.getResourcesLeft();
-                    if(amount > s.getAvailableCargoSpace())
+                    if (amount > s.getAvailableCargoSpace())
                         amount = s.getAvailableCargoSpace();
 
                     s.setCargoDeuterium(s.getCargoDeuterium() + amount);
-                    starsystem.setResourcesLeft(starsystem.getResourcesLeft()-amount);
+                    starsystem.setResourcesLeft(starsystem.getResourcesLeft() - amount);
                     amountHarvested += amount;
 
                 }
@@ -79,7 +75,7 @@ public class HarvestDeuteriumOrder extends Order {
             totalAmountHarvested += amountHarvested;
 
             // stop if no ships can fit more deuterium in cargo hold
-            if(amountHarvested <= 0) {
+            if (amountHarvested <= 0) {
                 orderCompleted = true;
             }
         }

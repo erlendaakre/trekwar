@@ -15,9 +15,8 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Starsystem info for bottom menu
@@ -27,11 +26,11 @@ import javax.swing.JPanel;
  * @author http://www.frostvoid.com
  */
 public class StarsystemPanel extends JPanel {
-        public StarsystemPanel() {
-            setBounds(0, 0, 780, 175);
-            setOpaque(true);
-            setBackground(Color.DARK_GRAY);
-            
-            add(new JLabel("Star System"));
-        }
+    public StarsystemPanel() {
+        setBounds(0, 0, 780, 175);
+        setOpaque(true);
+        setBackground(Color.DARK_GRAY);
+
+        add(new JLabel("Star System"));
+    }
 }

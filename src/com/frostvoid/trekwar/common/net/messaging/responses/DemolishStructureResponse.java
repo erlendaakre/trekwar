@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class DemolishStructureResponse extends Response {
     private boolean wasStructureDemolished;
-    
+
     public DemolishStructureResponse(boolean wasStructureDemolished) {
         this.wasStructureDemolished = wasStructureDemolished;
     }
-    
+
     public DemolishStructureResponse(String errorMessage) {
         wasStructureDemolished = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isStructureDemolished() {
         return wasStructureDemolished;
     }

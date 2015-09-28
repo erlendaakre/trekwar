@@ -25,14 +25,14 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  * @author http://www.frostvoid.com
  */
 public class MoveFleetResponse extends Response {
-    
+
     private boolean fleetMoveOK;
-    
+
     public MoveFleetResponse(boolean fleetMoveOK) {
         this.fleetMoveOK = fleetMoveOK;
     }
-    
+
     public boolean isFleetMoveOK() {
         return fleetMoveOK;
-    }   
+    }
 }

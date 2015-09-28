@@ -15,13 +15,22 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Point;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.ShipTemplate;
+import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
+import com.frostvoid.trekwar.common.exceptions.ShipException;
+import com.frostvoid.trekwar.common.exceptions.SlotException;
+import com.frostvoid.trekwar.common.shipComponents.*;
+import com.frostvoid.trekwar.common.shipHulls.HullClass;
+import com.frostvoid.trekwar.common.utils.Language;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -34,41 +43,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.TransferHandler;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.ShipTemplate;
-import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
-import com.frostvoid.trekwar.common.exceptions.ShipException;
-import com.frostvoid.trekwar.common.exceptions.SlotException;
-import com.frostvoid.trekwar.common.shipComponents.Armor;
-import com.frostvoid.trekwar.common.shipComponents.BeamEmitter;
-import com.frostvoid.trekwar.common.shipComponents.Cargo;
-import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
-import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.common.shipComponents.MiningLaser;
-import com.frostvoid.trekwar.common.shipComponents.ShieldEmitter;
-import com.frostvoid.trekwar.common.shipHulls.HullClass;
 
 /**
  * Window that lets the user view existing and create new ship templates
@@ -193,8 +167,7 @@ public class ShipDesignerWindow extends JInternalFrame {
                         populateTemplateList();
                         unsavedChanges = false;
                         saveDesignButton.setEnabled(false);
-                    }
-                    catch(ServerCommunicationException sce) {
+                    } catch (ServerCommunicationException sce) {
                         Client.getInstance().showError(lang.get("shipdesign_error_saving_template") + ":\n" + sce.getMessage(), null, false, true);
                     }
                 }
@@ -249,7 +222,7 @@ public class ShipDesignerWindow extends JInternalFrame {
             second.setLayout(new BoxLayout(second, BoxLayout.Y_AXIS));
             JLabel deuteriumCapacity = new JLabel(lang.get("shipdesign_deuterium_capacity") + ": " + t.getMaxDeuterium());
             JLabel deuteriumUsage = new JLabel(lang.get("shipdesign_deuterium_usage") + ": " + t.getDeuteriumUsage());
-            JLabel speed = new JLabel(lang.get("speed") + ": " + ((double)t.getSpeed())/10);
+            JLabel speed = new JLabel(lang.get("speed") + ": " + ((double) t.getSpeed()) / 10);
             if (t.getSpeed() < 2) {
                 speed.setForeground(Colors.SHIPDESIGNER_FONT_ERROR);
             }
@@ -258,7 +231,6 @@ public class ShipDesignerWindow extends JInternalFrame {
             second.add(deuteriumUsage);
             second.add(speed);
             second.add(range);
-
 
 
             JPanel third = new JPanel();
@@ -358,7 +330,7 @@ public class ShipDesignerWindow extends JInternalFrame {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    HullInfoWindow hullInfoWIndow = new HullInfoWindow(lang.get("shipdesign_hull_info"), 
+                    HullInfoWindow hullInfoWIndow = new HullInfoWindow(lang.get("shipdesign_hull_info"),
                             ImageManager.getInstance().getImage("graphics/ship_icons/" + currentTemplate.getHullClass().getIconFileName()),
                             200, 200, currentTemplate.getHullClass());
                     hullInfoWIndow.setVisible(true);
@@ -435,7 +407,7 @@ public class ShipDesignerWindow extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 int answer = JOptionPane.YES_OPTION;
                 if (unsavedChanges) {
-                    answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_confirm_new_template"), 
+                    answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_confirm_new_template"),
                             lang.get("shipdesign_unsaved_changes"), JOptionPane.YES_NO_OPTION);
                 }
                 if (answer == JOptionPane.YES_OPTION) {
@@ -448,7 +420,7 @@ public class ShipDesignerWindow extends JInternalFrame {
 
                         HullClass hullClass = HullClass.getHullClassByName(hull);
                         if (hullClass == null) {
-                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_invalid_hull_selected") + ": " 
+                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_invalid_hull_selected") + ": "
                                     + hull, lang.get("error"), JOptionPane.ERROR_MESSAGE);
                             return;
                         }
@@ -459,7 +431,7 @@ public class ShipDesignerWindow extends JInternalFrame {
                             selectShipTemplate(currentTemplate);
                             templateTable.clearSelection();
                         } else {
-                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_unique_and_3_chars_long"), 
+                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_unique_and_3_chars_long"),
                                     lang.get("error"), JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -477,11 +449,11 @@ public class ShipDesignerWindow extends JInternalFrame {
                 if (row != -1) {
                     String template = templateTable.getModel().getValueAt(row, 0).toString();
                     if (unsavedChanges) {
-                        answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_confirm_new_template"), 
+                        answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_confirm_new_template"),
                                 lang.get("shipdesign_unsaved_changes"), JOptionPane.YES_NO_OPTION);
                     }
                     if (answer == JOptionPane.YES_OPTION) {
-                        String name = JOptionPane.showInternalInputDialog(shipDesignerWindow, lang.get("shipdesign_enter_new_template_name"), 
+                        String name = JOptionPane.showInternalInputDialog(shipDesignerWindow, lang.get("shipdesign_enter_new_template_name"),
                                 lang.get("shipdesign_duplicate") + " " + template + "?", JOptionPane.QUESTION_MESSAGE);
 
                         if (validateTemplateName(name)) {
@@ -500,7 +472,7 @@ public class ShipDesignerWindow extends JInternalFrame {
                                 }
                             }
                         } else {
-                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_error_name_unique"), 
+                            JOptionPane.showInternalMessageDialog(shipDesignerWindow, lang.get("shipdesign_error_name_unique"),
                                     lang.get("error"), JOptionPane.ERROR_MESSAGE);
                         }
                     }
@@ -515,7 +487,7 @@ public class ShipDesignerWindow extends JInternalFrame {
                 if (row != -1) {
                     String templateName = templateTable.getModel().getValueAt(row, 0).toString();
 
-                    int answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, 
+                    int answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow,
                             lang.get("shipdesign_confirm_delete_this_template") + "?", lang.get("shipdesign_confirm_delete"), JOptionPane.YES_NO_OPTION);
                     if (answer == JOptionPane.YES_OPTION) {
                         Client.getInstance().getComm().server_deleteTemplate(templateName);
@@ -689,7 +661,7 @@ public class ShipDesignerWindow extends JInternalFrame {
 
                     int answer = JOptionPane.YES_OPTION;
                     if (unsavedChanges) {
-                        answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_move_to_new_template"), 
+                        answer = JOptionPane.showInternalConfirmDialog(shipDesignerWindow, lang.get("shipdesign_move_to_new_template"),
                                 lang.get("shipdesign_unsaved_changes"), JOptionPane.YES_NO_OPTION);
                     }
                     if (answer == JOptionPane.YES_OPTION) {

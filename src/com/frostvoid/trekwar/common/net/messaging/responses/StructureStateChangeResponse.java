@@ -26,15 +26,15 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class StructureStateChangeResponse extends Response {
     private boolean stateChanged;
-    
+
     public StructureStateChangeResponse(boolean stateChanged) {
         this.stateChanged = stateChanged;
     }
-    
+
     public StructureStateChangeResponse(String error) {
         setErrorMessage(error);
     }
-    
+
     public boolean isStateChanged() {
         return stateChanged;
     }

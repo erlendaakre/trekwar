@@ -28,7 +28,7 @@ public class NewFleetRequest extends Request {
     private int x;
     private int y;
     private String name;
-    
+
     public NewFleetRequest(String name, int x, int y) {
         this.name = name;
         this.x = x;
@@ -54,5 +54,5 @@ public class NewFleetRequest extends Request {
      */
     public String getName() {
         return name;
-    }   
+    }
 }

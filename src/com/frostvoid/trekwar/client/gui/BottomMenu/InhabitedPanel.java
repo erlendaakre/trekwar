@@ -15,33 +15,22 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.FontFactory;
+import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.client.gui.SimpleBar;
 import com.frostvoid.trekwar.client.gui.SimplePieChart;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.FontFactory;
-import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.orders.BuildShipOrder;
+import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
 import com.frostvoid.trekwar.common.orders.Order;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Inhabited system (own, enemy or ally) info for bottom menu
@@ -83,7 +72,7 @@ public class InhabitedPanel extends JPanel implements Runnable {
         nameLabel.setFont(FontFactory.getInstance().getHeading1());
         nameLabel.setBounds(80, 10, 300, 50);
         add(nameLabel);
-        
+
         usernameLabel = new JLabel("");
         usernameLabel.setFont(FontFactory.getInstance().getHeading3());
         usernameLabel.setBounds(80, -5, 200, 30);
@@ -102,7 +91,7 @@ public class InhabitedPanel extends JPanel implements Runnable {
         systemStatsLabel.setVerticalAlignment(SwingConstants.TOP);
         systemStatsLabel.setBounds(110, 73, 220, 90);
         add(systemStatsLabel);
-        
+
         kpiPanel = new KPIPanel();
         kpiPanel.setLocation(340, 20);
         add(kpiPanel);
@@ -114,7 +103,7 @@ public class InhabitedPanel extends JPanel implements Runnable {
         factionIcon = new JLabel();
         factionIcon.setBounds(55, 50, 39, 39);
         add(factionIcon);
-        
+
         buildQueueModel = new DefaultListModel();
         buildQueueList = new JList(buildQueueModel);
         buildQueueList.setOpaque(false);
@@ -126,14 +115,14 @@ public class InhabitedPanel extends JPanel implements Runnable {
                 return c;
             }
         });
-        
+
         buildListSP = new JScrollPane(buildQueueList);
         buildListSP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         buildListSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         buildListSP.setBounds(540, 60, 225, 100);
         add(buildListSP);
-        
-        setComponentZOrder(factionIcon, getComponentZOrder(userIcon)-1);
+
+        setComponentZOrder(factionIcon, getComponentZOrder(userIcon) - 1);
     }
 
     public void setSystem(final StarSystem s) {
@@ -145,7 +134,7 @@ public class InhabitedPanel extends JPanel implements Runnable {
         double maxPopDouble = ((double) s.getMaxPopulation()) / 1000;
         // base stats (text)
         String structuresFullText = "";
-        if(s.countStructures() == s.getMaxStructures()) {
+        if (s.countStructures() == s.getMaxStructures()) {
             structuresFullText = " (" + Client.getLanguage().getUC("full") + ")";
         }
         systemStatsLabel.setText("<html>" + Client.getLanguage().getU("planets") + ": " + s.getPlanets().size() + "<br>"
@@ -160,48 +149,48 @@ public class InhabitedPanel extends JPanel implements Runnable {
                 getImage().getScaledInstance(70, 70, 0)));
         userIcon.setToolTipText(s.getUser().getUsername());
         factionIcon.setIcon(BottomUIComponentFactory.getFactionIcon(s.getUser().getFaction()));
-        
+
         // KPI
         kpiPanel.setSystem(s);
-        
+
         // morale + troop count
-        if(moraleBar != null && troopBar != null && troopBarBlack != null) {
+        if (moraleBar != null && troopBar != null && troopBarBlack != null) {
             remove(moraleBar);
             remove(troopBar);
             remove(troopBarBlack);
         }
-        
+
         moraleBar = new SimpleBar(150, 10, s.getMorale(), Colors.BARCOLOR_FUEL, Colors.BARCOLOR_BACKGROUND, SimpleBar.Alignment.VERTICAL);
         moraleBar.setToolTipText(Client.getLanguage().getU("starsystem_morale") + ": " + s.getMorale());
 
         double troopPercentage = (100D / 150D) * s.getTroopCount();
-        troopBar = new SimpleBar(150, 10, (int)troopPercentage, Colors.BARCOLOR_HITPOINTS, Colors.BARCOLOR_BACKGROUND, SimpleBar.Alignment.VERTICAL);
+        troopBar = new SimpleBar(150, 10, (int) troopPercentage, Colors.BARCOLOR_HITPOINTS, Colors.BARCOLOR_BACKGROUND, SimpleBar.Alignment.VERTICAL);
         troopBar.setToolTipText(Client.getLanguage().getU("troops") + " : " + s.getTroopCount() + " / " + s.getTroopCapacity() + " (" + s.getTroopProduction() + ")");
-        
+
         Color veryDarkGray = new Color(30, 30, 30);
-        troopBarBlack = new SimpleBar(150-s.getTroopCapacity(), 10, 100, veryDarkGray, veryDarkGray, SimpleBar.Alignment.VERTICAL);
-        
+        troopBarBlack = new SimpleBar(150 - s.getTroopCapacity(), 10, 100, veryDarkGray, veryDarkGray, SimpleBar.Alignment.VERTICAL);
+
         moraleBar.setBounds(512, 10, 10, 150);
         troopBar.setBounds(525, 10, 10, 150);
         troopBarBlack.setBounds(525, 10, 10, 150);
-        
+
         add(moraleBar);
-        add(troopBar); 
+        add(troopBar);
         add(troopBarBlack);
-        
-        setComponentZOrder(troopBarBlack, getComponentZOrder(troopBar)-1);
-        
-        if(viewSystemButton != null) {
+
+        setComponentZOrder(troopBarBlack, getComponentZOrder(troopBar) - 1);
+
+        if (viewSystemButton != null) {
             remove(viewSystemButton);
         }
-        if(buildListSP != null) {
+        if (buildListSP != null) {
             remove(buildListSP);
         }
-        if(tacticalPanel != null) {
+        if (tacticalPanel != null) {
             remove(tacticalPanel);
         }
-        
-        if(s.getUser() != null && s.getUser().equals(Client.getInstance().getLocalUser())) {
+
+        if (s.getUser() != null && s.getUser().equals(Client.getInstance().getLocalUser())) {
             viewSystemButton = new JButton(Client.getLanguage().getCC("manage_system"));
             viewSystemButton.setBackground(Color.GREEN);
             viewSystemButton.setBounds(540, 10, 225, 45);
@@ -212,12 +201,11 @@ public class InhabitedPanel extends JPanel implements Runnable {
                 }
             });
             add(viewSystemButton);
-            
+
             add(buildListSP);
             generateBuildList(s);
-        }
-        else {
-            if(tacticalPanel == null) {
+        } else {
+            if (tacticalPanel == null) {
                 tacticalPanel = new EnemyTacticalPanel();
                 tacticalPanel.setLocation(540, 10);
             }
@@ -225,11 +213,11 @@ public class InhabitedPanel extends JPanel implements Runnable {
             add(tacticalPanel);
         }
     }
-    
+
     public void generateBuildList(StarSystem system) {
         buildQueueModel.removeAllElements();
         int buildNum = 1;
-        
+
         for (Order o : system.getBuildQueue()) {
             if (o instanceof BuildStructureOrder) {
                 ((BuildStructureOrder) o).setPositionInBuildQueue(buildNum++);

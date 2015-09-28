@@ -28,7 +28,7 @@ public class TimeToNextTurnResponse extends Response {
     private long millisecondsToNextTurn;
     private long currentTurn;
     private long nextTurn;
-    
+
     public TimeToNextTurnResponse(long millisecondsToNextTurn, long currentTurn, long nextTurn) {
         this.millisecondsToNextTurn = millisecondsToNextTurn;
         this.currentTurn = currentTurn;
@@ -38,11 +38,11 @@ public class TimeToNextTurnResponse extends Response {
     public long getMillisecondsToNextTurn() {
         return millisecondsToNextTurn;
     }
-    
+
     public long getCurrentTurn() {
         return currentTurn;
     }
-    
+
     public long getNextTurn() {
         return nextTurn;
     }

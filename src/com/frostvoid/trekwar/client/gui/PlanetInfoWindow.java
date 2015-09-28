@@ -15,20 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.Vector;
-import javax.swing.JInternalFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.Planet;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.Planet;
 import com.frostvoid.trekwar.common.utils.Language;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.Vector;
 
 /**
  * Shows detailed stats and info about a single planet

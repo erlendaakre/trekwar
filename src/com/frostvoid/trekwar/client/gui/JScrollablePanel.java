@@ -15,10 +15,8 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import javax.swing.JPanel;
-import javax.swing.Scrollable;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Just a JPanel that implements Scrollable, used for chat window

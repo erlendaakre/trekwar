@@ -22,15 +22,15 @@ package com.frostvoid.trekwar.common.shipComponents;
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
-public class ShieldEmitter extends ShipComponent{
+public class ShieldEmitter extends ShipComponent {
     private int strength;
-    
+
     public ShieldEmitter(String name, String description, String iconFileName, int cost, int strength, int energy) {
         super(name, description, iconFileName, cost, energy, false);
         this.strength = strength;
         icon16x16Filename = "shield_16x16.png";
     }
-    
+
     public int getStrength() {
         return strength;
     }

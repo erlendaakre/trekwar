@@ -24,13 +24,13 @@ package com.frostvoid.trekwar.common.shipComponents;
  */
 public class Armor extends ShipComponent {
     private int armor;
-    
+
     public Armor(String name, String description, String iconFileName, int cost, int armor) {
         super(name, description, iconFileName, cost, 0, false);
         this.armor = armor;
         icon16x16Filename = "armor_16x16.png";
     }
-    
+
     public int getArmor() {
         return armor;
     }

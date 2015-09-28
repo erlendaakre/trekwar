@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class UpdateTemplateResponse extends Response {
     private boolean templateUpdated;
-    
+
     public UpdateTemplateResponse(boolean templateUpdated) {
         this.templateUpdated = templateUpdated;
     }
-    
+
     public UpdateTemplateResponse(String error) {
         templateUpdated = false;
         setErrorMessage(error);
     }
-    
+
     public boolean isTemplateUpdated() {
         return templateUpdated;
     }

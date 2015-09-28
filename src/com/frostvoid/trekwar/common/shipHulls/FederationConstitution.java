@@ -28,16 +28,16 @@ import com.frostvoid.trekwar.common.TechnologyGenerator;
 public class FederationConstitution extends HullClass {
 
     public FederationConstitution() {
-        super("Constitution class", "A really nice looking cruiser", "fed_16x16.png", "fed_constitution.png", 
+        super("Constitution class", "A really nice looking cruiser", "fed_16x16.png", "fed_constitution.png",
                 190, 3300, 310, 330, 30, 14, false, 300, 8);
-        
+
         addFaction(StaticData.federation);
 
         addTechRequirement(TechnologyGenerator.BIO_TECH3,
                 TechnologyGenerator.CONSTRUCTION_TECH4,
-                TechnologyGenerator.ENERGY_TECH4, 
+                TechnologyGenerator.ENERGY_TECH4,
                 TechnologyGenerator.PROPULSION_TECH4,
-                TechnologyGenerator.COMPUTER_TECH4, 
+                TechnologyGenerator.COMPUTER_TECH4,
                 TechnologyGenerator.WEAPON_TECH4);
     }
 }

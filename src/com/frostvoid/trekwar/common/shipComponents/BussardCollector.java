@@ -23,15 +23,15 @@ package com.frostvoid.trekwar.common.shipComponents;
  * @author http://www.frostvoid.com
  */
 public class BussardCollector extends ShipComponent {
-    
+
     private int capacity;
-    
+
     public BussardCollector(String name, String description, String iconFileName, int cost, int energy, int capacity) {
         super(name, description, iconFileName, cost, energy, false);
         this.capacity = capacity;
         icon16x16Filename = "bussard_16x16.png";
     }
-    
+
     public int getCapacity() {
         return capacity;
     }

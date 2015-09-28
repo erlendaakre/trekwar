@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class InvadeResponse extends Response {
     private boolean invasionStarted;
-    
+
     public InvadeResponse(boolean invasionStarted) {
         this.invasionStarted = invasionStarted;
     }
-    
+
     public InvadeResponse(String errorMessage) {
         invasionStarted = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isInvasionStarted() {
         return invasionStarted;
     }

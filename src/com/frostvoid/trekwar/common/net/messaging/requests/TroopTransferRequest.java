@@ -31,7 +31,7 @@ public class TroopTransferRequest extends Request {
     private int y;
     private int shipID;
     private int amount;
-    
+
     public TroopTransferRequest(TroopTransferRequestType type, int x, int y, int shipID, int amount) {
         this.type = type;
         this.x = x;

@@ -15,19 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.server.turnExec.GroundCombatResolver;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.StarSystem;
+import com.frostvoid.trekwar.server.turnExec.GroundCombatResolver;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Shows a dialog box allowing a user to see info and simulations of a ground
@@ -48,7 +45,7 @@ public class InvasionConfirmationDialog extends JDialog {
     /**
      * Sets up and displays the dialog
      *
-     * @param modal set to true if this is a modal dialog
+     * @param modal    set to true if this is a modal dialog
      * @param attacker the attacking fleet
      * @param defender the defending starsystem
      */
@@ -73,7 +70,7 @@ public class InvasionConfirmationDialog extends JDialog {
         JLabel heading = new JLabel(Client.getLanguage().get("invading") + " " + defender.getName());
         heading.setFont(new Font("Arial", Font.BOLD, 18));
         heading.setHorizontalAlignment(JLabel.CENTER);
-        heading.setBounds(0,0,300, 25);
+        heading.setBounds(0, 0, 300, 25);
 
         JLabel attackerLabel = new JLabel(Client.getLanguage().get("attacker"));
         attackerLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -112,31 +109,30 @@ public class InvasionConfirmationDialog extends JDialog {
         int numSims = 200;
         int simRes[] = gcr.simulate(numSims);
 
-        JLabel attackerPercentage = new JLabel(simRes[2]/(numSims/100) + " %");
+        JLabel attackerPercentage = new JLabel(simRes[2] / (numSims / 100) + " %");
         attackerPercentage.setFont(new Font("Arial", Font.BOLD, 16));
         attackerPercentage.setBounds(25, 140, 100, 25);
         attackerPercentage.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel defenderPercentage = new JLabel( (numSims-simRes[2])/(numSims/100) + " %");
+        JLabel defenderPercentage = new JLabel((numSims - simRes[2]) / (numSims / 100) + " %");
         defenderPercentage.setFont(new Font("Arial", Font.BOLD, 16));
         defenderPercentage.setBounds(175, 140, 100, 25);
         defenderPercentage.setHorizontalAlignment(JLabel.CENTER);
 
-        if(attacker.getTroops() * gcr.getAttackerStrength() > defender.getTroopCount() * gcr.getDefenderStrength()) {
+        if (attacker.getTroops() * gcr.getAttackerStrength() > defender.getTroopCount() * gcr.getDefenderStrength()) {
             attackerPercentage.setForeground(Colors.INVASION_DIALOG_GREEN);
             defenderPercentage.setForeground(Colors.INVASION_DIALOG_RED);
-        }
-        else {
+        } else {
             attackerPercentage.setForeground(Colors.INVASION_DIALOG_RED);
             defenderPercentage.setForeground(Colors.INVASION_DIALOG_GREEN);
         }
 
-        JLabel attackerCasualties = new JLabel(simRes[0]/numSims + " " + Client.getLanguage().get("casualties"));
+        JLabel attackerCasualties = new JLabel(simRes[0] / numSims + " " + Client.getLanguage().get("casualties"));
         attackerCasualties.setFont(new Font("Arial", Font.BOLD, 12));
         attackerCasualties.setBounds(25, 162, 100, 20);
         attackerCasualties.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel defenderCasualties = new JLabel( simRes[1]/numSims  + " " + Client.getLanguage().get("casualties"));
+        JLabel defenderCasualties = new JLabel(simRes[1] / numSims + " " + Client.getLanguage().get("casualties"));
         defenderCasualties.setFont(new Font("Arial", Font.BOLD, 12));
         defenderCasualties.setBounds(175, 162, 100, 20);
         defenderCasualties.setHorizontalAlignment(JLabel.CENTER);

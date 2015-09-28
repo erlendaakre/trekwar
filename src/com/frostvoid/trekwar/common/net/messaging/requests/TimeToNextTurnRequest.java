@@ -25,5 +25,5 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  * @author http://www.frostvoid.com
  */
 public class TimeToNextTurnRequest extends Request {
-    
+
 }

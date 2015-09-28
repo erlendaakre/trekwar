@@ -23,6 +23,6 @@ package com.frostvoid.trekwar.common;
  * @author http://www.frostvoid.com
  */
 public enum CargoClassification {
-   ore,
-   deuterium
+    ore,
+    deuterium
 };

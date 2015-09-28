@@ -28,14 +28,14 @@ import com.frostvoid.trekwar.common.TechnologyGenerator;
 public class FederationMiranda extends HullClass {
 
     public FederationMiranda() {
-        super("Miranda class", "A lightly armed destroyer", "fed_16x16.png", "fed_miranda.png", 
+        super("Miranda class", "A lightly armed destroyer", "fed_16x16.png", "fed_miranda.png",
                 80, 1250, 260, 230, 40, 10, false, 180, 5);
-        
+
         addFaction(StaticData.federation);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH2,
                 TechnologyGenerator.CONSTRUCTION_TECH2,
-                TechnologyGenerator.ENERGY_TECH2, 
+                TechnologyGenerator.ENERGY_TECH2,
                 TechnologyGenerator.PROPULSION_TECH2,
                 TechnologyGenerator.COMPUTER_TECH2,
                 TechnologyGenerator.WEAPON_TECH2);

@@ -18,7 +18,7 @@ package com.frostvoid.trekwar.common.net.messaging.responses;
 import com.frostvoid.trekwar.common.net.messaging.Response;
 
 /**
- * Tells client if renaming of fleet was successful 
+ * Tells client if renaming of fleet was successful
  *
  * @author Erlend Aakre
  * @author FrostVoid Software
@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class RenameFleetResponse extends Response {
     private boolean renameOK;
-    
+
     public RenameFleetResponse(boolean renameOK) {
         this.renameOK = renameOK;
     }
-    
+
     public boolean isRenameOK() {
         return renameOK;
     }

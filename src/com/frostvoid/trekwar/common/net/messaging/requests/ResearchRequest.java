@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class ResearchRequest extends Request {
     private String techToResearch;
-    
+
     public ResearchRequest(String techToResearch) {
         this.techToResearch = techToResearch;
     }

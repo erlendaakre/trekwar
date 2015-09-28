@@ -30,45 +30,44 @@ import com.frostvoid.trekwar.server.turnExec.OrbitalBombardmentResolver;
  * @author http://www.frostvoid.com
  */
 public class OrbitalBombardmentOrder extends Order {
-    
+
     private Fleet fleet;
     private StarSystem system;
-    
+
     public OrbitalBombardmentOrder(Fleet fleet, StarSystem system) throws InvalidOrderException {
         this.fleet = fleet;
         this.system = system;
-        
-        if(!fleet.canBombPlanets()) {
+
+        if (!fleet.canBombPlanets()) {
             throw new InvalidOrderException("Fleet can not bomb planets");
         }
-        if(system.getUser().equals(StaticData.nobodyUser)) {
+        if (system.getUser().equals(StaticData.nobodyUser)) {
             throw new InvalidOrderException("Target system is not owned by anybody");
         }
-        if(fleet.getUser().getFaction().equals(system.getUser().getFaction())) {
+        if (fleet.getUser().getFaction().equals(system.getUser().getFaction())) {
             throw new InvalidOrderException("Target systme is not an enemy");
         }
     }
-    
+
     public void execute() {
-        if(!orderCompleted) {
+        if (!orderCompleted) {
             // make sure we don't attack the system if it's invaded
             // and that the fleet is still able to bomb (ship with torpedoes not destroyed)
-            if(! fleet.getUser().getFaction().equals(system.getUser().getFaction()) && fleet.canBombPlanets()) {
+            if (!fleet.getUser().getFaction().equals(system.getUser().getFaction()) && fleet.canBombPlanets()) {
                 OrbitalBombardmentResolver obr = new OrbitalBombardmentResolver(fleet, system);
                 obr.resolve();
-                
-                if(system.getPopulation() == 0) {
+
+                if (system.getPopulation() == 0) {
                     system.getUser().removeSystem(system);
                     system.setUser(StaticData.nobodyUser);
                     orderCompleted = true;
                 }
-            }
-            else {
+            } else {
                 orderCompleted = true;
             }
         }
     }
-    
+
     @Override
     public void onComplete() {
         // TODO TURN REPORT

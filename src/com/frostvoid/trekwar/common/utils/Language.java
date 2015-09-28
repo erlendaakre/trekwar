@@ -22,7 +22,7 @@ import java.util.Properties;
 
 /**
  * I18N, using a simple properties file
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -31,19 +31,18 @@ public class Language {
     public static final String ENGLISH = "english.txt";
     public static final String GERMAN = "german.txt";
     public static final String FRENCH = "french.txt";
-    
+
     private Properties properties;
-    
+
     /**
      * Loads a specific language file
      *
      * @param filename the filename of the language file
-     *
      * @throws IOException if unable to read file
      */
     public Language(String filename) throws IOException {
         File languageFile = new File(filename);
-        if(!languageFile.canRead())
+        if (!languageFile.canRead())
             throw new IOException("Can't read from file");
         properties = new Properties();
         properties.load(new FileInputStream(languageFile));
@@ -53,46 +52,42 @@ public class Language {
      * Gets a value from the language file, or ###key### if not found
      *
      * @param key the key to find value for
-     *
      * @return the value
      */
     public String get(String key) {
         return properties.getProperty(key, "###" + key + "###");
     }
-    
+
     /**
      * Gets value from language file, forces first character to be upper case.
      * returns ###key### if value not found
      *
      * @param key the key to find value for
-     *
      * @return the value, first char in upper case
      */
     public String getU(String key) {
         String s = get(key);
         return s.toUpperCase().charAt(0) + s.substring(1);
     }
-    
-    
+
+
     /**
      * Gets value from language file, converter to upper case
      * returns ###key### if value not found
      *
      * @param key the key to find value for
-     *
      * @return the value in upper case
      */
     public String getUC(String key) {
         return get(key).toUpperCase();
     }
-    
-    
+
+
     /**
      * Gets value from language file, converter to camel case
      * returns ###key### if value not found
      *
      * @param key the key to find value for
-     *
      * @return the value in camel case
      */
     public String getCC(String key) {
@@ -105,31 +100,30 @@ public class Language {
         }
         return sb.toString().trim();
     }
-    
+
 
     /**
      * Allow variable in the translation values, example: "you have %1 mails"
-     *
+     * <p>
      * Takes in an arbitrary number of Objects:
      * First object must be a string with the substring "%x" where x is a
      * number from 1 to n.
-     *
+     * <p>
      * all other objects will have their toString() inserted into the first string
      * at the matching %x tag.
-     *
+     * <p>
      * example:
      * pop("all %1 your %2 are %3", "your", "base", 42) will return the string:
      * "all your base are 42"
      *
      * @param args arbitrary number of objects, first must be string
-     *
      * @return the first argument (string) with the other values inserted
      */
-    public static String pop(Object...args) {
+    public static String pop(Object... args) {
         String main = args[0].toString();
 
-        for(int i = 1; i < args.length; i++) {
-            main = main.replace("%" + i , args[i].toString());
+        for (int i = 1; i < args.length; i++) {
+            main = main.replace("%" + i, args[i].toString());
         }
 
         return main;

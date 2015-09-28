@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class LoginResponse extends Response {
     private boolean loginSuccessful = false;
-    
+
     public LoginResponse(boolean successful) {
         loginSuccessful = successful;
     }
-    
+
     public boolean isLoginSuccessful() {
         return loginSuccessful;
     }

@@ -15,37 +15,33 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Insets;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.StaticData;
+import com.frostvoid.trekwar.common.Technology;
+import com.frostvoid.trekwar.common.TechnologyGenerator;
+import com.frostvoid.trekwar.common.User;
+import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
+import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
+import com.frostvoid.trekwar.common.shipHulls.HullClass;
+import com.frostvoid.trekwar.common.utils.Calculations;
+import com.frostvoid.trekwar.common.utils.Language;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.*;
-
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.Technology;
-import com.frostvoid.trekwar.common.TechnologyGenerator;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
-import com.frostvoid.trekwar.common.utils.Calculations;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
-import com.frostvoid.trekwar.common.shipHulls.HullClass;
-import com.frostvoid.trekwar.common.utils.Language;
 
 /**
  * A window that allows user to select and manage research goals
- * 
+ * <p>
  * Contains lots of OLD crappy code, should be rewritten some day!
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -515,7 +511,6 @@ public final class ResearchWindow extends JInternalFrame {
         seperatorLabel.setBounds(480, 5, 2, 480);
 
 
-
         techNameLabel = new JLabel(lang.get("researchwindow_no_reserach_set"));
         techNameLabel.setFont(new Font("Arial", Font.BOLD, 14));
         techNameLabel.setBounds(500, 5, 240, 30);
@@ -556,8 +551,8 @@ public final class ResearchWindow extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 if (selectedTech != null) {
                     if (user.getCurrentResearch() != null) {
-                        int answer = JOptionPane.showConfirmDialog(Client.getInstance(), lang.get("researchwindow_start_researching") + 
-                                " " + selectedTech.getName() + "?\n" + lang.get("researchwindow_current_research_will_be_lost"), 
+                        int answer = JOptionPane.showConfirmDialog(Client.getInstance(), lang.get("researchwindow_start_researching") +
+                                        " " + selectedTech.getName() + "?\n" + lang.get("researchwindow_current_research_will_be_lost"),
                                 lang.get("researchwindow_confirm_research_change"), JOptionPane.YES_NO_OPTION);
                         if (answer == JOptionPane.YES_OPTION) {
                             tellServerToStartNewResearch(selectedTech);
@@ -649,10 +644,10 @@ public final class ResearchWindow extends JInternalFrame {
             techProgressBar.setValue(techProgressBar.getMaximum());
             techProgressLabel.setText(lang.get("researchwindow_research_completed"));
         } else {
-            
+
             ArrayList<ShipComponent> shipComponentsFromResearch = user.getShipComponentsFromResearchingTechnolog(tech);
             ArrayList<HullClass> hullsFromResearch = user.getHullsFromResearchingTechnolog(tech);
-            
+
             for (ShipComponent s : shipComponentsFromResearch) {
                 JLabel cl = new JLabel(ImageManager.getInstance().getImage("graphics/ship_components/" + s.getSmallIconFileName()));
                 cl.setToolTipText(s.getName());
@@ -666,7 +661,7 @@ public final class ResearchWindow extends JInternalFrame {
                 componentPanel.add(cl);
             }
             for (ShipComponent s : StaticData.getShipComponentsRequiringTechnology(tech)) {
-                if(shipComponentsFromResearch.contains(s)) {
+                if (shipComponentsFromResearch.contains(s)) {
                     continue; // this component was already displayed in the for loop above
                 }
                 JLabel cl = new JLabel(ImageManager.getInstance().getImage("graphics/ship_components/" + s.getSmallIconFileName()));
@@ -676,7 +671,7 @@ public final class ResearchWindow extends JInternalFrame {
                 componentPanel.add(cl);
             }
             for (HullClass c : user.getHullsFromResearchingTechnolog(tech)) {
-                if(hullsFromResearch.contains(c)) {
+                if (hullsFromResearch.contains(c)) {
                     continue; // this hull was already displayed in the for loop above
                 }
                 JLabel cl = new JLabel(ImageManager.getInstance().getImage("graphics/ship_icons/" + c.getIconFileName()));
@@ -685,7 +680,7 @@ public final class ResearchWindow extends JInternalFrame {
                 cl.setOpaque(true);
                 componentPanel.add(cl);
             }
-            
+
 
             if (user.getCurrentResearch() != null && user.getCurrentResearch().equals(tech)) {
                 techStartButton.setEnabled(false);

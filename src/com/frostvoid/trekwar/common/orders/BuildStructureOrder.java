@@ -15,16 +15,17 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
-import java.util.logging.Level;
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.utils.Language;
 import com.frostvoid.trekwar.common.Planet;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.TurnReportItem;
 import com.frostvoid.trekwar.common.TurnReportItem.TurnReportSeverity;
 import com.frostvoid.trekwar.common.structures.Structure;
+import com.frostvoid.trekwar.common.utils.Language;
 import com.frostvoid.trekwar.server.TrekwarServer;
 import com.frostvoid.trekwar.server.utils.MiscTools;
+
+import java.util.logging.Level;
 
 /**
  * An order to build a structure in a starsystem on a specific slot/planet
@@ -49,7 +50,7 @@ public class BuildStructureOrder extends Order {
         this.slot = slot;
         this.structure = structure;
         industryInvested = 0;
-        
+
         updateTurnsToCompletion();
     }
 
@@ -64,31 +65,31 @@ public class BuildStructureOrder extends Order {
             if (industryInvested >= structure.getCost()) {
                 orderCompleted = true;
             }
-            
+
             updateTurnsToCompletion();
         }
     }
 
     @Override
     public void onComplete() {
-        if(structure.getStructureMode().equals(Structure.mode.ONEPERSYSTEM)) {
-            for(Planet p : starsystem.getPlanets()) {
-                if(p.hasStructureClass(structure)) {
+        if (structure.getStructureMode().equals(Structure.mode.ONEPERSYSTEM)) {
+            for (Planet p : starsystem.getPlanets()) {
+                if (p.hasStructureClass(structure)) {
                     return;
                 }
             }
         }
 
-        if(structure.getStructureMode().equals(Structure.mode.ONEPERPLANET)) {
-            if(planet.hasStructureClass(structure)) {
+        if (structure.getStructureMode().equals(Structure.mode.ONEPERPLANET)) {
+            if (planet.hasStructureClass(structure)) {
                 return;
             }
         }
 
-        if(structure.getStructureMode().equals(Structure.mode.ONEPERPLAYER)) {
-            for(StarSystem s : starsystem.getUser().getStarSystems()) {
-                for(Planet p : s.getPlanets()) {
-                    if(p.hasStructureClass(structure)) {
+        if (structure.getStructureMode().equals(Structure.mode.ONEPERPLAYER)) {
+            for (StarSystem s : starsystem.getUser().getStarSystems()) {
+                for (Planet p : s.getPlanets()) {
+                    if (p.hasStructureClass(structure)) {
                         return;
                     }
                 }
@@ -110,7 +111,7 @@ public class BuildStructureOrder extends Order {
     @Override
     public String toString() {
         return getPositionInBuildQueue() + ". " + structure.getName() + " - " +
-            getTurnsLeft() + " " + Client.getLanguage().get("turns_left");
+                getTurnsLeft() + " " + Client.getLanguage().get("turns_left");
     }
 
     public Structure getStructure() {
@@ -146,9 +147,9 @@ public class BuildStructureOrder extends Order {
     public void setPositionInBuildQueue(int positionInBuildQueue) {
         this.positionInBuildQueue = positionInBuildQueue;
     }
-    
+
     public final void updateTurnsToCompletion() {
-        turnsLeft = MiscTools.calculateTurnsUntilCompletion(structure.getCost()-industryInvested, starsystem.getSystemIndustrySurplus());
+        turnsLeft = MiscTools.calculateTurnsUntilCompletion(structure.getCost() - industryInvested, starsystem.getSystemIndustrySurplus());
     }
 
     @Override

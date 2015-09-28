@@ -15,9 +15,9 @@
  */
 package com.frostvoid.trekwar.common.net.messaging.requests;
 
-import java.util.HashMap;
-
 import com.frostvoid.trekwar.common.net.messaging.Request;
+
+import java.util.HashMap;
 
 /**
  * Tells server to update or create a new ship template
@@ -29,13 +29,13 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
 public class UpdateTemplateRequest extends Request {
     private String templateName;
     private String hullClass;
-    
+
     private HashMap<Integer, String> components;
-    
+
     public UpdateTemplateRequest(String templateName, String hullClass) {
         this.templateName = templateName;
         this.hullClass = hullClass;
-        
+
         components = new HashMap<Integer, String>();
     }
 
@@ -52,11 +52,11 @@ public class UpdateTemplateRequest extends Request {
     public String getHullClass() {
         return hullClass;
     }
-    
+
     public void addComponent(int slot, String name) {
         components.put(slot, name);
     }
-    
+
     public HashMap<Integer, String> getComponents() {
         return components;
     }

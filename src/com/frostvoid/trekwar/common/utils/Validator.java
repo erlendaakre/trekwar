@@ -21,7 +21,7 @@ import com.frostvoid.trekwar.common.exceptions.ValidationException;
 
 /**
  * Assorted methods for validating data / input
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com

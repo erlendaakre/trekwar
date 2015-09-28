@@ -26,13 +26,13 @@ import com.frostvoid.trekwar.common.net.messaging.StructureStateChangeRequestTyp
  * @author http://www.frostvoid.com
  */
 public class StructureStateChangeRequest extends Request {
-    
+
     private int x;
     private int y;
     private int planetNumber;
     private int slotNumber;
     private StructureStateChangeRequestType type;
-    
+
     public StructureStateChangeRequest(int x, int y, int planetNumber, int slotNumber, StructureStateChangeRequestType type) {
         this.x = x;
         this.y = y;
@@ -74,5 +74,5 @@ public class StructureStateChangeRequest extends Request {
      */
     public StructureStateChangeRequestType getType() {
         return type;
-    }   
+    }
 }

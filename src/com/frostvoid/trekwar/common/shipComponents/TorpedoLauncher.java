@@ -27,7 +27,7 @@ public class TorpedoLauncher extends ShipComponent {
     private int baseDamage;
     private int actionPointsRequired;
     private int structureHitChance;
-    
+
     public TorpedoLauncher(String name, String description, String iconFileName, int cost, int energy, int damage, int actionPointsRequired, int structureHitChance) {
         super(name, description, iconFileName, cost, energy, false);
         this.baseDamage = damage;
@@ -35,23 +35,23 @@ public class TorpedoLauncher extends ShipComponent {
         this.structureHitChance = structureHitChance;
         icon16x16Filename = "torpedo_16x16.png";
     }
-    
+
     public int getDamage() {
         return baseDamage;
     }
-    
+
     /**
      * Gets the number of AP's required to fire this weapon
-     * 
+     *
      * @return action points required to fire
      */
     public int getActionPointsRequired() {
         return actionPointsRequired;
     }
-    
+
     /**
      * Gets this torpedo launchers chance to hit a structure when bombarding planet
-     * 
+     *
      * @return chance (percent) to hit a structure
      */
     public int getStructureHitChance() {

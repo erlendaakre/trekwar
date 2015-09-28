@@ -15,7 +15,7 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * A faction that users can play as
@@ -40,17 +40,17 @@ public class Faction implements Serializable {
     /**
      * Creates a new faction, this is done only once and only references to these global faction objects are used
      *
-     * @param name the name of the faction
-     * @param description a textual description
-     * @param researchBonus the bonus/penalty for research
-     * @param shipCombatBonus the bonus/penalty for ship combat
-     * @param groundCombatBonus the bonus/penalty for ground combat
-     * @param moraleBonus the bonus/penalty for morale
-     * @param constructionBonus the bonus/penalty for starship/structure construction
+     * @param name                             the name of the faction
+     * @param description                      a textual description
+     * @param researchBonus                    the bonus/penalty for research
+     * @param shipCombatBonus                  the bonus/penalty for ship combat
+     * @param groundCombatBonus                the bonus/penalty for ground combat
+     * @param moraleBonus                      the bonus/penalty for morale
+     * @param constructionBonus                the bonus/penalty for starship/structure construction
      * @param terraformingAndColonizationBonus the bonus/penalty for terraforming/colonization
      */
     public Faction(String name, String description, int researchBonus, int shipCombatBonus,
-            int groundCombatBonus, int moraleBonus, int constructionBonus, int terraformingAndColonizationBonus) {
+                   int groundCombatBonus, int moraleBonus, int constructionBonus, int terraformingAndColonizationBonus) {
         this.name = name;
         this.description = description;
         this.researchBonus = researchBonus;
@@ -156,8 +156,8 @@ public class Faction implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Faction)
-            return equals((Faction)o);
+        if (o instanceof Faction)
+            return equals((Faction) o);
         return false;
     }
 }

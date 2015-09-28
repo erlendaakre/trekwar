@@ -30,7 +30,7 @@ public class BuildStructureRequest extends Request {
     private int planetNumber;
     private int slot;
     private String structure;
-    
+
     public BuildStructureRequest(int x, int y, int planetNumber, int slot, String structure) {
         this.x = x;
         this.y = y;
@@ -72,5 +72,5 @@ public class BuildStructureRequest extends Request {
      */
     public String getStructure() {
         return structure;
-    }   
+    }
 }

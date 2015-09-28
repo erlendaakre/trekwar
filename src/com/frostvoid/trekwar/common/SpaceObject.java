@@ -37,11 +37,11 @@ public class SpaceObject implements Serializable {
     /**
      * Creates a new space object
      *
-     * @param user the owner of the object
-     * @param name the name of the object
+     * @param user           the owner of the object
+     * @param name           the name of the object
      * @param classification the classification of the boject
-     * @param x the x location
-     * @param y the y location
+     * @param x              the x location
+     * @param y              the y location
      */
     public SpaceObject(User user, String name, SpaceObjectClassification classification, int x, int y) {
         this.user = user;
@@ -62,7 +62,7 @@ public class SpaceObject implements Serializable {
 
     /**
      * Gets the name of this object
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -71,7 +71,7 @@ public class SpaceObject implements Serializable {
 
     /**
      * Sets the name of this object
-     * 
+     *
      * @param name the new name
      */
     public void setName(String name) {
@@ -107,7 +107,7 @@ public class SpaceObject implements Serializable {
 
     /**
      * Gets the Y location of this object
-     * 
+     *
      * @return y coordinate
      */
     public int getY() {

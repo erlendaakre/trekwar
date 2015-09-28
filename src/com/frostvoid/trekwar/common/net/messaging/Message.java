@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 /**
  * Base class for all messages/commands being sent between client and server
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com

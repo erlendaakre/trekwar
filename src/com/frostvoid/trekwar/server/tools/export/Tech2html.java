@@ -15,13 +15,14 @@
  */
 package com.frostvoid.trekwar.server.tools.export;
 
-import java.io.*;
+import com.frostvoid.trekwar.common.Technology;
+import com.frostvoid.trekwar.common.TechnologyGenerator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.frostvoid.trekwar.common.TechnologyGenerator;
-import com.frostvoid.trekwar.common.Technology;
 
 /**
  * Exports all technologies in the game into a table using JSPWiki markup
@@ -37,7 +38,7 @@ public class Tech2html {
         File htmlfile = new File("techs.txt");
 
         if (htmlfile.exists()) {
-            System.out.println("file: " + htmlfile+  " allready exists");
+            System.out.println("file: " + htmlfile + " allready exists");
             System.exit(1);
         }
         System.out.println("Generating file:");
@@ -58,7 +59,6 @@ public class Tech2html {
         biotech.add(TechnologyGenerator.BIO_TECH8);
         biotech.add(TechnologyGenerator.BIO_TECH9);
         biotech.add(TechnologyGenerator.BIO_TECH10);
-
 
 
         ArrayList<Technology> energytech = new ArrayList<Technology>();
@@ -135,12 +135,14 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/biotech" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
-            
+            out.println(t.getDesscription() + "\\\\");
+
         }
-        out.println("");out.println("");out.println("");
-        
-        
+        out.println("");
+        out.println("");
+        out.println("");
+
+
         out.println("[{TableOfContents}]\\\\");
         out.println("Technologies from Trekwar2, generated: " + new Date() + "\\\\");
         out.println("!!Energy Technology");
@@ -149,11 +151,13 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/energy" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
+            out.println(t.getDesscription() + "\\\\");
         }
-        out.println("");out.println("");out.println("");
-        
-        
+        out.println("");
+        out.println("");
+        out.println("");
+
+
         out.println("[{TableOfContents}]\\\\");
         out.println("Technologies from Trekwar2, generated: " + new Date() + "\\\\");
         out.println("!!Computer Technology");
@@ -162,11 +166,13 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/computer" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
+            out.println(t.getDesscription() + "\\\\");
         }
-        out.println("");out.println("");out.println("");
-        
-        
+        out.println("");
+        out.println("");
+        out.println("");
+
+
         out.println("[{TableOfContents}]\\\\");
         out.println("Technologies from Trekwar2, generated: " + new Date() + "\\\\");
         out.println("!!Propulsion Technology");
@@ -175,11 +181,13 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/propulsion" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
+            out.println(t.getDesscription() + "\\\\");
         }
-        out.println("");out.println("");out.println("");
-        
-        
+        out.println("");
+        out.println("");
+        out.println("");
+
+
         out.println("[{TableOfContents}]\\\\");
         out.println("Technologies from Trekwar2, generated: " + new Date() + "\\\\");
         out.println("!!Industrial Technology");
@@ -188,11 +196,13 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/construction" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
+            out.println(t.getDesscription() + "\\\\");
         }
-        out.println("");out.println("");out.println("");
-        
-        
+        out.println("");
+        out.println("");
+        out.println("");
+
+
         out.println("[{TableOfContents}]\\\\");
         out.println("Technologies from Trekwar2, generated: " + new Date() + "\\\\");
         out.println("!!Weapon Technology");
@@ -201,7 +211,7 @@ public class Tech2html {
             out.println("!Level " + t.getLevel() + ": " + t.getName());
             out.println("Costs " + t.getResearchCost() + " research points)\\\\");
             out.println("[http://www.trekwar.org/images/techs/weapon" + t.getLevel() + ".png]\\\\\\");
-            out.println(t.getDesscription()+ "\\\\");
+            out.println(t.getDesscription() + "\\\\");
         }
 
 

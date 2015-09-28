@@ -15,14 +15,12 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.FontFactory;
+import com.frostvoid.trekwar.client.ImageManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -31,20 +29,6 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.FontFactory;
-import com.frostvoid.trekwar.client.ImageManager;
 
 /**
  * The launcher... Fuck Yeah!
@@ -54,18 +38,18 @@ import com.frostvoid.trekwar.client.ImageManager;
  * @author http://www.frostvoid.com
  */
 public class TrekwarLauncher extends JFrame {
-    
+
     private static int launcherWidth = 600;
     private static String htmlURL = "http://trekwar.org/launcher.html";
     private static String versionURL = "http://trekwar.org/latestversion.txt";
-    
+
     private static JLabel statusLabel;
     private static JEditorPane htmlPane;
-    
+
     public TrekwarLauncher() {
         setTitle(Client.getLanguage().getCC("trekwar_launcher"));
         setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        
+
         // set application icon
         ArrayList<Image> iconImages = new ArrayList<Image>(4);
         iconImages.add(ImageManager.getInstance().getImage("graphics/icon_128.png").getImage());
@@ -73,27 +57,27 @@ public class TrekwarLauncher extends JFrame {
         iconImages.add(ImageManager.getInstance().getImage("graphics/icon_32.png").getImage());
         iconImages.add(ImageManager.getInstance().getImage("graphics/icon_16.png").getImage());
         setIconImages(iconImages);
-        
+
         JPanel header = generateHeader();
         JPanel htmlPanel = generateHTMLPanel();
         JPanel footer = generateFooter();
-                
+
         add(header);
         add(htmlPanel);
         add(footer);
-        
+
     }
-    
+
     public static void main(String[] args) {
         TrekwarLauncher launcher = new TrekwarLauncher();
         launcher.pack();
         launcher.setVisible(true);
         launcher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // Center Launcher
         Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenDimension.width-launcher.getSize().width)/2;
-        int y = (screenDimension.height-launcher.getSize().height)/2;
+        int x = (screenDimension.width - launcher.getSize().width) / 2;
+        int y = (screenDimension.height - launcher.getSize().height) / 2;
         launcher.setLocation(x, y);
 
         Thread loadHTMLThread = new Thread(new Runnable() {
@@ -107,7 +91,7 @@ public class TrekwarLauncher extends JFrame {
                 }
             }
         });
-        
+
         Thread checkForUpdatesThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,30 +99,30 @@ public class TrekwarLauncher extends JFrame {
                     statusLabel.setText(Client.getLanguage().getU("status") + ": " + Client.getLanguage().get("checking_version"));
                     try {
                         Thread.sleep(800);
-                    } catch (InterruptedException ex) { }
-                    
+                    } catch (InterruptedException ex) {
+                    }
+
                     URL connection = new URL(versionURL);
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.openStream()));
 
                     String remoteVersion = in.readLine();
                     in.close();
-                    
+
                     String updateString = "";
-                    if(remoteVersion.equals(Client.VERSION)) {
+                    if (remoteVersion.equals(Client.VERSION)) {
                         updateString = Client.getLanguage().getU("up_to_date");
-                    }
-                    else {
+                    } else {
                         statusLabel.setForeground(Color.RED);
                         updateString = Client.getLanguage().getUC("update_available");
                     }
-                    
+
                     statusLabel.setText(Client.getLanguage().getU("status") + ": " + Client.getLanguage().getU("remote_version") + " = " + remoteVersion + " (" + updateString + ")");
                 } catch (IOException ex) {
                     statusLabel.setText(Client.getLanguage().getU("error_checking_latest_version_on_server"));
                 }
             }
         });
-        
+
         loadHTMLThread.start();
         checkForUpdatesThread.start();
     }
@@ -151,27 +135,27 @@ public class TrekwarLauncher extends JFrame {
                 g.drawImage(img, 0, 0, null);
             }
         };
-        panel.setLayout(new GridLayout(1,1));
+        panel.setLayout(new GridLayout(1, 1));
         panel.setPreferredSize(new Dimension(launcherWidth, 95));
         JLabel trekwarLabel = new JLabel("Trekwar " + Client.VERSION);
         trekwarLabel.setHorizontalAlignment(SwingConstants.CENTER);
         trekwarLabel.setForeground(Color.WHITE);
         trekwarLabel.setFont(FontFactory.getInstance().getLauncherHeading());
         panel.add(trekwarLabel);
-        
+
         return panel;
     }
 
     private JPanel generateHTMLPanel() {
         JPanel panel = new JPanel() {
-            
+
         };
-        panel.setLayout(new GridLayout(1,1));
-        
+        panel.setLayout(new GridLayout(1, 1));
+
         htmlPane = new JEditorPane();
-        htmlPane.setEditable(false); 
+        htmlPane.setEditable(false);
         htmlPane.setContentType("text/html");
-        
+
         htmlPane.addHyperlinkListener(new javax.swing.event.HyperlinkListener() {
 
             @Override
@@ -182,7 +166,7 @@ public class TrekwarLauncher extends JFrame {
                         if (Desktop.isDesktopSupported()) {
                             Desktop.getDesktop().browse(new URI(evt.getURL().toString()));
                         } else {
-                            
+
                             JOptionPane.showMessageDialog(htmlPane, Client.getLanguage().getU("your_java_version_does_not_support_opening_links_using_the_desktop_api"));
                         }
                     } catch (Throwable excep) {
@@ -191,14 +175,14 @@ public class TrekwarLauncher extends JFrame {
                 }
             }
         });
-        
+
         JScrollPane scrollPane = new JScrollPane(htmlPane);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+
         panel.add(scrollPane);
         panel.setPreferredSize(new Dimension(launcherWidth, 260));
-        
+
         return panel;
     }
 
@@ -212,13 +196,13 @@ public class TrekwarLauncher extends JFrame {
         };
         panel.setPreferredSize(new Dimension(launcherWidth, 45));
         panel.setLayout(new BorderLayout());
-        
+
         statusLabel = new JLabel(Client.getLanguage().getU("status") + ": " + Client.getLanguage().getU("have_not_contacted_server_yet"));
         statusLabel.setForeground(Color.WHITE);
         statusLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         panel.add(statusLabel, BorderLayout.WEST);
-        
-        
+
+
         JButton launchButton = new JButton(Client.getLanguage().getU("launch"));
         launchButton.addActionListener(new ActionListener() {
             @Override
@@ -228,11 +212,11 @@ public class TrekwarLauncher extends JFrame {
                 Client.main(null);
             }
         });
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.add(launchButton);
-        
+
         panel.add(buttonPanel, BorderLayout.EAST);
         return panel;
     }

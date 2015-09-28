@@ -18,7 +18,7 @@ package com.frostvoid.trekwar.client.model;
 /**
  * This object holds information used for when doing troop transfers.
  * Used then doing drag/drop in the TroopTransferWindow
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com

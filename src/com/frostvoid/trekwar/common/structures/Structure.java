@@ -15,16 +15,17 @@
  */
 package com.frostvoid.trekwar.common.structures;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.Technology;
 import com.frostvoid.trekwar.common.User;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Represents a structure which can be built on a planet
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -72,18 +73,18 @@ public abstract class Structure implements Serializable {
      * Constructor to make a new structure (only called once, cause all structures are static)
      * and planets only have references to them.
      *
-     * @param name the name of the structure
-     * @param description a long description of the structure
-     * @param cost the industry cost required to build this structure
-     * @param power the power input/output of this structure
-     * @param research the research input/output of this structure
-     * @param food the food input/output of this structure
-     * @param industry the industry input/output of this structure
+     * @param name          the name of the structure
+     * @param description   a long description of the structure
+     * @param cost          the industry cost required to build this structure
+     * @param power         the power input/output of this structure
+     * @param research      the research input/output of this structure
+     * @param food          the food input/output of this structure
+     * @param industry      the industry input/output of this structure
      * @param imageFileName the filename of the image
      * @param structureMode the mode of this structure
      */
     public Structure(String name, String description,
-            int cost, int power, int research, int food, int industry,  String imageFileName, mode structureMode) {
+                     int cost, int power, int research, int food, int industry, String imageFileName, mode structureMode) {
 
         this.name = name;
         this.description = description;
@@ -294,8 +295,8 @@ public abstract class Structure implements Serializable {
     /**
      * Gets the build mode of this structure
      *
-     * @see mode
      * @return the build mode
+     * @see mode
      */
     public mode getStructureMode() {
         return structureMode;
@@ -313,8 +314,8 @@ public abstract class Structure implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Structure)
-            return equals((Structure)o);
+        if (o instanceof Structure)
+            return equals((Structure) o);
         return false;
     }
 }

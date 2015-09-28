@@ -29,7 +29,7 @@ public class HurryProductionRequest extends Request {
     private int y;
     private int index;
     private int amount;
-    
+
     public HurryProductionRequest(int x, int y, int index, int amount) {
         this.x = x;
         this.y = y;

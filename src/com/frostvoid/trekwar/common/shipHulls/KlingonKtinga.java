@@ -30,9 +30,9 @@ public class KlingonKtinga extends HullClass {
     public KlingonKtinga() {
         super("K't'inga class", "A mighty battlecruiser", "kli_16x16.png", "kli_ktinga.png",
                 120, 5500, 500, 460, 25, 14, false, 430, 11);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH3,
                 TechnologyGenerator.CONSTRUCTION_TECH4,
                 TechnologyGenerator.ENERGY_TECH6,

@@ -15,7 +15,7 @@
  */
 package com.frostvoid.trekwar.client.model;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Represents a slice, has a value and color
@@ -32,11 +32,11 @@ public class Slice {
         this.value = percentage;
         this.color = color;
     }
-    
+
     public double getValue() {
         return value;
     }
-    
+
     public Color getColor() {
         return color;
     }

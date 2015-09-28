@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class SendChatResponse extends Response {
     private boolean messageDelivered;
-    
+
     public SendChatResponse(boolean messageDelivered) {
         this.messageDelivered = messageDelivered;
     }
-    
+
     public SendChatResponse(String error) {
         this.messageDelivered = false;
         setErrorMessage(error);
     }
-    
+
     public boolean isMessageDelivered() {
         return messageDelivered;
     }

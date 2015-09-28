@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class DeleteTemplateResponse extends Response {
     private boolean templateDeleted;
-    
+
     public DeleteTemplateResponse(boolean templateDeleted) {
         this.templateDeleted = templateDeleted;
     }
-    
+
     public DeleteTemplateResponse(String errror) {
         templateDeleted = false;
         setErrorMessage(errror);
@@ -41,5 +41,5 @@ public class DeleteTemplateResponse extends Response {
      */
     public boolean isTemplateDeleted() {
         return templateDeleted;
-    }   
+    }
 }

@@ -15,7 +15,10 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import org.jvnet.substance.api.*;
+import org.jvnet.substance.api.ColorSchemeAssociationKind;
+import org.jvnet.substance.api.ComponentState;
+import org.jvnet.substance.api.SubstanceColorScheme;
+import org.jvnet.substance.api.SubstanceColorSchemeBundle;
 import org.jvnet.substance.colorscheme.MetallicColorScheme;
 import org.jvnet.substance.colorscheme.SunsetColorScheme;
 

@@ -23,7 +23,7 @@ package com.frostvoid.trekwar.common.shipComponents;
  * @author http://www.frostvoid.com
  */
 public class FusionReactor extends ShipComponent {
-    
+
     public FusionReactor(String name, String description, String iconFileName, int cost, int energy) {
         super(name, description, iconFileName, cost, energy, false);
         icon16x16Filename = "fusion_16x16.png";

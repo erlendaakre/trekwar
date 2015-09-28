@@ -23,7 +23,7 @@ package com.frostvoid.trekwar.common;
  * @author http://www.frostvoid.com
  */
 public enum SpaceObjectClassification {
-   fleet,
-   starbase,
-   starsystem
+    fleet,
+    starbase,
+    starsystem
 };

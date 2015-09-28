@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class ResearchResponse extends Response {
     private boolean researchChangeOK;
-    
+
     public ResearchResponse(boolean researchChangeOK) {
         this.researchChangeOK = researchChangeOK;
     }
-    
+
     public ResearchResponse(String error) {
         this.researchChangeOK = false;
         setErrorMessage(error);

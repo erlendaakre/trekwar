@@ -15,8 +15,8 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.StaticData;
 
 /**
  * Icon for asteroid field
@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.client.ImageManager;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuAsteroidIcon extends BottomMenuToolbarIcon {
-    
+
     public BottomMenuAsteroidIcon() {
         super("Asteroids", StaticData.nobodyFaction, false);
         setButtonImage(ImageManager.getInstance().getImage("graphics/bottommenutoolbar_asteroid.png").getImage());

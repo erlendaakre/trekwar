@@ -42,10 +42,10 @@ public class TurnReportItem implements Serializable {
 
     /**
      * Creates a new turn report item
-     * 
-     * @param turn the turn the event took place
-     * @param x the event location x
-     * @param y the event location y
+     *
+     * @param turn     the turn the event took place
+     * @param x        the event location x
+     * @param y        the event location y
      * @param severity the even importance
      */
     public TurnReportItem(long turn, int x, int y, TurnReportSeverity severity) {

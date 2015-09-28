@@ -15,8 +15,8 @@
  */
 package com.frostvoid.trekwar.client;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 /**
  * Animation framework, provides a series of images for drawing
@@ -44,16 +44,16 @@ public class Animation {
     }
 
     public ImageIcon next() {
-        if(System.currentTimeMillis() > lastChangedFrame + speed) {
+        if (System.currentTimeMillis() > lastChangedFrame + speed) {
             lastChangedFrame = System.currentTimeMillis();
             currentFrame++;
-            if(currentFrame >= getImages().size())
+            if (currentFrame >= getImages().size())
                 currentFrame = 0;
         }
         return getImages().get(currentFrame);
     }
 
-    
+
     public ArrayList<ImageIcon> getImages() {
         return images;
     }
@@ -73,10 +73,8 @@ public class Animation {
     public int getDeleyBetweenLoops() {
         return deleyBetweenLoops;
     }
-    
-    
-    
-    
+
+
     // Static animations
     public static final Animation selectionAnimation;
     public static final Animation fleetMovementCursorAnimation;
@@ -93,7 +91,7 @@ public class Animation {
         selectionAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_selection_4.png"));
         selectionAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_selection_3.png"));
         selectionAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_selection_2.png"));
-        
+
         fleetMovementCursorAnimation = new Animation(70, true, 0);
         fleetMovementCursorAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_moveto_order_1.png"));
         fleetMovementCursorAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_moveto_order_2.png"));
@@ -102,6 +100,6 @@ public class Animation {
         fleetMovementCursorAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_moveto_order_5.png"));
         fleetMovementCursorAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_moveto_order_6.png"));
         fleetMovementCursorAnimation.addImage(ImageManager.getInstance().getImage("graphics/map_icons/tile_moveto_order_7.png"));
-        
+
     }
 }

@@ -15,14 +15,14 @@
  */
 package com.frostvoid.trekwar.server.turnExec;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.common.Ship;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.User;
 import com.frostvoid.trekwar.server.TrekwarServer;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.logging.Level;
 
 /**
  * Represents a single battle taking place in space
@@ -34,14 +34,14 @@ import com.frostvoid.trekwar.server.TrekwarServer;
 public class SpaceBattle {
     ArrayList<Ship> ships;
     private StarSystem location;
-    private long turn; 
+    private long turn;
     private int round = 0;
 
     /**
      * Creates a new space battle
-     * 
+     *
      * @param location the starsystem the battle takes place in
-     * @param turn the turn this battle is taking place on
+     * @param turn     the turn this battle is taking place on
      */
     public SpaceBattle(StarSystem location, long turn) {
         ships = new ArrayList<Ship>();
@@ -79,19 +79,18 @@ public class SpaceBattle {
      * Finds a ship to defend against an attacker
      *
      * @param attacker the attacker to find a ship for
-     *
      * @return the defending ship
      */
     public Ship findTarget(Ship attacker) {
-        if(attacker == null) {
+        if (attacker == null) {
             return null;
         }
-        
+
         int rand = TrekwarServer.PRNG.nextInt(ships.size());
         boolean looped = false;
         Ship weakestShip = null; // TODO find weakest ship
         for (int i = rand; i < ships.size(); i++) {
-            if (! ships.get(i).getUser().getFaction().equals(attacker.getUser().getFaction())) {
+            if (!ships.get(i).getUser().getFaction().equals(attacker.getUser().getFaction())) {
                 return ships.get(i);
             }
             if (i == ships.size() - 1) {
@@ -115,10 +114,10 @@ public class SpaceBattle {
     public void addShip(Ship ship) {
         ships.add(ship);
     }
-    
+
     /**
      * Removes a (destroyed) ship from battle
-     * 
+     *
      * @param ship the ship to remove
      */
     public void removeShip(Ship ship) {
@@ -128,45 +127,45 @@ public class SpaceBattle {
 
     /**
      * Gets all the ships in this battle
-     * 
+     *
      * @return list of all ships
      */
     public ArrayList<Ship> getShips() {
         return ships;
     }
-    
+
     /**
      * Gets the location of this battle
-     * 
+     *
      * @return starsystem where it takes place
      */
     public StarSystem getLocation() {
         return location;
     }
-    
+
     /**
      * The turn the battle is taking place
-     * 
+     *
      * @return turn number
      */
     public long getTurn() {
         return turn;
     }
-    
+
     /**
      * Gets the combatants taking part in the battle
-     * 
+     *
      * @return the users fighting in this battle
      */
     public ArrayList<User> getCombatants() {
         ArrayList<User> users = new ArrayList<User>();
-        
-        for(Ship s : ships) {
-            if(! users.contains(s.getUser())) {
+
+        for (Ship s : ships) {
+            if (!users.contains(s.getUser())) {
                 users.add(s.getUser());
             }
         }
-        
+
         return users;
     }
 
@@ -177,11 +176,11 @@ public class SpaceBattle {
         round++;
         Collections.shuffle(ships);
 
-        for(Ship ship : ships) {
+        for (Ship ship : ships) {
             ship.battle_restoreActionPoints();
         }
     }
-    
+
     public int getRound() {
         return round;
     }

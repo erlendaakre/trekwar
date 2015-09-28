@@ -15,11 +15,11 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.Ship;
 import com.frostvoid.trekwar.server.TrekwarServer;
+
+import java.util.logging.Level;
 
 /**
  * An order for a fleet to move to a specified destination (x,y)
@@ -62,7 +62,7 @@ public class MoveOrder extends Order {
             for (; moves > 0; moves--) {
                 // handle fuel
                 int deuteriumRequired = fleet.getDeuteriumUsage();
-                
+
                 // check if fleet has enough fuel to move
                 if (fleet.getDeuteriumLeft() < deuteriumRequired) {
                     // TODO send message in turn report... fleet out of fuel

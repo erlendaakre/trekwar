@@ -25,14 +25,14 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  * @author http://www.frostvoid.com
  */
 public class CancelOrdersResponse extends Response {
-    
+
     private boolean cancelOK;
-    
+
     public CancelOrdersResponse(boolean cancelOK) {
         this.cancelOK = cancelOK;
     }
-    
+
     public boolean isFleetOrdersCancelled() {
         return cancelOK;
-    }   
+    }
 }

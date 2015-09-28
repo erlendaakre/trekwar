@@ -17,30 +17,30 @@ package com.frostvoid.trekwar.common.exceptions;
 
 /**
  * Indicates a problem with putting a item in a ship or template slot
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
 public class ShipException extends Exception {
 
-   private String message;
+    private String message;
 
-   public ShipException() {
-      message = "Ship exception";
-   }
+    public ShipException() {
+        message = "Ship exception";
+    }
 
-   public ShipException(String message) {
-      this.message = message;
-   }
-
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public ShipException(String message) {
+        this.message = message;
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

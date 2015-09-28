@@ -15,36 +15,27 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.gui.InvasionConfirmationDialog;
+import com.frostvoid.trekwar.client.gui.MapPanel;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
 import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
 import com.frostvoid.trekwar.common.orders.ColonizeOrder;
 import com.frostvoid.trekwar.common.orders.HarvestDeuteriumOrder;
 import com.frostvoid.trekwar.common.orders.MiningOrder;
 import com.frostvoid.trekwar.common.orders.OrbitalBombardmentOrder;
-import com.frostvoid.trekwar.client.gui.MapPanel;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.StaticData;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Holds all the order buttons for a given Fleet
- * 
+ *
  * @author Erlend Aakre
  */
 public class FleetOrderPanel extends JPanel {
@@ -79,7 +70,7 @@ public class FleetOrderPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Client.getInstance().getMapPanel().setAction(MapPanel.ACTION_MOVEFLEET, fleet);                
+                Client.getInstance().getMapPanel().setAction(MapPanel.ACTION_MOVEFLEET, fleet);
             }
         });
         add(moveOrder);
@@ -93,9 +84,9 @@ public class FleetOrderPanel extends JPanel {
             JButton colonizeOrder = new JButton(Client.getLanguage().getU("colonize"));
 
             colonizeOrder.setEnabled(system.getStarSystemClassification() == StarSystemClassification.starSystem && system.getUser().equals(StaticData.nobodyUser));
-            
+
             // don't show colnize button as enabled if fleet is already colonizing
-            if(fleet.getOrder() instanceof ColonizeOrder) {
+            if (fleet.getOrder() instanceof ColonizeOrder) {
                 colonizeOrder.setEnabled(false);
             }
 
@@ -119,17 +110,17 @@ public class FleetOrderPanel extends JPanel {
                             }
                             ColonizeOrder co = new ColonizeOrder(fleet.getUser(), system, fleet, colonyShip);
                             fleet.setOrder(co);
-                            
+
                             Client.getInstance().getMapPanel().drawMap();
                             Client.getInstance().getMapPanel().repaint();
-                            
+
                         } catch (InvalidOrderException ex) {
                             Logger.getLogger(FleetOrderPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
+
                         // notify server
                         Client.getInstance().getComm().server_colonize(fleet.getName());
-                        
+
                         // play sound + update UI
                         Client.getInstance().getSoundSystem().play_colonizeSystem();
                         Client.getInstance().getBottomGuiPanel().showFleet(fleet);
@@ -167,7 +158,7 @@ public class FleetOrderPanel extends JPanel {
                     } catch (InvalidOrderException ex) {
                         Logger.getLogger(FleetOrderPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                     Client.getInstance().getComm().server_mine(fleet.getName());
                     Client.getInstance().getSoundSystem().play_miningAsteroid();
                     Client.getInstance().getBottomGuiPanel().showFleet(fleet);
@@ -201,8 +192,8 @@ public class FleetOrderPanel extends JPanel {
                     } catch (InvalidOrderException ex) {
                         Logger.getLogger(FleetOrderPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
+
+
                     Client.getInstance().getComm().server_harvestDeuterium(fleet.getName());
                     Client.getInstance().getBottomGuiPanel().showFleet(fleet);
                 }
@@ -288,8 +279,8 @@ public class FleetOrderPanel extends JPanel {
                 add(Box.createVerticalStrut(buttonSpacing));
             }
         }
-        
-        
+
+
         // ORBITAL BOMBARDMENT
         if (fleet.canBombPlanets() && !system.getUser().getFaction().equals(Client.getInstance().getLocalUser().getFaction())
                 && !system.getUser().equals(StaticData.nobodyUser)) {
@@ -306,17 +297,15 @@ public class FleetOrderPanel extends JPanel {
 //                    if (icd.doInvade()) {
                     try {
                         OrbitalBombardmentOrder obo = new OrbitalBombardmentOrder(fleet, system);
-                        
-                        if(Client.getInstance().getComm().server_bombSystem(fleet.getName())) {
+
+                        if (Client.getInstance().getComm().server_bombSystem(fleet.getName())) {
                             fleet.setOrder(obo);
                             Client.getInstance().getSoundSystem().play_orbitalBombardment();
                             Client.getInstance().getBottomGuiPanel().showFleet(fleet);
-                        }
-                        else {
+                        } else {
                             Client.LOG.severe("server_bombSystem in client communication returned false");
                         }
-                    }
-                    catch(InvalidOrderException ioe) {
+                    } catch (InvalidOrderException ioe) {
                         Client.LOG.log(Level.SEVERE, "Invalid bomb system order: {0}", ioe.getMessage());
                     }
 //                    }
@@ -330,9 +319,8 @@ public class FleetOrderPanel extends JPanel {
                 add(Box.createVerticalStrut(buttonSpacing));
             }
         }
-        
-        
-        
+
+
         // CANCEL ORDERS
         if (fleet.getOrder() != null) {
             JButton cancelOrder = new JButton(Client.getLanguage().getU("cancel"));
@@ -343,12 +331,12 @@ public class FleetOrderPanel extends JPanel {
             cancelOrder.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(Client.getInstance().getComm().server_cancelFleetOrders(fleet.getName())) {
+                    if (Client.getInstance().getComm().server_cancelFleetOrders(fleet.getName())) {
                         Client.getInstance().getSoundSystem().play_cancelFleetOrders();
                         fleet.setOrder(null);
                         Client.getInstance().getBottomGuiPanel().showFleet(fleet);
                         Client.getInstance().getMapPanel().drawMap();
-                        Client.getInstance().getMapPanel().repaint();                        
+                        Client.getInstance().getMapPanel().repaint();
                     }
                 }
             });

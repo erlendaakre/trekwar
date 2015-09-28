@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class HarvestResponse extends Response {
     private boolean harvestingStarted;
-    
+
     public HarvestResponse(boolean harvestingStarted) {
         this.harvestingStarted = harvestingStarted;
     }
-    
+
     public HarvestResponse(String errorMessage) {
         harvestingStarted = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isHarvestingStarted() {
         return harvestingStarted;
     }

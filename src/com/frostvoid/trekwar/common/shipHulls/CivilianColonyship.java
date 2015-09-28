@@ -29,7 +29,7 @@ public class CivilianColonyship extends HullClass {
     public CivilianColonyship() {
         super("Civilian Colonyship", "A ship used to colonize planets", "civ_colonyship_16x16.png", "civ_colonyship.png",
                 30, 800, 70, 15, 5, 5, true, 80, 1);
-        
+
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);
         addTechRequirement(TechnologyGenerator.BIO_TECH0, TechnologyGenerator.CONSTRUCTION_TECH0,
                 TechnologyGenerator.ENERGY_TECH0, TechnologyGenerator.PROPULSION_TECH0,

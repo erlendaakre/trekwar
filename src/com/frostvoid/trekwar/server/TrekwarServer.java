@@ -15,28 +15,19 @@
  */
 package com.frostvoid.trekwar.server;
 
-import java.io.*;
-import java.net.*;
-import java.security.SecureRandom;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-
 import com.frostvoid.trekwar.common.Galaxy;
 import com.frostvoid.trekwar.common.User;
 import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
 import com.frostvoid.trekwar.common.utils.Language;
 import com.frostvoid.trekwar.server.turnExec.TurnExecutor;
-import org.apache.commons.cli.BasicParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
+
+import java.io.*;
+import java.net.BindException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.security.SecureRandom;
+import java.util.logging.*;
 
 /**
  * The server console application that loads a galaxy/game file
@@ -51,7 +42,7 @@ public class TrekwarServer {
     public static final String serverURL = "http://www.trekwar.org";
     public static final String VERSION = "0.4.55";
     public static final String motd = "Thank you for testing out Trekwar alpha";
-    
+
     public static final int clientTimeoutLimit = 20; // seconds
     private static Galaxy galaxy;
     private static String galaxyFileName;
@@ -60,7 +51,7 @@ public class TrekwarServer {
     private static ServerSocket server;
     public static final Logger LOG = Logger.getLogger("trekwar_server");
     public static final SecureRandom PRNG = new SecureRandom();
-    
+
     public static Language lang;
 
     public static void main(String[] args) {
@@ -71,10 +62,10 @@ public class TrekwarServer {
             System.err.println("FATAL ERROR: Unable to load language file!");
             System.exit(1);
         }
-        
-            System.out.println(lang.get("trekwar_server") + " " + VERSION);
-            System.out.println("==============================================".substring(0, lang.get("trekwar_server").length() + 1 + VERSION.length()));        
-        
+
+        System.out.println(lang.get("trekwar_server") + " " + VERSION);
+        System.out.println("==============================================".substring(0, lang.get("trekwar_server").length() + 1 + VERSION.length()));
+
         // Handle parameters
         Options options = new Options();
         options.addOption(OptionBuilder.withArgName("file").withLongOpt("galaxy").hasArg().withDescription("the galaxy file to load").create("g")); //"g", "galaxy", true, "the galaxy file to load");
@@ -82,84 +73,71 @@ public class TrekwarServer {
         options.addOption(OptionBuilder.withArgName("number").withLongOpt("save-interval").hasArg().withDescription("how often (in turns) to save the galaxy to disk (default: 5)").create("s"));
         options.addOption(OptionBuilder.withArgName("log level").withLongOpt("log").hasArg().withDescription("sets the log level: ALL, FINEST, FINER, FINE, CONFIG, INFO, WARNING, SEVERE, OFF").create("l"));
         options.addOption("h", "help", false, "prints this help message");
-        
+
         CommandLineParser cliParser = new BasicParser();
-        
+
         try {
             CommandLine cmd = cliParser.parse(options, args);
             String portStr = cmd.getOptionValue("p");
             String galaxyFileStr = cmd.getOptionValue("g");
             String saveIntervalStr = cmd.getOptionValue("s");
             String logLevelStr = cmd.getOptionValue("l");
-            
-            if(cmd.hasOption("h")) {
-                 HelpFormatter help = new HelpFormatter();
-                 help.printHelp("TrekwarServer", options);
-                 System.exit(0);
+
+            if (cmd.hasOption("h")) {
+                HelpFormatter help = new HelpFormatter();
+                help.printHelp("TrekwarServer", options);
+                System.exit(0);
             }
-                        
-            if(cmd.hasOption("g") && galaxyFileStr != null) {
+
+            if (cmd.hasOption("g") && galaxyFileStr != null) {
                 galaxyFileName = galaxyFileStr;
-            }
-            else {
+            } else {
                 throw new ParseException("galaxy file not specified");
             }
-            
-            if(cmd.hasOption("p") && portStr != null) {
-                    port = Integer.parseInt(portStr);
-                    if (port < 1 || port > 65535) {
-                        throw new NumberFormatException(lang.get("port_number_out_of_range"));
-                    }
-            }
-            else {
+
+            if (cmd.hasOption("p") && portStr != null) {
+                port = Integer.parseInt(portStr);
+                if (port < 1 || port > 65535) {
+                    throw new NumberFormatException(lang.get("port_number_out_of_range"));
+                }
+            } else {
                 port = 8472;
             }
-            
-            if(cmd.hasOption("s") && saveIntervalStr != null) {
-                    saveInterval = Integer.parseInt(saveIntervalStr);
-                    if (saveInterval < 1 || saveInterval > 100) {
-                        throw new NumberFormatException("Save Interval out of range (1-100)");
-                    }                
-            }
-            else {
+
+            if (cmd.hasOption("s") && saveIntervalStr != null) {
+                saveInterval = Integer.parseInt(saveIntervalStr);
+                if (saveInterval < 1 || saveInterval > 100) {
+                    throw new NumberFormatException("Save Interval out of range (1-100)");
+                }
+            } else {
                 saveInterval = 5;
             }
-            
-            if(cmd.hasOption("l") && logLevelStr != null) {
-                if(logLevelStr.equalsIgnoreCase("finest")) {
+
+            if (cmd.hasOption("l") && logLevelStr != null) {
+                if (logLevelStr.equalsIgnoreCase("finest")) {
                     LOG.setLevel(Level.FINEST);
-                }
-                else if(logLevelStr.equalsIgnoreCase("finer")) {
+                } else if (logLevelStr.equalsIgnoreCase("finer")) {
                     LOG.setLevel(Level.FINER);
-                }
-                else if(logLevelStr.equalsIgnoreCase("fine")) {
+                } else if (logLevelStr.equalsIgnoreCase("fine")) {
                     LOG.setLevel(Level.FINE);
-                }
-                else if(logLevelStr.equalsIgnoreCase("config")) {
+                } else if (logLevelStr.equalsIgnoreCase("config")) {
                     LOG.setLevel(Level.CONFIG);
-                }
-                else if(logLevelStr.equalsIgnoreCase("info")) {
+                } else if (logLevelStr.equalsIgnoreCase("info")) {
                     LOG.setLevel(Level.INFO);
-                }
-                else if(logLevelStr.equalsIgnoreCase("warning")) {
+                } else if (logLevelStr.equalsIgnoreCase("warning")) {
                     LOG.setLevel(Level.WARNING);
-                }
-                else if(logLevelStr.equalsIgnoreCase("severe")) {
+                } else if (logLevelStr.equalsIgnoreCase("severe")) {
                     LOG.setLevel(Level.SEVERE);
-                }
-                else if(logLevelStr.equalsIgnoreCase("off")) {
+                } else if (logLevelStr.equalsIgnoreCase("off")) {
                     LOG.setLevel(Level.OFF);
-                }
-                else if(logLevelStr.equalsIgnoreCase("all")) {
+                } else if (logLevelStr.equalsIgnoreCase("all")) {
                     LOG.setLevel(Level.ALL);
-                }
-                else {
+                } else {
                     System.err.println("ERROR: invalid log level: " + logLevelStr);
                     System.err.println("Run again with -h flag to see valid log level values");
                     System.exit(1);
                 }
-            }
-            else {
+            } else {
                 LOG.setLevel(Level.INFO);
             }
             // INIT LOGGING
@@ -171,7 +149,7 @@ public class TrekwarServer {
                 System.err.println(ex);
                 System.exit(1);
             }
-            
+
         } catch (Exception ex) {
             System.err.println("ERROR: " + ex.getMessage());
             System.err.println("use -h for help");
@@ -206,12 +184,12 @@ public class TrekwarServer {
         if (galaxy.getCurrentTurn() == 0) {
             TurnExecutor.executeTurn(galaxy);
         }
-        
+
         LOG.log(Level.INFO, "Current turn  : {0}", galaxy.getCurrentTurn());
-        LOG.log(Level.INFO, "Turn speed    : {0} seconds", galaxy.getTurnSpeed()/1000 );
+        LOG.log(Level.INFO, "Turn speed    : {0} seconds", galaxy.getTurnSpeed() / 1000);
         LOG.log(Level.INFO, "Save Interval : {0}", saveInterval);
         LOG.log(Level.INFO, "Users / max   : {0} / {1}", new Object[]{galaxy.getUserCount(), galaxy.getMaxUsers()});
-        
+
 
         // START SERVER
         try {
@@ -238,9 +216,9 @@ public class TrekwarServer {
                     try {
                         Thread.sleep(1000);
                         // && galaxy.getLoggedInUsers().size() > 0 will make server pause when nobody is logged in (TESTING)
-                        if (System.currentTimeMillis() > galaxy.nextTurnDate ) {
+                        if (System.currentTimeMillis() > galaxy.nextTurnDate) {
                             StringBuffer loggedInUsers = new StringBuffer();
-                            for(User u : galaxy.getLoggedInUsers()) {
+                            for (User u : galaxy.getLoggedInUsers()) {
                                 loggedInUsers.append(u.getUsername()).append(", ");
                             }
 
@@ -289,7 +267,7 @@ public class TrekwarServer {
 
     /**
      * Gets the single galaxy instance this server is running
-     * 
+     *
      * @return a galaxy object
      */
     public static Galaxy getGalaxy() {
@@ -298,7 +276,7 @@ public class TrekwarServer {
 
     /**
      * Gets the server message of the day
-     * 
+     *
      * @return message of the day
      */
     public static String getMOTD() {
@@ -307,10 +285,9 @@ public class TrekwarServer {
 
     /**
      * Logs in a user on the server
-     * 
-     * @param user the username
+     *
+     * @param user     the username
      * @param password the password
-     * 
      * @return the user object if successful, false if login failed
      */
     public static User login(String user, String password) {
@@ -345,8 +322,8 @@ public class TrekwarServer {
 
     /**
      * Initiates logging
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     private static void initLogging() throws IOException {
         FileHandler fh = new FileHandler(galaxyFileName + ".log");
@@ -391,13 +368,13 @@ public class TrekwarServer {
 
     /**
      * Gets the server Logger object
-     * 
+     *
      * @return the logger object
      */
     public static Logger getLog() {
         return LOG;
     }
-    
+
     /**
      * Gets the Language (i18n) object
      */

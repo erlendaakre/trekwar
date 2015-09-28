@@ -15,24 +15,18 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.JComponent;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StarSystemClassification;
 import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.client.Colors;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Displays a minimap of the game board
@@ -76,24 +70,24 @@ public class MinimapComponent extends JComponent {
                 @Override
                 public void mousePressed(MouseEvent me) {
                     Rectangle view = Client.getInstance().getMapPanel().getScrollPane().getViewport().getViewRect();
-                    
+
                     Dimension mapSize = Client.getInstance().getMapPanel().getSize();
-                    
+
 //                    System.out.println("MINIMAP CLICKED AT: " + me.getX() + "," + me.getY());                    
 //                    System.out.println("MINIMAP HEIGHT/WIDTH = " + height + " / " + width);
 
                     double xPercent = me.getX() * (100D / height);
                     double yPercent = me.getY() * (100D / width);
-                    
+
 //                    System.out.println("CLICKS LOC AS PERCENTAGES: " + xPercent + "," + yPercent);                    
 //                    System.out.println("MAIN MAP VIEW HEIGHT/WIDTH = " + view.height + " / " + view.width);                    
 //                    System.out.println("MAP SIZE = " + mapSize.height + ", " + mapSize.width);
 
                     view.x = (int) (xPercent * (mapSize.height / 100D));
                     view.y = (int) (yPercent * (mapSize.width / 100D));
-                    
+
 //                    System.out.println("VIEW LOCATION SET TO: " + view.x + "," + view.y);
-                    
+
                     Client.getInstance().getMapPanel().getScrollPane().getViewport().setViewPosition(new Point(view.x, view.y));
                 }
             });
@@ -243,17 +237,16 @@ public class MinimapComponent extends JComponent {
             }
         }
 
-        
 
         // Viewport
         if (viewportEnabled) {
             g2d.setColor(Colors.MINIMAP_VIEWPORT);
             Rectangle view = Client.getInstance().getMapPanel().getScrollPane().getViewport().getViewRect();
-            
-            int x = view.x * height / (Client.getInstance().getMapPanel().getHeight() - (Client.getInstance().getMapPanel().borderHeight*2));
-            int y = view.y * width / (Client.getInstance().getMapPanel().getWidth() - (Client.getInstance().getMapPanel().borderWidth*2));
-            int w = view.width * width / (Client.getInstance().getMapPanel().getWidth() - (Client.getInstance().getMapPanel().borderWidth*2));
-            int h = view.height * height / (Client.getInstance().getMapPanel().getHeight() - (Client.getInstance().getMapPanel().borderHeight*2));
+
+            int x = view.x * height / (Client.getInstance().getMapPanel().getHeight() - (Client.getInstance().getMapPanel().borderHeight * 2));
+            int y = view.y * width / (Client.getInstance().getMapPanel().getWidth() - (Client.getInstance().getMapPanel().borderWidth * 2));
+            int w = view.width * width / (Client.getInstance().getMapPanel().getWidth() - (Client.getInstance().getMapPanel().borderWidth * 2));
+            int h = view.height * height / (Client.getInstance().getMapPanel().getHeight() - (Client.getInstance().getMapPanel().borderHeight * 2));
             g2d.drawRect(x, y, w, h);
         }
     }
@@ -307,7 +300,7 @@ public class MinimapComponent extends JComponent {
     }
 
     public void autoZoom() {
-        zoomlevel = (double)width / mapWidth;
+        zoomlevel = (double) width / mapWidth;
     }
 }
 

@@ -32,7 +32,7 @@ public class TroopTransport extends ShipComponent {
         icon16x16Filename = "cargo_16x16.png";
     }
 
-    public int getCapacity () {
+    public int getCapacity() {
         return capacity;
     }
 

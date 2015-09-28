@@ -23,15 +23,15 @@ package com.frostvoid.trekwar.common.shipComponents;
  * @author http://www.frostvoid.com
  */
 public class DeuteriumTank extends ShipComponent {
-    
+
     private int capacity;
-    
+
     public DeuteriumTank(String name, String description, String iconFileName, int cost, int capacity) {
         super(name, description, iconFileName, cost, -5, false);
         this.capacity = capacity;
         icon16x16Filename = "tank_16x16.png";
     }
-    
+
     public int getCapacity() {
         return capacity;
     }

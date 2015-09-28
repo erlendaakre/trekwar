@@ -24,13 +24,13 @@ package com.frostvoid.trekwar.common.shipComponents;
  */
 public class Sensor extends ShipComponent {
     private int strength;
-    
+
     public Sensor(String name, String description, String iconFileName, int cost, int energy, int strength) {
         super(name, description, iconFileName, cost, energy, false);
         this.strength = strength;
         icon16x16Filename = "sensor_16x16.png";
     }
-    
+
     public int getStrength() {
         return strength;
     }

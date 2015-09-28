@@ -28,7 +28,7 @@ public class MoveShipToFleetRequest extends Request {
     private String sourceFleet;
     private int shipID;
     private String destinationFleet;
-    
+
     public MoveShipToFleetRequest(String sourceFleet, int shipID, String destinationFleet) {
         this.sourceFleet = sourceFleet;
         this.shipID = shipID;
@@ -54,5 +54,5 @@ public class MoveShipToFleetRequest extends Request {
      */
     public String getDestinationFleet() {
         return destinationFleet;
-    }   
+    }
 }

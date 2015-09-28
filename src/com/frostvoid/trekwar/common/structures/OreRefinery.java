@@ -30,8 +30,8 @@ public class OreRefinery extends Structure {
     private int capacity;
 
     public OreRefinery(String name, String description,
-            int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
-        super(name, description, cost,  power,  research,  food,  industry, imageFileName, Structure.mode.ONEPERSYSTEM);
+                       int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
+        super(name, description, cost, power, research, food, industry, imageFileName, Structure.mode.ONEPERSYSTEM);
 
         this.capacity = capacity;
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);

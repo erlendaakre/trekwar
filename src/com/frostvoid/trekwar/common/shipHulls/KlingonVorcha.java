@@ -30,9 +30,9 @@ public class KlingonVorcha extends HullClass {
     public KlingonVorcha() {
         super("Vor'cha class", "A powerful attack cruiser", "kli_16x16.png", "kli_vorcha.png",
                 160, 7500, 630, 700, 15, 18, false, 600, 16);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH5,
                 TechnologyGenerator.CONSTRUCTION_TECH8,
                 TechnologyGenerator.ENERGY_TECH8,

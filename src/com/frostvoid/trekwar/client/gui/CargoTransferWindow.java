@@ -15,37 +15,24 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.client.model.CargoTransferDataObject;
+import com.frostvoid.trekwar.client.model.CargoTransferable;
+import com.frostvoid.trekwar.common.CargoClassification;
+import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.Ship;
+import com.frostvoid.trekwar.common.StarSystem;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.TransferHandler;
-
-import com.frostvoid.trekwar.client.model.CargoTransferable;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.client.model.CargoTransferDataObject;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.common.CargoClassification;
-import com.frostvoid.trekwar.common.Fleet;
 
 /**
  * Window that lets user transfer cargo between ship and star system
@@ -164,15 +151,14 @@ public class CargoTransferWindow extends JInternalFrame {
                     }
 
                     String transferType = "";
-                    if(cargo == CargoClassification.deuterium) {
+                    if (cargo == CargoClassification.deuterium) {
                         transferType = Client.getLanguage().get("deuterium");
-                    }
-                    else if (cargo == CargoClassification.ore) {
+                    } else if (cargo == CargoClassification.ore) {
                         transferType = Client.getLanguage().get("ore");
                     }
 
-                    TransferAmountDialog cDialog = new TransferAmountDialog(true, maxAmount, 
-                            Client.getLanguage().get("cargo_transfer"),transferType, starSystem.getName());
+                    TransferAmountDialog cDialog = new TransferAmountDialog(true, maxAmount,
+                            Client.getLanguage().get("cargo_transfer"), transferType, starSystem.getName());
                     String output = cDialog.getInputText();
                     cDialog.dispose();
 
@@ -280,7 +266,7 @@ public class CargoTransferWindow extends JInternalFrame {
                     Color ppColor = new Color(10, 10, 10, dark ? 50 : 80); //r,g,b,alpha
                     g.setColor(ppColor);
                     g.fillRect(0, 0, 177, 48); //x,y,width,height
-                    }
+                }
             };
             shipPanel.putClientProperty("shipid", ship.getShipId());
             shipPanel.putClientProperty("type", "droptarget");

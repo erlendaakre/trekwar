@@ -24,23 +24,23 @@ package com.frostvoid.trekwar.common.exceptions;
  */
 public class UniverseGeneratorException extends Exception {
 
-   private String message;
+    private String message;
 
-   public UniverseGeneratorException() {
-      message = "Error when generating game object";
-   }
+    public UniverseGeneratorException() {
+        message = "Error when generating game object";
+    }
 
-   public UniverseGeneratorException(String message) {
-      this.message = message;
-   }
-
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public UniverseGeneratorException(String message) {
+        this.message = message;
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

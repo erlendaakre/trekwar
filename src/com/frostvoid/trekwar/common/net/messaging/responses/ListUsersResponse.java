@@ -15,8 +15,9 @@
  */
 package com.frostvoid.trekwar.common.net.messaging.responses;
 
-import java.util.ArrayList;
 import com.frostvoid.trekwar.common.net.messaging.Response;
+
+import java.util.ArrayList;
 
 /**
  * Gives client a list of logged in users
@@ -27,15 +28,15 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class ListUsersResponse extends Response {
     private ArrayList<String> usernames;
-    
+
     public ListUsersResponse() {
         usernames = new ArrayList<String>();
     }
-    
+
     public void addUsername(String username) {
         usernames.add(username);
     }
-    
+
     public ArrayList<String> getUsernames() {
         return usernames;
     }

@@ -15,8 +15,8 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.StaticData;
 
 /**
  * Icon for nebula
@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.client.ImageManager;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuNebulaIcon extends BottomMenuToolbarIcon {
-    
+
     public BottomMenuNebulaIcon() {
         super("Nebula", StaticData.nobodyFaction, false);
         setButtonImage(ImageManager.getInstance().getImage("graphics/bottommenutoolbar_nebula.png").getImage());

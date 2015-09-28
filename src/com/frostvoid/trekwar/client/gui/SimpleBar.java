@@ -15,10 +15,8 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple graphical bar, horizontal or vertical
@@ -49,34 +47,33 @@ public class SimpleBar extends JComponent {
         this.background = background;
         this.alignment = alignment;
     }
-    
+
     public void setPercentage(int percentage) {
         this.percentage = percentage;
-        
-        if(this.percentage < 0) {
+
+        if (this.percentage < 0) {
             this.percentage = 0;
         }
-        if(this.percentage > 100) {
+        if (this.percentage > 100) {
             this.percentage = 100;
         }
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        if(background != null) {
+        if (background != null) {
             g.setColor(background);
-            g.fillRect(0,0, width, height);
+            g.fillRect(0, 0, width, height);
         }
         g.setColor(foreground);
-        if(alignment == Alignment.HORIZONTAL) {
-            g.fillRect(0,0, (int) (((double)width/100)*percentage), height);
-        }
-        else if(alignment == Alignment.VERTICAL) {
-            g.fillRect(0, height - (int)(((double)height/100)*percentage), width, height );
+        if (alignment == Alignment.HORIZONTAL) {
+            g.fillRect(0, 0, (int) (((double) width / 100) * percentage), height);
+        } else if (alignment == Alignment.VERTICAL) {
+            g.fillRect(0, height - (int) (((double) height / 100) * percentage), width, height);
         }
     }
 
-    
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(width, height);

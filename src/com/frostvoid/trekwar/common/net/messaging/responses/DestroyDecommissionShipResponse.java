@@ -25,18 +25,18 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  * @author http://www.frostvoid.com
  */
 public class DestroyDecommissionShipResponse extends Response {
-    
+
     private boolean shipDestroyedSuccessfully;
-    
+
     public DestroyDecommissionShipResponse(boolean shipMovedSuccessfully) {
         this.shipDestroyedSuccessfully = shipMovedSuccessfully;
     }
-    
+
     public DestroyDecommissionShipResponse(String errorMessage) {
         this.shipDestroyedSuccessfully = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isShipDestroyedSuccessfully() {
         return shipDestroyedSuccessfully;
     }

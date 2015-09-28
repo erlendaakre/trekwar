@@ -15,35 +15,22 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.client.model.TroopTransferDataObject;
+import com.frostvoid.trekwar.client.model.TroopTransferable;
+import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.Ship;
+import com.frostvoid.trekwar.common.StarSystem;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.TransferHandler;
-
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.model.TroopTransferDataObject;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.client.model.TroopTransferable;
 
 /**
  * Window that lets user transfer troops between ships and star systems
@@ -127,7 +114,7 @@ public class TroopTransferWindow extends JInternalFrame {
                     }
 
                     TransferAmountDialog cDialog = new TransferAmountDialog(true, maxAmount,
-                            Client.getLanguage().get("troop_transfer"), 
+                            Client.getLanguage().get("troop_transfer"),
                             Client.getLanguage().get("troops"), starSystem.getName());
                     String output = cDialog.getInputText();
                     cDialog.dispose();
@@ -144,7 +131,7 @@ public class TroopTransferWindow extends JInternalFrame {
                                 ship.setTroops(ship.getTroops() + amount);
                                 starSystem.setTroopCount(starSystem.getTroopCount() - amount);
                             }
-                            
+
                             Client.getInstance().getBottomGuiPanel().showFleet(ship.getFleet());
                             setSystem(starSystem);
                         }
@@ -225,7 +212,7 @@ public class TroopTransferWindow extends JInternalFrame {
                     Color ppColor = new Color(10, 10, 10, dark ? 50 : 80); //r,g,b,alpha
                     g.setColor(ppColor);
                     g.fillRect(0, 0, 177, 48); //x,y,width,height
-                    }
+                }
             };
             shipPanel.putClientProperty("shipid", ship.getShipId());
             shipPanel.putClientProperty("type", "droptarget");

@@ -27,12 +27,12 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class GetGalaxyResponse extends Response {
     private Galaxy galaxy;
-    
+
     public GetGalaxyResponse(Galaxy galaxy) {
         this.galaxy = galaxy;
     }
-    
+
     public Galaxy getGalaxy() {
         return galaxy;
-    }   
+    }
 }

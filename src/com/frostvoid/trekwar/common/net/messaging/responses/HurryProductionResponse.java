@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class HurryProductionResponse extends Response {
     private boolean productionHurried;
-    
+
     public HurryProductionResponse(boolean productionHurried) {
         this.productionHurried = productionHurried;
     }
-    
+
     public HurryProductionResponse(String errorMessage) {
         productionHurried = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isProductionHurried() {
         return productionHurried;
     }

@@ -41,8 +41,8 @@
 <entry key="window.ResearchWindow.x">343</entry>
 <entry key="preventMoveWindowsOutOfDesktop">false</entry>
 <entry key="window.FleetBox.y">112</entry>
-<entry key="window.MapWindow.width">1073</entry>
 <entry key="window.FleetBox.x">140</entry>
+<entry key="window.MapWindow.width">1073</entry>
 <entry key="window.ShipInfoWindow.y">171</entry>
 <entry key="window.ShipInfoWindow.x">1154</entry>
 <entry key="window.JInternalFrame.y">249</entry>

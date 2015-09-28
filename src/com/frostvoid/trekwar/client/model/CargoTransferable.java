@@ -46,7 +46,7 @@ public class CargoTransferable implements Transferable {
 
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return true;       
+        return true;
     }
 
     @Override

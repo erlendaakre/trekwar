@@ -15,8 +15,7 @@
  */
 package com.frostvoid.trekwar.client;
 
-import javax.swing.DefaultDesktopManager;
-import javax.swing.JComponent;
+import javax.swing.*;
 
 /**
  * This desktopManager defines custom rules for the movement of internal frames

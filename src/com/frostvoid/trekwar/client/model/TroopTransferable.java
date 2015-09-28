@@ -22,7 +22,7 @@ import java.io.IOException;
 
 /**
  * Transferable D&D support class used for transferring troops
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -46,7 +46,7 @@ public class TroopTransferable implements Transferable {
 
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return true;
+        return true;
     }
 
     @Override

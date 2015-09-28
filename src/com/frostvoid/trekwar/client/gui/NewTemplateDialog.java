@@ -15,19 +15,14 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.common.ShipTemplate;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.ShipTemplate;
 
 /**
  * Dialog for making a new Ship template, asks for name and shows

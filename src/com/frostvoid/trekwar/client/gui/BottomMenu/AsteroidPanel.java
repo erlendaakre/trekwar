@@ -15,19 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.gui.SimpleBar;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.client.gui.SimpleBar;
+import com.frostvoid.trekwar.common.StarSystem;
+import com.frostvoid.trekwar.common.StaticData;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Graphical representation in the user interface when a tile
@@ -77,7 +74,7 @@ public class AsteroidPanel extends JPanel implements Runnable {
         resourcesLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resourcesLabel.setBounds(0, 120, 770, 20);
         add(resourcesLabel);
-        
+
         sensorPanel = new SensorPanel();
         sensorPanel.setLocation(340, 20);
         add(sensorPanel);

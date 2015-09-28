@@ -15,24 +15,17 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.client.gui.MapTile;
 import com.frostvoid.trekwar.client.gui.MinimapComponent;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.User;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.utils.Calculations;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * The main class for the bottom menu in the user interface (always visible)
@@ -74,7 +67,7 @@ public class BottomMenuPanel extends JPanel {
 
         contentPanel = new JPanel() {
             private Image img = ImageManager.getInstance().getImage("graphics/bottom_gui_generic.png").getImage();
-            
+
             @Override
             public void paintComponent(Graphics g) {
                 g.drawImage(img, 0, 0, null);
@@ -84,7 +77,7 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.setBounds(0, 0, 780, 175);
         add(contentPanel);
     }
-    
+
     public BottomMenuToolbarPanel getToolBar() {
         return toolbarPanel;
     }
@@ -92,29 +85,28 @@ public class BottomMenuPanel extends JPanel {
     public void displaySystem(StarSystem system) {
         toolbarPanel.populateTabs(system);
 
-        if(system.getStarSystemClassification().equals(StarSystemClassification.empty)) {
+        if (system.getStarSystemClassification().equals(StarSystemClassification.empty)) {
             boolean fleetFound = false;
-            for(Fleet f : system.getFleets()) {
-                if(f.getUser().equals(Client.getInstance().getLocalUser())) {
+            for (Fleet f : system.getFleets()) {
+                if (f.getUser().equals(Client.getInstance().getLocalUser())) {
                     fleetFound = true;
                     showFleet(f);
                     break;
                 }
             }
-            if(!fleetFound) {
+            if (!fleetFound) {
                 showStarsystem();
             }
-        }
-        else {
+        } else {
             showStarsystem();
         }
 
         updateMinimap();
         repaint();
     }
-    
+
     public void updateBuildList() {
-        if(starsystemInhabitedPanel != null) {
+        if (starsystemInhabitedPanel != null) {
             starsystemInhabitedPanel.generateBuildList(getCurrentlySelectedSystemOnMap());
         }
     }
@@ -131,24 +123,23 @@ public class BottomMenuPanel extends JPanel {
             minimap.setData(Client.getInstance().getLocalMap());
         }
     }
-    
+
     public void updateInhabitedSystemView() {
-        if(starsystemInhabitedPanel != null) {
+        if (starsystemInhabitedPanel != null) {
             StarSystem s = getCurrentlySelectedSystemOnMap();
             if (s.getStarSystemClassification().equals(StarSystemClassification.starSystem)
                     && !s.getUser().equals(StaticData.nobodyUser)) {
                 starsystemInhabitedPanel.setSystem(s);
             }
-            
+
         }
-        
+
     }
 
     public void showEmpireView() {
         if (empirePanel == null) {
             empirePanel = new EmpirePanel();
-        }
-        else {
+        } else {
             empirePanel.updateInfo();
         }
         contentPanel.removeAll();
@@ -156,14 +147,14 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.validate();
         contentPanel.repaint();
     }
-    
+
     public void showFleet(Fleet fleet) {
-        if(fleetPanel == null) {
+        if (fleetPanel == null) {
             fleetPanel = new FleetPanel();
         }
-        
+
         fleetPanel.showFleet(fleet);
-        
+
         contentPanel.removeAll();
         contentPanel.add(fleetPanel);
         contentPanel.validate();
@@ -172,17 +163,16 @@ public class BottomMenuPanel extends JPanel {
 
     public void showStarsystem() {
         StarSystem s = getCurrentlySelectedSystemOnMap();
-        
+
         pauseAllAnims();
-        
+
         if (s.getStarSystemClassification().equals(StarSystemClassification.empty)) {
             showStarsystemEmpty();
         }
         if (s.getStarSystemClassification().equals(StarSystemClassification.starSystem)) {
-            if(s.getUser().equals(StaticData.nobodyUser)) {
+            if (s.getUser().equals(StaticData.nobodyUser)) {
                 showStarSystemUninhabited();
-            }
-            else {
+            } else {
                 showStarSystemInhabited();
             }
         }
@@ -193,9 +183,9 @@ public class BottomMenuPanel extends JPanel {
             showStarsystemAsteroid();
         }
     }
-    
+
     private void showStarSystemInhabited() {
-        if(starsystemInhabitedPanel == null) {
+        if (starsystemInhabitedPanel == null) {
             starsystemInhabitedPanel = new InhabitedPanel();
         }
         starsystemInhabitedPanel.setSystem(getCurrentlySelectedSystemOnMap());
@@ -205,9 +195,9 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.repaint();
         starsystemInhabitedPanel.animStart();
     }
-    
+
     private void showStarSystemUninhabited() {
-        if(starsystemUninhabitedPanel == null) {
+        if (starsystemUninhabitedPanel == null) {
             starsystemUninhabitedPanel = new UninhabitedPanel();
         }
         starsystemUninhabitedPanel.setSystem(getCurrentlySelectedSystemOnMap());
@@ -217,9 +207,9 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.repaint();
         starsystemUninhabitedPanel.animStart();
     }
-    
+
     private void showStarsystemNebula() {
-        if(starsystemNebulaPanel == null) {
+        if (starsystemNebulaPanel == null) {
             starsystemNebulaPanel = new NebulaPanel();
         }
         starsystemNebulaPanel.setSystem(getCurrentlySelectedSystemOnMap());
@@ -229,9 +219,9 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.repaint();
         starsystemNebulaPanel.animStart();
     }
-    
+
     private void showStarsystemAsteroid() {
-        if(starsystemAsteroidPanel == null) {
+        if (starsystemAsteroidPanel == null) {
             starsystemAsteroidPanel = new AsteroidPanel();
         }
         starsystemAsteroidPanel.setSystem(getCurrentlySelectedSystemOnMap());
@@ -253,25 +243,25 @@ public class BottomMenuPanel extends JPanel {
         contentPanel.repaint();
         starsystemEmptyPanel.animStart();
     }
-    
+
     private void pauseAllAnims() {
         if (starsystemNebulaPanel != null) {
             starsystemNebulaPanel.animPause();
         }
-        
+
         if (starsystemAsteroidPanel != null) {
             starsystemAsteroidPanel.animPause();
         }
-        
+
         if (starsystemEmptyPanel != null) {
             starsystemEmptyPanel.animPause();
         }
-        
-        if(starsystemUninhabitedPanel != null) {
+
+        if (starsystemUninhabitedPanel != null) {
             starsystemUninhabitedPanel.animPause();
         }
-        
-        if(starsystemInhabitedPanel != null) {
+
+        if (starsystemInhabitedPanel != null) {
             starsystemInhabitedPanel.animPause();
         }
     }
@@ -342,7 +332,9 @@ public class BottomMenuPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 showEmpireView();
                 empirePanel.selectTurnReportTab();
-                };
+            }
+
+            ;
         });
 
 
@@ -370,13 +362,13 @@ public class BottomMenuPanel extends JPanel {
 
     public void setResearchProgress(User localUser) {
         int turnsLeft = Calculations.turnsLeftToResearch(localUser, localUser.getCurrentResearch());
-         
+
         researchProgress.setMaximum(localUser.getCurrentResearch().getResearchCost());
         researchProgress.setValue(localUser.getResearchPoints());
         researchProgress.setBackground(Color.black);
         researchProgress.setIndeterminate(false);
         researchProgress.setToolTipText(turnsLeft + " " + Client.getLanguage().get("turns_until_research_complete"));
-        
+
         researchProgress.setStringPainted(true);
         researchProgress.setString(turnsLeft + " " + Client.getLanguage().get("turns_left"));
     }
@@ -385,20 +377,19 @@ public class BottomMenuPanel extends JPanel {
         researchProgress.setMaximum(100);
         researchProgress.setValue(0);
         researchProgress.setToolTipText(Client.getLanguage().get("no_research_goal"));
-        if(warning) {
+        if (warning) {
             researchProgress.setBackground(Color.red);
             researchProgress.setIndeterminate(true);
         }
         researchProgress.setStringPainted(false);
         researchProgress.repaint();
     }
-    
+
     public StarSystem getCurrentlySelectedSystemOnMap() {
         MapTile last = Client.getInstance().getMapPanel().getLastClickedTile();
-        if(last != null) {
+        if (last != null) {
             return Client.getInstance().getLocalMap()[last.getXloc()][last.getYloc()];
-        }
-        else {
+        } else {
             return null;
         }
     }

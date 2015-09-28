@@ -15,13 +15,13 @@
  */
 package com.frostvoid.trekwar.server.turnExec;
 
-import java.util.logging.Level;
-
-import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.TechnologyGenerator.techType;
 import com.frostvoid.trekwar.common.User;
 import com.frostvoid.trekwar.server.TrekwarServer;
+
+import java.util.logging.Level;
 
 /**
  * This class handles all combat resolution for ground combat
@@ -91,23 +91,22 @@ public class GroundCombatResolver {
      * (used from the GUI to calculate % chance to win)
      *
      * @param simulations number of simulations to run
-     * 
      * @return [total attacker losses, total defender losses, attacker wins]
      */
     public int[] simulate(int simulations) {
         int attackerAvgLosses = 0;
         int defenderAvgLosses = 0;
         int attackerWins = 0;
-        while(simulations-- > 0) {
+        while (simulations-- > 0) {
             resolve(true);
             defenderAvgLosses += defender_losses;
             attackerAvgLosses += attacker_losses;
-            if(didAttackerWin()) {
+            if (didAttackerWin()) {
                 attackerWins++;
             }
             reset();
         }
-        return new int[] {attackerAvgLosses, defenderAvgLosses, attackerWins };
+        return new int[]{attackerAvgLosses, defenderAvgLosses, attackerWins};
     }
 
     /**
@@ -116,43 +115,42 @@ public class GroundCombatResolver {
      * @param simulation if true, only calculations will be made, if false attacker/defender objects will change
      */
     public void resolve(boolean simulation) {
-        if(defender_troops < 1) {
+        if (defender_troops < 1) {
             winner = attacker.getUser();
         }
-        if(attacker_troops < 1) {
+        if (attacker_troops < 1) {
             winner = defender.getUser();
         }
 
-        if(!simulation) {
+        if (!simulation) {
             TrekwarServer.LOG.log(Level.INFO, "RESOLVING GROUND COMBAT");
             TrekwarServer.LOG.log(Level.INFO, "ATTACKER = user:{0}, troops:{1}, str:{2}", new Object[]{attacker.getUser().getUsername(), attacker_troops, attacker_strength});
             TrekwarServer.LOG.log(Level.INFO, "DEFENDER = user:{0}, troops:{1}, str:{2}", new Object[]{defender.getUser().getUsername(), defender_troops, defender_strength});
         }
 
-        while(winner == null) {
+        while (winner == null) {
 
             double attacker_rand = (TrekwarServer.PRNG.nextDouble() * RANDOM_WEIGHT) + attacker_strength;
             double defender_rand = (TrekwarServer.PRNG.nextDouble() * RANDOM_WEIGHT) + defender_strength;
 
-            if(attacker_rand > defender_rand) {
+            if (attacker_rand > defender_rand) {
                 defender_troops--;
                 defender_losses++;
-                if(!simulation) {
+                if (!simulation) {
                     defender.setTroopCount(defender_troops);
                 }
-            }
-            else {
+            } else {
                 attacker_troops--;
                 attacker_losses++;
-                if(!simulation) {
+                if (!simulation) {
                     attacker.decrementTroops();
                 }
             }
 
-            if(defender_troops < 1) {
+            if (defender_troops < 1) {
                 winner = attacker.getUser();
             }
-            if(attacker_troops < 1) {
+            if (attacker_troops < 1) {
                 winner = defender.getUser();
             }
         }
@@ -187,10 +185,9 @@ public class GroundCombatResolver {
      * @return the looser
      */
     public User getLooser() {
-        if(attacker.getUser().equals(winner)) {
+        if (attacker.getUser().equals(winner)) {
             return defender.getUser();
-        }
-        else {
+        } else {
             return attacker.getUser();
         }
     }
@@ -249,9 +246,9 @@ public class GroundCombatResolver {
         int defender_morale = defender.getMorale();
         int defender_defence_bonus = defender.getDefenseRating();
 
-        attacker_strength = 1 + ((attacker_weaponsTech/WEAPON_TECH_FACTOR) * ATTACKER_CONSTANT );
-        defender_strength = 1 + (defender_weaponsTech/WEAPON_TECH_FACTOR) * (defender_morale/MORALE_FACTOR)
-                + (((defender_defence_bonus * 2.5) + (defender_constructionTech*1.6)) / BUNKER_CONSTRUCTION_FACTOR );
+        attacker_strength = 1 + ((attacker_weaponsTech / WEAPON_TECH_FACTOR) * ATTACKER_CONSTANT);
+        defender_strength = 1 + (defender_weaponsTech / WEAPON_TECH_FACTOR) * (defender_morale / MORALE_FACTOR)
+                + (((defender_defence_bonus * 2.5) + (defender_constructionTech * 1.6)) / BUNKER_CONSTRUCTION_FACTOR);
 
         winner = null;
     }

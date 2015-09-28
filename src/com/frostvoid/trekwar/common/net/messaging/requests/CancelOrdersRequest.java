@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class CancelOrdersRequest extends Request {
     private String fleetName;
-    
+
     public CancelOrdersRequest(String fleetName) {
         this.fleetName = fleetName;
     }

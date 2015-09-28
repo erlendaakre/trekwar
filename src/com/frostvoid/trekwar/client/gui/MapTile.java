@@ -15,15 +15,12 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
 import com.frostvoid.trekwar.client.Animation;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Displays a single tile on the map
@@ -38,11 +35,11 @@ public class MapTile extends JLabel implements Runnable {
     private boolean hasAnimation = false;
 
     private Thread animThread;
-    
+
     private int xloc;
     private int yloc;
 
-    private static final Border DEFAULTBORDER = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(30,30,30));
+    private static final Border DEFAULTBORDER = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(30, 30, 30));
 
     public MapTile(int x, int y) {
         super();
@@ -56,7 +53,7 @@ public class MapTile extends JLabel implements Runnable {
         layers.clear();
         hasAnimation = false;
     }
-    
+
     public void setDefaultBorder() {
         setBorder(DEFAULTBORDER);
     }
@@ -65,7 +62,7 @@ public class MapTile extends JLabel implements Runnable {
         layers.add(img);
         repaint();
     }
-    
+
     public void removeImage(ImageIcon img) {
         layers.remove(img);
         repaint();
@@ -74,23 +71,22 @@ public class MapTile extends JLabel implements Runnable {
     public void addAnimation(Animation anim) {
         layers.add(anim);
         hasAnimation = true;
-        
+
         animThread = new Thread(this);
         animThread.start();
     }
-    
+
     public void removeAnimation(Animation anim) {
         layers.remove(anim);
-        
+
         // todo check if any animations left, then stop thread if nobody is running?
     }
 
     public void setSelected(boolean selected) {
         // TODO this crap only supports ONE animation per tile.. FIXME FIXIT!
-        if(selected) {
+        if (selected) {
             addAnimation(Animation.selectionAnimation);
-        }
-        else {
+        } else {
             layers.remove(Animation.selectionAnimation);
             hasAnimation = false;
         }
@@ -100,30 +96,31 @@ public class MapTile extends JLabel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for(Object o : layers) {
-            if(o instanceof ImageIcon) {
-                g.drawImage(((ImageIcon)o).getImage(), 0, 0, null);
+        for (Object o : layers) {
+            if (o instanceof ImageIcon) {
+                g.drawImage(((ImageIcon) o).getImage(), 0, 0, null);
             }
-            if(o instanceof Animation) {
-                g.drawImage(((Animation)o).next().getImage(), 0, 0, null);
+            if (o instanceof Animation) {
+                g.drawImage(((Animation) o).next().getImage(), 0, 0, null);
             }
         }
     }
 
     @Override
     public void run() {
-        while(hasAnimation) {
+        while (hasAnimation) {
             try {
                 Thread.sleep(50);
                 repaint();
-            } catch (InterruptedException ex) { }
+            } catch (InterruptedException ex) {
+            }
         }
     }
-    
+
     public int getXloc() {
         return xloc;
     }
-    
+
     public int getYloc() {
         return yloc;
     }

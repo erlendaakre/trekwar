@@ -15,37 +15,21 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.ChatLine;
 import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.common.User;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Window that allows user to chat with other online users in real time (also in fake time)
@@ -92,7 +76,7 @@ public class ChatWindow extends JInternalFrame {
         userListPanel = new JPanel();
         userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
         userListPanel.setBackground(Colors.TREKWAR_BG_COLOR);
-        
+
         userListScrollPane = new JScrollPane(userListPanel);
         userListScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         userListScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -112,7 +96,7 @@ public class ChatWindow extends JInternalFrame {
         final JTextField inputField = new JTextField();
         final JButton sendButton = new JButton(Client.getLanguage().get("chat_send"));
         p.add(inputField, BorderLayout.CENTER);
-        
+
         ActionListener sendAction = new ActionListener() {
 
             @Override
@@ -141,7 +125,7 @@ public class ChatWindow extends JInternalFrame {
 
     public void populateUserList(ArrayList<User> users) {
         userListPanel.removeAll();
-        
+
         for (final User u : users) {
             ImageIcon avatar = new ImageIcon(ImageManager.getInstance().getImage("graphics/avatars/" + u.getAvatarFilename()).getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
             final JLabel userLabel = new JLabel(u.getUsername(), avatar, SwingConstants.HORIZONTAL);

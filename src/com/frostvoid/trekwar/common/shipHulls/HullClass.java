@@ -15,14 +15,13 @@
  */
 package com.frostvoid.trekwar.common.shipHulls;
 
-import java.awt.Point;
-import java.io.Serializable;
-
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.common.Technology;
 import com.frostvoid.trekwar.common.User;
 
+import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,16 +33,16 @@ import java.util.HashMap;
  * @author http://www.frostvoid.com
  */
 public class HullClass implements Serializable {
-    
+
     private String name;
     private String description;
     private String iconFileName;
     private String shipdesignerImageFileName;
-    
+
     private ArrayList<Technology> techsRequired;
     private ArrayList<Faction> factions;
     private HashMap<Integer, Point> slotMap; // maps a slot location to a x,y coordinate on the image
-    
+
     private int maxCrew;
     private int baseCost;
     private int baseHitpoints;
@@ -51,13 +50,13 @@ public class HullClass implements Serializable {
     private int baseManoeuvrability;
     private int baseDeuteriumStorage;
     private int baseDeuteriumUseage;
-    
+
     private int slots;
     private boolean civillian;
 
 
     public HullClass(String name, String description, String iconFileName, String shipImageFileName, int maxCrew, int baseCost,
-            int baseHitPoints, int baseArmor, int baseManoeuvrability, int slots, boolean civillian, int deuteriumStorage, int deuteriumUsage) {
+                     int baseHitPoints, int baseArmor, int baseManoeuvrability, int slots, boolean civillian, int deuteriumStorage, int deuteriumUsage) {
         this.name = name;
         this.description = description;
         this.iconFileName = iconFileName;
@@ -78,7 +77,7 @@ public class HullClass implements Serializable {
 
 
     public void addTechRequirement(Technology... techs) {
-        for(Technology t : techs) {
+        for (Technology t : techs) {
             techsRequired.add(t);
         }
     }
@@ -121,7 +120,7 @@ public class HullClass implements Serializable {
     public String getIconFileName() {
         return iconFileName;
     }
-    
+
     public String getShipdesignerImageFileName() {
         return shipdesignerImageFileName;
     }
@@ -139,28 +138,29 @@ public class HullClass implements Serializable {
     public int getSlots() {
         return slots;
     }
-    
+
     public void addFaction(Faction... factionsToAdd) {
-        for(Faction f : factionsToAdd) {
+        for (Faction f : factionsToAdd) {
             this.factions.add(f);
         }
     }
-    
+
     public HashMap<Integer, Point> getSlotMap() {
         return slotMap;
     }
+
     public void setSlotMapPoint(int num, Point point) {
         slotMap.put(num, point);
     }
-    
+
     public ArrayList<Faction> getFactions() {
         return factions;
     }
-    
+
     public boolean canUse(Faction f) {
         return factions.contains(f);
     }
-    
+
     public boolean canUse(User u) {
         for (Technology shipTech : techsRequired) {
             if (!u.getTechs().contains(shipTech)) {
@@ -174,7 +174,7 @@ public class HullClass implements Serializable {
     public ArrayList<Technology> getTechsRequired() {
         return techsRequired;
     }
-    
+
     public boolean equals(HullClass other) {
         return other.getName().equals(this.name);
     }
@@ -188,13 +188,13 @@ public class HullClass implements Serializable {
     public int getBaseDeuteriumUseage() {
         return baseDeuteriumUseage;
     }
-    
+
     public static HullClass getHullClassByName(String name) {
-        for(HullClass h : StaticData.allHullClasses) {
-            if(h.getName().equalsIgnoreCase(name))
+        for (HullClass h : StaticData.allHullClasses) {
+            if (h.getName().equalsIgnoreCase(name))
                 return h;
         }
         return null;
     }
-    
+
 }

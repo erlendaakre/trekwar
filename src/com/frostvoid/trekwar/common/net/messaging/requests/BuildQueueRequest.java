@@ -30,7 +30,7 @@ public class BuildQueueRequest extends Request {
     private int y;
     private int index; // index of build queue item to operate on
     private BuildQueueRequestType action;
-    
+
     public BuildQueueRequest(int x, int y, int index, BuildQueueRequestType action) {
         this.x = x;
         this.y = y;

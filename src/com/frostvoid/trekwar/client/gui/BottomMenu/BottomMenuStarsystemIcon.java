@@ -15,11 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.StarSystem;
+
+import java.awt.*;
 
 /**
  * Icon for starsystems
@@ -28,22 +28,22 @@ import com.frostvoid.trekwar.common.StarSystem;
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
-public class BottomMenuStarsystemIcon extends BottomMenuToolbarIcon  {
-    
+public class BottomMenuStarsystemIcon extends BottomMenuToolbarIcon {
+
     private StarSystem system;
-    
+
     public BottomMenuStarsystemIcon(StarSystem s, Faction f, boolean ally) {
         super(s.getName(), f, ally);
         system = s;
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        Image img = ImageManager.getInstance().getImage("graphics/map_icons/" + system.getImageFile()).getImage();        
+        Image img = ImageManager.getInstance().getImage("graphics/map_icons/" + system.getImageFile()).getImage();
         g.drawImage(img, 5, 0, this);
-        if(system.hasShipyard()) {
-            Image img2 = ImageManager.getInstance().getImage("graphics/map_icons/shipyard.png").getImage();        
+        if (system.hasShipyard()) {
+            Image img2 = ImageManager.getInstance().getImage("graphics/map_icons/shipyard.png").getImage();
             g.drawImage(img2, 15, 0, this);
         }
     }

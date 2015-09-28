@@ -23,24 +23,24 @@ package com.frostvoid.trekwar.common.exceptions;
  * @author http://www.frostvoid.com
  */
 public class ServerCommunicationException extends Exception {
-    
-   private String message;
 
-   public ServerCommunicationException() {
-      message = "Server Communication Exception";
-   }
+    private String message;
 
-   public ServerCommunicationException(String message) {
-      this.message = message;
-   }
+    public ServerCommunicationException() {
+        message = "Server Communication Exception";
+    }
 
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public ServerCommunicationException(String message) {
+        this.message = message;
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

@@ -27,7 +27,7 @@ public class WelcomeMessage extends Response {
     private String serverVersion;
     private String serverURL;
     private String motd;
-    
+
     public WelcomeMessage(String serverName, String serverVersion, String serverURL, String motd) {
         this.serverName = serverName;
         this.serverVersion = serverVersion;
@@ -41,7 +41,7 @@ public class WelcomeMessage extends Response {
     public String getServerName() {
         return serverName;
     }
-    
+
     public String getServerVersion() {
         return serverVersion;
     }

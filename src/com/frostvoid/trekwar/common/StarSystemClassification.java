@@ -23,11 +23,11 @@ package com.frostvoid.trekwar.common;
  * @author http://www.frostvoid.com
  */
 public enum StarSystemClassification {
-   starSystem,
-   empty,
-   nebula,
-   pulsar,
-   neutronStar,
-   blackHole,
-   asteroid
+    starSystem,
+    empty,
+    nebula,
+    pulsar,
+    neutronStar,
+    blackHole,
+    asteroid
 };

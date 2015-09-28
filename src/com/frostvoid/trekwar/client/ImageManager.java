@@ -15,15 +15,15 @@
  */
 package com.frostvoid.trekwar.client;
 
+import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import javax.swing.ImageIcon;
 
 /**
  * Responsible for loading and keeping the references to all the images
  * used in the game
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
@@ -38,7 +38,7 @@ public class ImageManager {
     }
 
     public static ImageManager getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new ImageManager();
         return instance;
     }
@@ -49,10 +49,10 @@ public class ImageManager {
 
     public ImageIcon getImage(String filename) {
         ImageIcon res = data.get(filename);
-        if(res == null) {
+        if (res == null) {
             res = new ImageIcon(filename);
 
-            if(res == null) {
+            if (res == null) {
                 System.err.println("ERROR: UNABLE TO LOAD GRAPHICS: " + filename);
                 System.exit(1);
             }

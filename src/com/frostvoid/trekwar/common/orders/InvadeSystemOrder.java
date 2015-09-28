@@ -15,14 +15,14 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.TurnReportItem;
 import com.frostvoid.trekwar.server.TrekwarServer;
 import com.frostvoid.trekwar.server.turnExec.GroundCombatResolver;
+
+import java.util.logging.Level;
 
 /**
  * Order that makes all ship in a fleet use its troops to invade an enemy system
@@ -45,7 +45,7 @@ public class InvadeSystemOrder extends Order {
     @Override
     public void execute() {
 
-        if(! attackingFleet.getUser().getFaction().equals(target.getUser().getFaction()) &&
+        if (!attackingFleet.getUser().getFaction().equals(target.getUser().getFaction()) &&
                 attackingFleet.getX() == target.getX() && attackingFleet.getY() == target.getY()) {
             gcr = new GroundCombatResolver(attackingFleet, target);
             gcr.resolve(false);
@@ -55,8 +55,8 @@ public class InvadeSystemOrder extends Order {
 
     @Override
     public void onComplete() {
-        if(gcr != null) {
-            if(gcr.didAttackerWin()) {
+        if (gcr != null) {
+            if (gcr.didAttackerWin()) {
                 TurnReportItem atr = new TurnReportItem(TrekwarServer.getGalaxy().getCurrentTurn(), target.getX(), target.getY(), TurnReportItem.TurnReportSeverity.HIGH);
                 atr.setSummary("Invasion of the " + target.getName() + " system was successful");
                 atr.setDetailed("Our troops have secured the " + target.getName() + " system, with " + gcr.getAttackerLosses() + " casualties");
@@ -74,16 +74,15 @@ public class InvadeSystemOrder extends Order {
                 target.getBuildQueue().clear();
 
                 int troopTransfer = attackingFleet.getTroops() / 2;
-                if(troopTransfer > target.getTroopCapacity()) {
+                if (troopTransfer > target.getTroopCapacity()) {
                     troopTransfer = target.getTroopCapacity();
                 }
                 target.setTroopCount(troopTransfer);
-                for(;troopTransfer > 0; troopTransfer--) {
+                for (; troopTransfer > 0; troopTransfer--) {
                     attackingFleet.decrementTroops();
                 }
                 TrekwarServer.getLog().log(Level.FINE, "{0} has invaded the {1} system, owned by {2}", new Object[]{gcr.getWinner().getUsername(), target.getName(), gcr.getLooser().getUsername()});
-            }
-            else {
+            } else {
                 TurnReportItem atr = new TurnReportItem(TrekwarServer.getGalaxy().getCurrentTurn(), target.getX(), target.getY(), TurnReportItem.TurnReportSeverity.HIGH);
                 atr.setSummary("Invasion of the " + target.getName() + " failed");
                 atr.setDetailed("All our " + gcr.getAttackerLosses() + " troops were lost, trying to secure the " + target.getName() +

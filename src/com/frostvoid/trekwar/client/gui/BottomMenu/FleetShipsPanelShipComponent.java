@@ -15,25 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.logging.Level;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.client.gui.SelfDestructDialog;
+import com.frostvoid.trekwar.client.gui.ShipInfoWindow;
 import com.frostvoid.trekwar.client.gui.SimpleBar;
 import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.Ship;
@@ -41,9 +27,14 @@ import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
 import com.frostvoid.trekwar.common.exceptions.ValidationException;
 import com.frostvoid.trekwar.common.utils.Validator;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.client.gui.ShipInfoWindow;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.logging.Level;
 
 /**
  * Shows icons + bars for all the ships in a fleet.
@@ -102,10 +93,10 @@ public class FleetShipsPanelShipComponent extends JPanel {
             // if cargo space is full, no background for ore/deuterium bar
             int spaceLeft = ship.getMaxCargoSpace() - (ship.getCargoDeuterium() + ship.getCargoOre());
             Color barBackground = Color.DARK_GRAY;
-            if(spaceLeft < 1) {
+            if (spaceLeft < 1) {
                 barBackground = new Color(0, 0, 0, 0); // black, 100% transparent
             }
-            
+
             barX += BAR_SPACE;
             SimpleBar oreBar = new SimpleBar(BAR_HEIGHT, BAR_WIDTH, (int) ((100D / ship.getMaxCargoSpace()) * ship.getCargoOre()), Colors.BARCOLOR_ORE, barBackground, SimpleBar.Alignment.VERTICAL);
             oreBar.setToolTipText(Client.getLanguage().get("ore") + ": " + ship.getCargoOre() + " / " + ship.getMaxCargoSpace());
@@ -126,11 +117,11 @@ public class FleetShipsPanelShipComponent extends JPanel {
             shipTroopBar.setToolTipText(Client.getLanguage().get("troops") + ": " + ship.getTroops() + " / " + ship.getTroopCapacity());
             shipTroopBar.setBounds(barX, 0, BAR_WIDTH, BAR_HEIGHT);
             add(shipTroopBar);
-         }
+        }
 
         final FleetShipsPanelShipComponent instance = this;
 
-        
+
         // Add popup menu for own fleets (move ships between fleets, ship info)
         if (ship.getFleet().getUser().equals(Client.getInstance().getLocalUser())) {
             iconLabel.addMouseListener(new MouseAdapter() {
@@ -176,16 +167,15 @@ public class FleetShipsPanelShipComponent extends JPanel {
                                         } catch (NotUniqueException ex) {
                                             Client.LOG.log(Level.SEVERE, "Failed to add fleet {0} to user, even though name has been validated", newFleet.getName());
                                         }
-                                        
 
-                                        if(oldFleet.getShips().size() > 1) {
+
+                                        if (oldFleet.getShips().size() > 1) {
                                             Client.getInstance().getBottomGuiPanel().showFleet(oldFleet);
-                                        }
-                                        else {
+                                        } else {
                                             Client.getInstance().getBottomGuiPanel().showFleet(newFleet);
                                         }
                                         Client.getInstance().getBottomGuiPanel().getToolBar().populateTabs(starsystem);
-                                        
+
                                     } else {
                                         throw new ValidationException("UNKNOWN VALIDATION EXCEPTION");
                                     }
@@ -206,10 +196,9 @@ public class FleetShipsPanelShipComponent extends JPanel {
                                     targetFleet.addShip(ship);
                                     oldFleet.removeShip(ship);
 
-                                    if(oldFleet.getShips().size() > 1) {
+                                    if (oldFleet.getShips().size() > 1) {
                                         Client.getInstance().getBottomGuiPanel().showFleet(oldFleet);
-                                    }
-                                    else {
+                                    } else {
                                         Client.getInstance().getBottomGuiPanel().showFleet(targetFleet);
                                     }
                                     Client.getInstance().getBottomGuiPanel().getToolBar().populateTabs(starsystem);
@@ -253,16 +242,16 @@ public class FleetShipsPanelShipComponent extends JPanel {
                     popup.addSeparator();
                     popup.add(info);
                     popup.add(moveToFleet);
-                    
+
                     popup.addSeparator();
-                    
+
                     ActionListener destroyDecommissionListener = new ActionListener() {
 
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             SelfDestructDialog destructDialog = new SelfDestructDialog(true, ship);
-                            if(destructDialog.doSelfDestruct()) {
-                                if(Client.getInstance().getComm().server_decommissionDestroyShip(ship)) {
+                            if (destructDialog.doSelfDestruct()) {
+                                if (Client.getInstance().getComm().server_decommissionDestroyShip(ship)) {
                                     Fleet fleet = ship.getFleet();
                                     int numberOfShips = fleet.getShips().size();
                                     ship.destroy();
@@ -270,10 +259,9 @@ public class FleetShipsPanelShipComponent extends JPanel {
                                     Client.getInstance().getMapPanel().drawMap();
                                     Client.getInstance().getMapPanel().repaint();
 
-                                    if(numberOfShips > 1) {
+                                    if (numberOfShips > 1) {
                                         Client.getInstance().getBottomGuiPanel().showFleet(fleet);
-                                    }
-                                    else {
+                                    } else {
                                         Client.getInstance().getBottomGuiPanel().updateToolbar();
                                         Client.getInstance().getBottomGuiPanel().showStarsystem();
                                     }
@@ -286,8 +274,7 @@ public class FleetShipsPanelShipComponent extends JPanel {
                     if (starsystem.getUser().equals(Client.getInstance().getLocalUser())) {
                         popup.add(decommission);
                         decommission.addActionListener(destroyDecommissionListener);
-                    }
-                    else {
+                    } else {
                         popup.add(destroy);
                         destroy.addActionListener(destroyDecommissionListener);
                     }

@@ -15,27 +15,16 @@
  */
 package com.frostvoid.trekwar.server.tools;
 
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
+import com.frostvoid.trekwar.common.exceptions.SlotException;
+import com.frostvoid.trekwar.server.UniverseGenerator;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Random;
-
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.exceptions.SlotException;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Galaxy;
-import com.frostvoid.trekwar.common.Planet;
-import com.frostvoid.trekwar.common.ShipTemplate;
-import com.frostvoid.trekwar.common.SpaceObjectClassification;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.Technology;
-import com.frostvoid.trekwar.common.TechnologyGenerator;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.exceptions.NotUniqueException;
-import com.frostvoid.trekwar.server.UniverseGenerator;
 
 /**
  * Generates the pre-alpha testing scenario for single player gameplay test
@@ -53,7 +42,7 @@ public class GeneratePreAlphaSPScenario {
         String password = "komodomq51";
         String filename = "komodo.dat";
 
-        
+
         Galaxy galaxy = null;
         UniverseGenerator ug = null;
         User player = new User(username, password, StaticData.federation);
@@ -73,66 +62,64 @@ public class GeneratePreAlphaSPScenario {
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
-        
-        
-        
+
+
         // Lursa structures
         Planet p1 = enemy1.getStarSystems().get(0).getPlanetByNumber(3);
-        enemy1.getStarSystems().get(0).addStructure(p1, 1 , StaticData.militaryOutpost1);
+        enemy1.getStarSystems().get(0).addStructure(p1, 1, StaticData.militaryOutpost1);
         p1.setStructureEnabled(1, true);
-        enemy1.getStarSystems().get(0).addStructure(p1, 9 , StaticData.farm1);
+        enemy1.getStarSystems().get(0).addStructure(p1, 9, StaticData.farm1);
         p1.setStructureEnabled(9, true);
-        enemy1.getStarSystems().get(0).addStructure(p1, 10 , StaticData.farm1);
+        enemy1.getStarSystems().get(0).addStructure(p1, 10, StaticData.farm1);
         p1.setStructureEnabled(10, true);
         enemy1.getStarSystems().get(0).setTroopCount(9999999);
-        
+
         // Gowron structures
         Planet p2 = enemy2.getStarSystems().get(0).getPlanetByNumber(3);
-        enemy2.getStarSystems().get(0).addStructure(p2, 1 , StaticData.militaryOutpost1);
+        enemy2.getStarSystems().get(0).addStructure(p2, 1, StaticData.militaryOutpost1);
         p2.setStructureEnabled(1, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 9 , StaticData.farm1);
+        enemy2.getStarSystems().get(0).addStructure(p2, 9, StaticData.farm1);
         p2.setStructureEnabled(9, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 10 , StaticData.farm1);
+        enemy2.getStarSystems().get(0).addStructure(p2, 10, StaticData.farm1);
         p2.setStructureEnabled(10, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 11 , StaticData.farm1);
+        enemy2.getStarSystems().get(0).addStructure(p2, 11, StaticData.farm1);
         p2.setStructureEnabled(11, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 12 , StaticData.power1);
+        enemy2.getStarSystems().get(0).addStructure(p2, 12, StaticData.power1);
         p2.setStructureEnabled(12, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 2 , StaticData.bunker2);
+        enemy2.getStarSystems().get(0).addStructure(p2, 2, StaticData.bunker2);
         p2.setStructureEnabled(2, true);
-        enemy2.getStarSystems().get(0).addStructure(p2, 3 , StaticData.bunker2);
+        enemy2.getStarSystems().get(0).addStructure(p2, 3, StaticData.bunker2);
         p2.setStructureEnabled(3, true);
         enemy2.getStarSystems().get(0).setTroopCount(9999999);
-        
+
         // Chang structures
-        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 1 , StaticData.militaryOutpost1);
+        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 1, StaticData.militaryOutpost1);
         enemy3.getStarSystems().get(0).getPlanetByNumber(1).setStructureEnabled(1, true);
-        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 2 , StaticData.bunker3);
+        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 2, StaticData.bunker3);
         enemy3.getStarSystems().get(0).getPlanetByNumber(1).setStructureEnabled(2, true);
-        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 3 , StaticData.bunker3);
+        enemy3.getStarSystems().get(0).addStructure(enemy3.getStarSystems().get(0).getPlanetByNumber(1), 3, StaticData.bunker3);
         enemy3.getStarSystems().get(0).getPlanetByNumber(1).setStructureEnabled(3, true);
-        
+
         Planet p3 = enemy3.getStarSystems().get(0).getPlanetByNumber(3);
-        enemy3.getStarSystems().get(0).addStructure(p3, 1 , StaticData.militaryOutpost1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 1, StaticData.militaryOutpost1);
         p3.setStructureEnabled(1, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 9 , StaticData.farm1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 9, StaticData.farm1);
         p3.setStructureEnabled(9, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 10 , StaticData.farm1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 10, StaticData.farm1);
         p3.setStructureEnabled(10, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 11 , StaticData.farm1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 11, StaticData.farm1);
         p3.setStructureEnabled(11, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 12 , StaticData.farm1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 12, StaticData.farm1);
         p3.setStructureEnabled(12, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 7 , StaticData.power1);
+        enemy3.getStarSystems().get(0).addStructure(p3, 7, StaticData.power1);
         p3.setStructureEnabled(7, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 2 , StaticData.bunker3);
+        enemy3.getStarSystems().get(0).addStructure(p3, 2, StaticData.bunker3);
         p3.setStructureEnabled(2, true);
-        enemy3.getStarSystems().get(0).addStructure(p3, 3 , StaticData.bunker3);
+        enemy3.getStarSystems().get(0).addStructure(p3, 3, StaticData.bunker3);
         p3.setStructureEnabled(3, true);
         enemy3.getStarSystems().get(0).setTroopCount(9999999);
-        
-        
-        
+
+
         // Lursa techs
         enemy1.addTech(TechnologyGenerator.BIO_TECH1);
         enemy1.addTech(TechnologyGenerator.BIO_TECH2);
@@ -152,7 +139,7 @@ public class GeneratePreAlphaSPScenario {
         enemy1.addTech(TechnologyGenerator.WEAPON_TECH1);
         enemy1.addTech(TechnologyGenerator.WEAPON_TECH2);
         enemy1.addTech(TechnologyGenerator.WEAPON_TECH3);
-        
+
         // Gowron techs
         enemy2.addTech(TechnologyGenerator.BIO_TECH1);
         enemy2.addTech(TechnologyGenerator.BIO_TECH2);
@@ -190,10 +177,10 @@ public class GeneratePreAlphaSPScenario {
         enemy2.addTech(TechnologyGenerator.WEAPON_TECH4);
         enemy2.addTech(TechnologyGenerator.WEAPON_TECH5);
         enemy2.addTech(TechnologyGenerator.WEAPON_TECH6);
-        
-        
+
+
         // Gowron techs
-        for(Technology t : TechnologyGenerator.getAllTechs()) {
+        for (Technology t : TechnologyGenerator.getAllTechs()) {
             enemy3.addTech(t);
         }
 
@@ -208,7 +195,7 @@ public class GeneratePreAlphaSPScenario {
         template_1_1.setComponent(6, StaticData.shieldEmitter1);
         template_1_1.setComponent(7, StaticData.fusionReactor2);
         enemy1.addShipTemplate(template_1_1);
-        
+
         // Gowron tempaltes
         ShipTemplate template_2_1 = new ShipTemplate(enemy2, "heavyAttacker", StaticData.klingon_ktinga);
         template_2_1.setComponent(0, StaticData.warpCore2);
@@ -226,7 +213,7 @@ public class GeneratePreAlphaSPScenario {
         template_2_1.setComponent(12, StaticData.torpedoLauncher2);
         template_2_1.setComponent(13, StaticData.torpedoLauncher2);
         enemy2.addShipTemplate(template_2_1);
-        
+
         // Chan templates
         ShipTemplate template_3_1 = new ShipTemplate(enemy3, "battleship", StaticData.klingon_neghvar);
         template_3_1.setComponent(0, StaticData.warpCore3);
@@ -248,7 +235,7 @@ public class GeneratePreAlphaSPScenario {
         template_3_1.setComponent(16, StaticData.torpedoLauncher4);
         template_3_1.setComponent(17, StaticData.torpedoLauncher4);
         enemy3.addShipTemplate(template_3_1);
-        
+
         ShipTemplate template_3_2 = new ShipTemplate(enemy3, "heavyAttacker", StaticData.klingon_ktinga);
         template_3_2.setComponent(0, StaticData.warpCore3);
         template_3_2.setComponent(1, StaticData.warpCore3);
@@ -265,8 +252,8 @@ public class GeneratePreAlphaSPScenario {
         template_3_2.setComponent(12, StaticData.torpedoLauncher2);
         template_3_2.setComponent(13, StaticData.torpedoLauncher4);
         enemy3.addShipTemplate(template_3_2);
-        
-        
+
+
         // Lursa fleet
         Fleet f1_1 = new Fleet(enemy1, "lursaAlpha", enemy1.getStarSystems().get(0));
         Ship s11_1 = new Ship(enemy1, f1_1, template_1_1.getName(), enemy1.getNextShipId(), template_1_1.getHullClass());
@@ -283,8 +270,8 @@ public class GeneratePreAlphaSPScenario {
         f1_1.addShip(s11_3);
         enemy1.addFleet(f1_1);
         enemy1.getStarSystems().get(0).addFleet(f1_1);
-        
-        
+
+
         // Gowron fleet
         Fleet f2_1 = new Fleet(enemy2, "gowronAlpha", enemy2.getStarSystems().get(0));
         Ship s21_1 = new Ship(enemy2, f2_1, template_2_1.getName(), enemy2.getNextShipId(), template_2_1.getHullClass());
@@ -313,10 +300,8 @@ public class GeneratePreAlphaSPScenario {
         f2_1.addShip(s21_6);
         enemy2.addFleet(f2_1);
         enemy2.getStarSystems().get(0).addFleet(f2_1);
-        
-        
-        
-        
+
+
         // Chang fleet
         Fleet f3_1 = new Fleet(enemy3, "changAlpha", enemy3.getStarSystems().get(0));
         Ship s31_1 = new Ship(enemy3, f3_1, template_3_1.getName(), enemy3.getNextShipId(), template_3_1.getHullClass());
@@ -369,23 +354,23 @@ public class GeneratePreAlphaSPScenario {
         f3_1.addShip(s31_12);
         enemy3.addFleet(f3_1);
         enemy3.getStarSystems().get(0).addFleet(f3_1);
-        
-        
+
+
         // Chang's roaming fleet
         StarSystem s = null;
-        while(s == null) {
+        while (s == null) {
             Random prng = new Random();
             int x = prng.nextInt(galaxy.getHeight());
             int y = prng.nextInt(galaxy.getWidth());
-            
+
             StarSystem tmp = galaxy.getSystem(x, y);
-            if(tmp.getUser().equals(StaticData.nobodyUser) && tmp.getClassification().equals(SpaceObjectClassification.starsystem) &&
+            if (tmp.getUser().equals(StaticData.nobodyUser) && tmp.getClassification().equals(SpaceObjectClassification.starsystem) &&
                     (tmp.getStarSystemClassification().equals(StarSystemClassification.empty) || tmp.getClassification().equals(StarSystemClassification.starSystem))) {
                 s = tmp;
             }
-            
+
         }
-        
+
         Fleet f3_2 = new Fleet(enemy3, "changBeta", s);
         Ship s32_1 = new Ship(enemy3, f3_2, template_3_1.getName(), enemy3.getNextShipId(), template_3_1.getHullClass());
         Ship s32_2 = new Ship(enemy3, f3_2, template_3_1.getName(), enemy3.getNextShipId(), template_3_1.getHullClass());
@@ -413,8 +398,8 @@ public class GeneratePreAlphaSPScenario {
         f3_2.addShip(s32_6);
         enemy3.addFleet(f3_2);
         s.addFleet(f3_2);
-        
-        
+
+
         File galaxyFile = new File(filename);
         ObjectOutputStream oos;
         try {

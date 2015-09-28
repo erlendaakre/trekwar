@@ -30,10 +30,10 @@ public class FederationExcelsior extends HullClass {
     public FederationExcelsior() {
         super("Excelsior class", "If my grandma had wheels she'd be a wagon", "fed_16x16.png", "fed_excelsior.png",
                 215, 4800, 425, 510, 25, 16, false, 450, 12);
-        
+
         addFaction(StaticData.federation);
 
-        addTechRequirement(TechnologyGenerator.BIO_TECH3, 
+        addTechRequirement(TechnologyGenerator.BIO_TECH3,
                 TechnologyGenerator.CONSTRUCTION_TECH5,
                 TechnologyGenerator.ENERGY_TECH5,
                 TechnologyGenerator.PROPULSION_TECH5,

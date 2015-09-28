@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class DeleteTemplateRequest extends Request {
     private String templateName;
-    
+
     public DeleteTemplateRequest(String templateName) {
         this.templateName = templateName;
     }
-    
+
     public String getTemplateName() {
         return templateName;
     }

@@ -25,18 +25,18 @@ package com.frostvoid.trekwar.common.shipComponents;
 public class ImpulseDrive extends ShipComponent {
     private int power;
     private int actionPointBonus;
-    
+
     public ImpulseDrive(String name, String description, String iconFileName, int cost, int energy, int power, int actionPointBonus) {
         super(name, description, iconFileName, cost, energy, false);
         this.power = power;
         this.actionPointBonus = actionPointBonus;
         icon16x16Filename = "impulse_16x16.png";
     }
-    
+
     public int getPower() {
         return power;
     }
-    
+
     public int getActionPointBonus() {
         return actionPointBonus;
     }

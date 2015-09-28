@@ -17,11 +17,11 @@ package com.frostvoid.trekwar.common.net.messaging;
 
 /**
  * Base class for all requests sent to the server by the client
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
 public class Request extends Message {
-    
+
 }

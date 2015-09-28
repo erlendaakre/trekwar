@@ -37,11 +37,11 @@ public class Technology implements Serializable {
      * Creates a new technology, all technologies are created only once, and users only
      * have references to these "global" technologies
      *
-     * @param type the technology type
-     * @param level the level (1-12) of this tech, higher is more advanced
+     * @param type         the technology type
+     * @param level        the level (1-12) of this tech, higher is more advanced
      * @param researchCost the cost in reasearch points to discover this technology
-     * @param name the name of the technology
-     * @param description the description of this technology
+     * @param name         the name of the technology
+     * @param description  the description of this technology
      */
     public Technology(TechnologyGenerator.techType type, int level, int researchCost, String name, String description) {
         this.type = type;
@@ -133,8 +133,8 @@ public class Technology implements Serializable {
     }
 
     public boolean equals(Object o) {
-        if(o instanceof Technology) {
-            return equals((Technology)o);
+        if (o instanceof Technology) {
+            return equals((Technology) o);
         }
         return false;
     }

@@ -15,19 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
-import com.frostvoid.trekwar.client.gui.SimpleBar;
-import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.client.gui.SimpleBar;
+import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StaticData;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Graphical representation in the user interface when a tile
@@ -50,7 +47,7 @@ public class NebulaPanel extends JPanel implements Runnable {
     private Image offscreen;
     Thread animThread;
     private boolean doAnim;
-    
+
     private JLabel textLabel, sectorLabel, resourcesLabel;
     private SimpleBar resourcesBar;
     private SensorPanel sensorPanel;
@@ -65,34 +62,34 @@ public class NebulaPanel extends JPanel implements Runnable {
         animThread = new Thread(this);
         doAnim = true;
         animThread.start();
-        
+
         textLabel = new JLabel(Client.getLanguage().get("nebula"));
         textLabel.setFont(FontFactory.getInstance().getHeading1());
         textLabel.setBounds(15, 10, 300, 50);
         add(textLabel);
-        
+
         sectorLabel = new JLabel(Client.getLanguage().get("sector"));
         sectorLabel.setFont(FontFactory.getInstance().getHeading3());
         sectorLabel.setBounds(25, 35, 200, 50);
         add(sectorLabel);
-        
+
         resourcesLabel = new JLabel(Client.getLanguage().get("resources_left"));
         resourcesLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resourcesLabel.setBounds(0, 120, 770, 20);
         add(resourcesLabel);
-        
+
         sensorPanel = new SensorPanel();
         sensorPanel.setLocation(340, 20);
         add(sensorPanel);
-        
+
         resourcesBar = new SimpleBar(10, 200, 75, Colors.RESOURCES_VIEW_COLOR_FOREGROUND, Colors.RESOURCES_VIEW_COLOR_BACKGROUND, SimpleBar.Alignment.HORIZONTAL);
-        resourcesBar.setBounds((getWidth()/2)-100, 145, 200, 20);
+        resourcesBar.setBounds((getWidth() / 2) - 100, 145, 200, 20);
         add(resourcesBar);
     }
 
     public void setSystem(StarSystem s) {
         sectorLabel.setText(Client.getLanguage().get("sector") + ": " + s.getX() + ":" + s.getY());
-        resourcesBar.setPercentage((int) ((100d/StaticData.MAX_NEBULA_RESOURCES)*s.getResourcesLeft()));
+        resourcesBar.setPercentage((int) ((100d / StaticData.MAX_NEBULA_RESOURCES) * s.getResourcesLeft()));
         resourcesBar.setToolTipText(Client.getLanguage().get("resources_left") + ": " + s.getResourcesLeft());
         sensorPanel.setSystem(s);
     }
@@ -140,7 +137,7 @@ public class NebulaPanel extends JPanel implements Runnable {
         buffer.drawImage(foregroundImage, foregroundX - foregroundImage.getWidth(this), foregroundY, this);
 
         g.drawImage(offscreen, 0, 0, this);
-        
+
         paintComponents(g);
     }
 

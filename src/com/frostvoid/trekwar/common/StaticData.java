@@ -15,19 +15,19 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.awt.Point;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import com.frostvoid.trekwar.common.orders.ColonizeOrder;
 import com.frostvoid.trekwar.common.shipComponents.*;
 import com.frostvoid.trekwar.common.shipHulls.*;
 import com.frostvoid.trekwar.common.structures.*;
 
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 /**
  * Holds all the static information in the game (for both server and client).
  * for example: factions, hulls, structures and ship components
- * 
+ * <p>
  * TODO: move data to XML file
  *
  * @author Erlend Aakre
@@ -35,36 +35,36 @@ import com.frostvoid.trekwar.common.structures.*;
  * @author http://www.frostvoid.com
  */
 public class StaticData {
-    
+
     public static final DecimalFormat DECIMAL_FORMAT_2D = new DecimalFormat("0.00");
-    
+
     public static final int MAX_NEBULA_RESOURCES = 65000;
     public static final int MAX_ASTEROID_RESOURCES = 50000;
 
     public static final int MAX_STRUCTURES_NEEDED_TO_COLONIZE = 10; // a system can only be colonized if it has at least this many structure slots
     public static final int RESEARCH_LOSS_CHANCE = 5; //If a system has negative research, this is the chance that this will cause a empire wide research loss
-    
+
     public static final int SHIP_UPKEEP_BASE_VALUE = 10; // fixed amount of upkeep generated for user
     public static final int SHIP_UPKEEP_COST_FACTOR = 200; // ship upkeep is ship cost (including components) divided by this amount
     public static final int SHIP_UPKEEP_PENALTY_CONSTRUCTION_DELAY_CHANCE = 25; // chance to not progress ship build order
 
     public static final int SHIP_DECOMMISSION_FACTOR_INDUSTRY_TO_SHIP = 4; // decommissioned ship returned industry is divided by this amount.. 4 = 25% industry back
     public static final int SHIP_DECOMMISSION_FACTOR_INDUSTRY_TO_STRUCTURE = 8;
-    
+
     public static final int SHIP_UPKEEP_PENALTY_REFUEL_FAIL_CHANCE = 30;
     public static final int SHIP_UPKEEP_PENALTY_REPAIR_FAIL_CHANCE = 70;
     public static final int SHIP_UPKEEP_PENALTY_RECREW_FAIL_CHANCE = 30;
     public static final int SHIP_UPKEEP_PENALTY_MORALE_LOSS_CHANCE = 25;
-    
+
     public static final int SHIP_UPKEEP_PENALTY_SENSOR_FAIL_CHANCE = 30;
     public static final int SHIP_UPKEEP_PENALTY_SHIELD_FAIL_CHANCE = 10;
-    public static final int SHIP_UPKEEP_PENALTY_LIGHT_DAMAGE_CHANCE = 6; 
+    public static final int SHIP_UPKEEP_PENALTY_LIGHT_DAMAGE_CHANCE = 6;
     public static final int SHIP_UPKEEP_PENALTY_MODERATE_DAMAGE_CHANCE = 4;
     public static final int SHIP_UPKEEP_PENALTY_HEAVY_DAMAGE_CHANCE = 2;
-    
+
     // special users
     public static final User nobodyUser; // owns all empty starsystems by default
-    
+
     // factions
     public static final Faction federation;
     public static final Faction klingon;
@@ -128,7 +128,7 @@ public class StaticData {
     public static final ImpulseDrive impulseDrive1, impulseDrive2, impulseDrive3;
     public static final TroopTransport troopTransport1, troopTransport2, troopTransport3;
 
-    static {       
+    static {
         // -------------- FACTIONS --------------
         federation = new Faction("Federation", "The united federation of planets is made up of dozens of worlds, including Earth,Vulcan,Andoria,Betazed",
                 15, 15, -10, 10, 15, 10);
@@ -141,16 +141,12 @@ public class StaticData {
         dominion = new Faction("Dominion", "The Cardassian union is a military expantionist culture where service to the state is the highest honor",
                 -5, 20, 25, 20, 0, -10);
         nobodyFaction = new Faction("nobody", "nobody", -100, -100, -100, -100, -100, -100);
-        
-        
-        
-        
+
+
         // -------------- SPECIAL USERS --------------
         nobodyUser = new User("nobody", "sa%\"das-)!i210wqj", StaticData.nobodyFaction);
 
 
-        
-        
         // -------------- SHIP HULLS --------------
         allHullClasses = new ArrayList<HullClass>();
 
@@ -410,8 +406,6 @@ public class StaticData {
         klingon_neghvar.setSlotMapPoint(17, new Point(382, 98));
         allHullClasses.add(klingon_neghvar);
 
-        
-        
 
         // -------------- STRUCTURES --------------
         allStructures = new ArrayList<Structure>();
@@ -507,9 +501,6 @@ public class StaticData {
                 13750, -20, -10, 150, -5, "weathergrid");
         weatherModificationNetwork1.addTech(TechnologyGenerator.BIO_TECH5, TechnologyGenerator.ENERGY_TECH3, TechnologyGenerator.CONSTRUCTION_TECH3);
         allStructures.add(weatherModificationNetwork1);
-
-
-
 
 
         // -------------- SHIP COMPONENTS --------------
@@ -785,7 +776,7 @@ public class StaticData {
         troopTransport3.addTech(TechnologyGenerator.WEAPON_TECH6, TechnologyGenerator.BIO_TECH6);
         allShipComponents.add(troopTransport3);
     }
-    
+
     /**
      * Gets a structure object by name
      *
@@ -804,15 +795,14 @@ public class StaticData {
     /**
      * Counts the number of fleets that is currently executing a colonizeOrder
      * in a given system
-     * 
+     *
      * @param starSystem the system
-     * 
      * @return number of fleets colonizing the system
      */
     public static int countNumberOfColonizeOrdersInSystem(StarSystem starSystem) {
         int res = 0;
-        for(Fleet f : starSystem.getFleets()) {
-            if(f.getOrder() instanceof ColonizeOrder) {
+        for (Fleet f : starSystem.getFleets()) {
+            if (f.getOrder() instanceof ColonizeOrder) {
                 res++;
             }
         }
@@ -821,31 +811,31 @@ public class StaticData {
 
     public static Iterable<ShipComponent> getShipComponentsRequiringTechnology(Technology tech) {
         ArrayList<ShipComponent> res = new ArrayList<ShipComponent>();
-        
-        for(ShipComponent component : allShipComponents) {
-            if(component.getTechsRequired().contains(tech)) {
+
+        for (ShipComponent component : allShipComponents) {
+            if (component.getTechsRequired().contains(tech)) {
                 res.add(component);
             }
         }
         return res;
     }
-    
+
     public static Iterable<HullClass> getHullClassesRequiringTechnology(Technology tech) {
         ArrayList<HullClass> res = new ArrayList<HullClass>();
-        
-        for(HullClass hull : allHullClasses) {
-            if(hull.getTechsRequired().contains(tech)) {
+
+        for (HullClass hull : allHullClasses) {
+            if (hull.getTechsRequired().contains(tech)) {
                 res.add(hull);
             }
         }
         return res;
     }
-    
+
     public static Iterable<Structure> getStructuresRequiringTechnology(Technology tech) {
         ArrayList<Structure> res = new ArrayList<Structure>();
-        
-        for(Structure structure : allStructures) {
-            if(structure.getTechsRequired().contains(tech)) {
+
+        for (Structure structure : allStructures) {
+            if (structure.getTechsRequired().contains(tech)) {
                 res.add(structure);
             }
         }

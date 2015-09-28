@@ -15,15 +15,23 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Point;
+import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
+import com.frostvoid.trekwar.common.*;
+import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
+import com.frostvoid.trekwar.common.net.messaging.BuildQueueRequestType;
+import com.frostvoid.trekwar.common.net.messaging.StructureStateChangeRequestType;
+import com.frostvoid.trekwar.common.orders.BuildShipOrder;
+import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
+import com.frostvoid.trekwar.common.orders.Order;
+import com.frostvoid.trekwar.common.structures.Structure;
+import com.frostvoid.trekwar.common.utils.Language;
+
+import javax.swing.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -35,41 +43,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.TransferHandler;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-
-import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.common.*;
-import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
-import com.frostvoid.trekwar.common.net.messaging.BuildQueueRequestType;
-import com.frostvoid.trekwar.common.net.messaging.StructureStateChangeRequestType;
-import com.frostvoid.trekwar.common.orders.BuildShipOrder;
-import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
-import com.frostvoid.trekwar.common.orders.Order;
-import com.frostvoid.trekwar.common.structures.Structure;
-import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.client.ImageManager;
 
 /**
  * Window that lets user control a single star system
@@ -545,7 +518,6 @@ public class SystemControlWindow extends JInternalFrame {
         }
 
 
-
         // SHOW WARNINGS (IF ANY) FOR OWN SYSTEMS
         if (starsystem.getUser().equals(Client.getInstance().getLocalUser()) && showWarning) {
             JPanel warningPanel = new JPanel();
@@ -602,7 +574,6 @@ public class SystemControlWindow extends JInternalFrame {
         } else {
             middleColumn.removeAll();
         }
-
 
 
         JPanel structuresPanel = new JPanel();
@@ -768,12 +739,12 @@ public class SystemControlWindow extends JInternalFrame {
         JScrollPane shipInfoSP = new JScrollPane(shipInfoPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         shipInfoSP.setBorder(BorderFactory.createEmptyBorder());
         shipInfoSP.setBounds(15, 65, 223, 82);
-        
+
 
         shipStatCostLabel = new JLabel("", SwingConstants.LEFT);
         shipStatCostLabel.setBounds(15, 70, 140, 22);
         shipStatCostLabel.setForeground(Color.BLACK);
-        
+
         shipStatUpkeepLAbel = new JLabel("", SwingConstants.LEFT);
         shipStatUpkeepLAbel.setForeground(Color.BLACK);
 
@@ -840,11 +811,9 @@ public class SystemControlWindow extends JInternalFrame {
                             // there is not enough population to build the ship
                             Client.getInstance().showMessage(Language.pop(Client.getLanguage().get("not_enough_population_in_system_to_make_colonyship"), starsystem.getPopulation()));
                             return;
-                        }
-                        else if(colonists < currentlySelectedShipTemplate.getColonistCapacity()) {
+                        } else if (colonists < currentlySelectedShipTemplate.getColonistCapacity()) {
                             Client.getInstance().showMessage(Language.pop(Client.getLanguage().get("not_enough_population_in_system_to_fill_colonyship"), currentlySelectedShipTemplate.getColonistCapacity(), colonists));
-                        }
-                        else if(starsystem.getPopulation() - 500 < colonists) {
+                        } else if (starsystem.getPopulation() - 500 < colonists) {
                             // will leave less than 500 million people in system
                             Client.getInstance().showMessage(Language.pop(Client.getLanguage().get("not_enough_population_in_system_to_fill_colonyship_and_have_500m_extra"), starsystem.getPopulation() - colonists));
                         }
@@ -1179,7 +1148,7 @@ public class SystemControlWindow extends JInternalFrame {
 
         shipStatCostLabel.setText(Client.getLanguage().get("cost") + ": " + template.getCost());
         shipStatCostLabel.setIcon(ImageManager.getInstance().getImage("graphics/misc_icons/coins.png"));
-        
+
         shipStatUpkeepLAbel.setText(Client.getLanguage().get("upkeep") + ": " + template.getUpkeepCost());
         shipStatUpkeepLAbel.setIcon(ImageManager.getInstance().getImage("graphics/misc_icons/upkeep.png"));
 
@@ -1188,7 +1157,7 @@ public class SystemControlWindow extends JInternalFrame {
 
         shipStatSpeedLabel.setText(Client.getLanguage().get("speed") + ": " + template.getSpeed());
         shipStatSpeedLabel.setIcon(ImageManager.getInstance().getImage("graphics/misc_icons/run.png"));
-        
+
         shipStatRangeLabel.setText(Client.getLanguage().get("range") + ": " + template.getMaxDeuterium() / template.getDeuteriumUsage());
         shipStatRangeLabel.setIcon(ImageManager.getInstance().getImage("graphics/misc_icons/chart_line.png"));
 

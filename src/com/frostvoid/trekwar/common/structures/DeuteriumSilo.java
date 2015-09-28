@@ -29,9 +29,9 @@ public class DeuteriumSilo extends Structure {
     private int capacity;
 
     public DeuteriumSilo(String name,
-            int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
+                         int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
         super(name, "Allows the safe storage of deuterium for use as starship fuel",
-                cost,  power,  research,  food,  industry, imageFileName, Structure.mode.NORMAL);
+                cost, power, research, food, industry, imageFileName, Structure.mode.NORMAL);
 
         this.capacity = capacity;
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);

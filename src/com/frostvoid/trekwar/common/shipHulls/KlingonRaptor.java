@@ -15,8 +15,8 @@
  */
 package com.frostvoid.trekwar.common.shipHulls;
 
-import com.frostvoid.trekwar.common.TechnologyGenerator;
 import com.frostvoid.trekwar.common.StaticData;
+import com.frostvoid.trekwar.common.TechnologyGenerator;
 
 /**
  * Klingon ship
@@ -30,9 +30,9 @@ public class KlingonRaptor extends HullClass {
     public KlingonRaptor() {
         super("Raptor class", "A small warship", "fkli_16x16.png", "kli_raptor.png",
                 20, 600, 175, 135, 45, 5, false, 100, 2);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH1,
                 TechnologyGenerator.CONSTRUCTION_TECH1,
                 TechnologyGenerator.ENERGY_TECH1,

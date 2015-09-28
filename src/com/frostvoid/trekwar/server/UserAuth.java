@@ -22,15 +22,15 @@ package com.frostvoid.trekwar.server;
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
  */
-public class UserAuth {    
+public class UserAuth {
     public static String AUTHSERVER_HOST = "http://localhost";
     public static int AUTHSERVER_PORT = 8080;
     public static String AUTHSERVER_PATH = "/TrekwarOnline/services/auth";
-    
+
     public Object authenticate(String authenticationCode) {
-        
+
         String requestURL = AUTHSERVER_HOST + ":" + AUTHSERVER_PORT + AUTHSERVER_PATH + "?code=" + authenticationCode;
-        
+
         // TODO
         // 1. Send auth code to Trekwar server
         // 2. Parse returned user data (user_id + username)

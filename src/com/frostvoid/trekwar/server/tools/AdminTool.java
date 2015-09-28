@@ -15,11 +15,11 @@
  */
 package com.frostvoid.trekwar.server.tools;
 
+import com.frostvoid.trekwar.client.net.ClientCommunication;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import com.frostvoid.trekwar.client.net.ClientCommunication;
 
 /**
  * Console app that connects to the server and gives admin commands

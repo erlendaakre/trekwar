@@ -26,12 +26,12 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class LoginRequest extends Request {
     private String password;
-    
+
     public LoginRequest(String username, String password) {
         setUsername(username);
         this.password = password;
     }
-    
+
     public String getPassword() {
         return password;
     }

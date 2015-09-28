@@ -29,7 +29,7 @@ public class CivilianCarrier extends HullClass {
     public CivilianCarrier() {
         super("Civilian Carrier", "A huge general freighter", "civ_freighter_16x16.png", "civ_carrier.png",
                 90, 12900, 1650, 350, 0, 24, true, 1500, 25);
-        
+
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);
 
         addTechRequirement(TechnologyGenerator.BIO_TECH3,

@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class NewFleetResponse extends Response {
     private boolean fleetCreationOK;
-    
+
     public NewFleetResponse(boolean fleetCreationOK) {
         this.fleetCreationOK = fleetCreationOK;
     }

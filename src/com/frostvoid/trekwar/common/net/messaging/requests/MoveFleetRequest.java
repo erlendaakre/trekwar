@@ -28,7 +28,7 @@ public class MoveFleetRequest extends Request {
     private String fleetName;
     private int x;
     private int y;
-    
+
     public MoveFleetRequest(String fleetName, int x, int y) {
         this.fleetName = fleetName;
         this.x = x;

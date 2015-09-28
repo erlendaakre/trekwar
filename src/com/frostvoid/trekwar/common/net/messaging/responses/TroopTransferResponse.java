@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class TroopTransferResponse extends Response {
     private boolean troopsTransferred;
-    
+
     public TroopTransferResponse(boolean troopsTransferred) {
         this.troopsTransferred = troopsTransferred;
     }
-    
+
     public TroopTransferResponse(String error) {
         this.troopsTransferred = false;
         setErrorMessage(error);
     }
-    
+
     public boolean isTroopsTransferred() {
         return troopsTransferred;
     }

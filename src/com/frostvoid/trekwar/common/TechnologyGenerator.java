@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * Generates all the technology objects used in the game
- * 
+ * <p>
  * TODO: used XML files instead of hardcoded data
  *
  * @author Erlend Aakre
@@ -206,7 +206,7 @@ public class TechnologyGenerator {
     private static Technology makeBioTech0() {
         return new Technology(techType.biotech, 0, 0, "Basic Biotechnology",
                 "This field covers the basic sciences of biotechnology, " +
-                "physiology, genetics, meteorology and terraforming");
+                        "physiology, genetics, meteorology and terraforming");
     }
 
     private static Technology makeBioTech1() {
@@ -574,9 +574,8 @@ public class TechnologyGenerator {
     /**
      * Gets a Technology by type and level
      *
-     * @param type the type of technology
+     * @param type  the type of technology
      * @param level the level
-     *
      * @return the technology or null if not found
      */
     public static Technology getTech(techType type, int level) {

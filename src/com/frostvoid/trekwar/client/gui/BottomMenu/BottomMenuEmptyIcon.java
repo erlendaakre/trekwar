@@ -26,7 +26,7 @@ import com.frostvoid.trekwar.common.StaticData;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuEmptyIcon extends BottomMenuToolbarIcon {
-    
+
     public BottomMenuEmptyIcon() {
         super("", StaticData.nobodyFaction, false);
         setButtonImage(ImageManager.getInstance().getImage("graphics/bottommenutoolbar_empty.png").getImage());

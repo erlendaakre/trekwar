@@ -15,12 +15,12 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.common.orders.Order;
 import com.frostvoid.trekwar.common.shipComponents.TorpedoLauncher;
 import com.frostvoid.trekwar.server.TrekwarServer;
+
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * A fleet is a player owned collection of ships that can do things (execute orders)
@@ -59,8 +59,7 @@ public class Fleet extends SpaceObject {
      *
      * @param user the owner of the fleet
      * @param name the unique name of the fleet
-     * @param x the fleets x location
-     * @param y the fleets y location
+     * @param location where the fleet is currently located
      */
     public Fleet(User user, String name, StarSystem location) {
         super(user, name, SpaceObjectClassification.fleet, location.getX(), location.getY());
@@ -73,7 +72,7 @@ public class Fleet extends SpaceObject {
     /**
      * Moves the fleet on the map
      *
-     * @param map the map
+     * @param map   the map
      * @param moveX new X location
      * @param moveY new Y location
      */
@@ -85,7 +84,7 @@ public class Fleet extends SpaceObject {
         dst.addFleet(this);
         x = moveX;
         y = moveY;
-        
+
         currentLocation = dst;
     }
 
@@ -159,11 +158,11 @@ public class Fleet extends SpaceObject {
         }
         return min;
     }
-    
+
     public String getSpeedHumanreadable() {
         double speed = getSpeed();
-        
-        return "" + speed/10;
+
+        return "" + speed / 10;
     }
 
     /**
@@ -324,15 +323,15 @@ public class Fleet extends SpaceObject {
         }
         return false;
     }
-    
+
     /**
      * Gets the torpedo launchers in this fleet
-     * 
+     *
      * @return the fleets torpedo launchers
      */
     public ArrayList<TorpedoLauncher> getTorpedoLaunchers() {
         ArrayList<TorpedoLauncher> res = new ArrayList<TorpedoLauncher>();
-        
+
         for (Ship s : ships) {
             if (s.hasTorpedoLauncher()) {
                 res.addAll(s.getTorpedoLaunchers());
@@ -362,7 +361,7 @@ public class Fleet extends SpaceObject {
      */
     public int getMaxCargoSpace() {
         int cargo = 0;
-        for(Ship s : ships) {
+        for (Ship s : ships) {
             cargo += s.getMaxCargoSpace();
         }
         return cargo;
@@ -389,7 +388,7 @@ public class Fleet extends SpaceObject {
      */
     public int getMaxShields() {
         int shields = 0;
-        for(Ship s : ships) {
+        for (Ship s : ships) {
             shields += s.getMaxShield();
         }
         return shields;
@@ -402,7 +401,7 @@ public class Fleet extends SpaceObject {
      */
     public int getShields() {
         int shields = 0;
-        for(Ship s : ships) {
+        for (Ship s : ships) {
             shields += s.getCurrentShieldStrength();
         }
         return shields;
@@ -414,8 +413,8 @@ public class Fleet extends SpaceObject {
      * @return maximum armor strength
      */
     public int getMaxArmor() {
-        int armor  = 0;
-        for(Ship s : ships) {
+        int armor = 0;
+        for (Ship s : ships) {
             armor += s.getMaxArmor();
         }
         return armor;
@@ -427,8 +426,8 @@ public class Fleet extends SpaceObject {
      * @return armor strength
      */
     public int getArmor() {
-        int armor  = 0;
-        for(Ship s : ships) {
+        int armor = 0;
+        for (Ship s : ships) {
             armor += s.getCurrentArmorStrength();
         }
         return armor;
@@ -441,7 +440,7 @@ public class Fleet extends SpaceObject {
      */
     public int getMaxHP() {
         int hp = 0;
-        for(Ship s : ships) {
+        for (Ship s : ships) {
             hp += s.getMaxHitpoints();
         }
         return hp;
@@ -454,7 +453,7 @@ public class Fleet extends SpaceObject {
      */
     public int getHP() {
         int hp = 0;
-        for(Ship s : ships) {
+        for (Ship s : ships) {
             hp += s.getCurrentHullStrength();
         }
         return hp;
@@ -509,7 +508,7 @@ public class Fleet extends SpaceObject {
      */
     public boolean canTransportTroops() {
         for (Ship s : ships) {
-            if(s.hasTroopTransport()) {
+            if (s.hasTroopTransport()) {
                 return true;
             }
         }
@@ -550,8 +549,8 @@ public class Fleet extends SpaceObject {
      */
     public int getSensorStrength() {
         int max = 5;
-        for(Ship s : ships) {
-            if(s.getSensorStrength() > max) {
+        for (Ship s : ships) {
+            if (s.getSensorStrength() > max) {
                 max = s.getSensorStrength();
             }
         }
@@ -588,8 +587,8 @@ public class Fleet extends SpaceObject {
      * Remove 1 troop from this fleet
      */
     public void decrementTroops() {
-        for(Ship s : ships) {
-            if(s.getTroops() > 0) {
+        for (Ship s : ships) {
+            if (s.getTroops() > 0) {
                 s.setTroops(s.getTroops() - 1);
                 return;
             }
@@ -636,36 +635,39 @@ public class Fleet extends SpaceObject {
         }
         return null;
     }
-    
+
     /**
      * Checks if ANY ship in this fleet needs more crew
+     *
      * @return true if one or more ships needs more crew
      */
     public boolean needsMoreCrew() {
-        for(Ship ship : ships) {
-            if(ship.getCrew() < ship.getHullClass().getMaxCrew()) {
+        for (Ship ship : ships) {
+            if (ship.getCrew() < ship.getHullClass().getMaxCrew()) {
                 return true;
             }
         }
         return false;
     }
-    
+
     /**
      * Checks if ANY ship in this fleet needs to repair
+     *
      * @return true if fleet has a ship that needs to repair
      */
     public boolean needsRepair() {
-        for(Ship ship : ships) {
-            if(ship.getCurrentArmorStrength() < ship.getMaxArmor() ||
-               ship.getCurrentHullStrength() < ship.getMaxHitpoints()) {
+        for (Ship ship : ships) {
+            if (ship.getCurrentArmorStrength() < ship.getMaxArmor() ||
+                    ship.getCurrentHullStrength() < ship.getMaxHitpoints()) {
                 return true;
             }
         }
         return false;
     }
-    
+
     /**
      * Checks if any ships in this fleet needs to be refueled
+     *
      * @return true if any ship needs more fuel
      */
     public boolean needsRefuel() {
@@ -674,81 +676,81 @@ public class Fleet extends SpaceObject {
 
     /**
      * Repairs ALL the ships in this fleet (HP + armor), also regenerates shields
-     * 
+     *
      * @param inFriendlySystem true if in own system.
-     * @param hasShipyard true if system has a friendly shipyard
-     * @param bonusesApply true if apply bonuses (false if in system with no power/industry, etc..)
+     * @param hasShipyard      true if system has a friendly shipyard
+     * @param bonusesApply     true if apply bonuses (false if in system with no power/industry, etc..)
      */
-    public void repairShipsHullArmorShields( boolean inFriendlySystem, boolean hasShipyard, boolean bonusesApply) {
+    public void repairShipsHullArmorShields(boolean inFriendlySystem, boolean hasShipyard, boolean bonusesApply) {
         int hullRepairPercentage = 2;
         int armorRepairPercentage = 3;
         int shieldRepairPercentage = 7;
-        
-        if(hasShipyard) {
+
+        if (hasShipyard) {
             hullRepairPercentage += 10;
             armorRepairPercentage += 15;
         }
-        if(bonusesApply) {
+        if (bonusesApply) {
             hullRepairPercentage += (user.getHighestTech(TechnologyGenerator.techType.constructiontech).getLevel() / 2);
             hullRepairPercentage += (user.getFaction().getConstructionBonus() / 4);
-            
+
             armorRepairPercentage += (user.getHighestTech(TechnologyGenerator.techType.constructiontech).getLevel() / 3);
             armorRepairPercentage += (user.getHighestTech(TechnologyGenerator.techType.weaponstech).getLevel() / 3);
-            
+
             shieldRepairPercentage += (user.getHighestTech(TechnologyGenerator.techType.energytech).getLevel() / 2);
         }
-        
-        for(Ship s : ships) {
+
+        for (Ship s : ships) {
             // HULL
             int maxHPToRepair = s.getMaxHitpoints();
-            if(!inFriendlySystem) {
+            if (!inFriendlySystem) {
                 maxHPToRepair = maxHPToRepair / 5; // only repair hull to 20% while in space
             }
-            if(s.getCurrentHullStrength() < maxHPToRepair) {
+            if (s.getCurrentHullStrength() < maxHPToRepair) {
                 int repairAmount = s.getMaxHitpoints() / 100;
-                if(repairAmount < 1) { // always repair at least 'repairPercentage' hitpoints
+                if (repairAmount < 1) { // always repair at least 'repairPercentage' hitpoints
                     repairAmount = 1;
                 }
                 repairAmount *= hullRepairPercentage;
                 s.setCurrentHullStrength(s.getCurrentHullStrength() + repairAmount);
             }
-            
+
             // ARMOR
-            if(s.getMaxArmor() > 0) {
+            if (s.getMaxArmor() > 0) {
                 int maxArmorToRepair = s.getMaxArmor();
-                if(!inFriendlySystem) {
+                if (!inFriendlySystem) {
                     maxArmorToRepair = maxArmorToRepair / 4; // only repair armor to 25% while in space
                 }
-                if(s.getCurrentArmorStrength() < maxArmorToRepair) {
+                if (s.getCurrentArmorStrength() < maxArmorToRepair) {
                     int repairAmount = s.getMaxArmor() / 100;
-                    if(repairAmount < 1) { // always repair at least 'repairPercentage' armor
+                    if (repairAmount < 1) { // always repair at least 'repairPercentage' armor
                         repairAmount = 1;
                     }
                     repairAmount *= armorRepairPercentage;
-                    if(repairAmount < 1) {
+                    if (repairAmount < 1) {
                         repairAmount = 2;
                     }
                     s.setCurrentArmorStrength(s.getCurrentArmorStrength() + repairAmount);
                 }
             }
-            
+
             // SHIELDS
-            if(s.getMaxShield() > 0) {
+            if (s.getMaxShield() > 0) {
                 double shieldRegen = s.getMaxShield() / 100.0D;
-                if(shieldRegen < 5) {
+                if (shieldRegen < 5) {
                     shieldRegen = 5;
                 }
                 shieldRegen *= shieldRepairPercentage;
-                s.setCurrentShieldStrength(s.getCurrentShieldStrength() + (int)shieldRegen);
+                s.setCurrentShieldStrength(s.getCurrentShieldStrength() + (int) shieldRegen);
             }
         }
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Fleet) {
-            Fleet other = (Fleet)o;
-            if(other.getName().equalsIgnoreCase(getName())  && getUser().equals(other.getUser())  ) {
+        if (o instanceof Fleet) {
+            Fleet other = (Fleet) o;
+            if (other.getName().equalsIgnoreCase(getName()) && getUser().equals(other.getUser())) {
                 return true;
             }
         }

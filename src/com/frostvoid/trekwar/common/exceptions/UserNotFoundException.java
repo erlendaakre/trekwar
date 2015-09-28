@@ -23,24 +23,24 @@ package com.frostvoid.trekwar.common.exceptions;
  * @author http://www.frostvoid.com
  */
 public class UserNotFoundException extends Exception {
-   
-   private String message;
-   
-   public UserNotFoundException() {
-      message = "User not found";
-   }
-   
-   public UserNotFoundException(String message) {
-      this.message = message;
-   }
-   
+
+    private String message;
+
+    public UserNotFoundException() {
+        message = "User not found";
+    }
+
+    public UserNotFoundException(String message) {
+        this.message = message;
+    }
+
     @Override
-   public String getMessage() {
-      return message;
-   }
-   
+    public String getMessage() {
+        return message;
+    }
+
     @Override
-   public String toString() {
-      return message;
-   }
+    public String toString() {
+        return message;
+    }
 }

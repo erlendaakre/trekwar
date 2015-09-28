@@ -15,23 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
-import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.exceptions.ServerCommunicationException;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Bottom UI panel for displaying Fleets
@@ -48,7 +41,7 @@ public class FleetPanel extends JPanel implements Runnable {
     private Image offscreen;
     Thread animThread;
     private boolean doAnim;
-    
+
     private JTextField fleetNameLabel;
     private JLabel userIcon, factionIcon, speedLabel, rangeLabel, orderLabel;
     private FleetOrderPanel orderPanel;
@@ -64,12 +57,12 @@ public class FleetPanel extends JPanel implements Runnable {
         animThread = new Thread(this);
         doAnim = true;
         animThread.start();
-        
+
         // Fleet Name
         fleetNameLabel = new JTextField();
         fleetNameLabel.setOpaque(false);
         fleetNameLabel.setBorder(BorderFactory.createEmptyBorder());
-        fleetNameLabel.setMargin(new Insets(0,0,0,0));
+        fleetNameLabel.setMargin(new Insets(0, 0, 0, 0));
         fleetNameLabel.setFont(FontFactory.getInstance().getHeading1());
         fleetNameLabel.setBounds(80, 5, 225, 30);
         fleetNameLabel.addActionListener(new ActionListener() {
@@ -88,10 +81,9 @@ public class FleetPanel extends JPanel implements Runnable {
                             Client.getInstance().getComm().server_renameFleet(fleet.getName(), name);
                             fleet.setName(name);
                             Client.getInstance().getBottomGuiPanel().displaySystem(Client.getInstance().getLocalMap()[Client.getInstance().getMapPanel().getLastClickedTile().getXloc()]
-                                                                                                                      [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
+                                    [Client.getInstance().getMapPanel().getLastClickedTile().getYloc()]);
                             Client.getInstance().getBottomGuiPanel().showFleet(fleet);
-                        }
-                        catch(ServerCommunicationException sce) {
+                        } catch (ServerCommunicationException sce) {
                             Client.getInstance().showMessage(Client.getLanguage().getU("unable_to_rename_fleet") + ":\n" + sce.getMessage());
                         }
                     }
@@ -99,22 +91,22 @@ public class FleetPanel extends JPanel implements Runnable {
             }
         });
         add(fleetNameLabel);
-        
+
         speedLabel = new JLabel("");
         speedLabel.setBounds(80, 35, 100, 20);
         speedLabel.setFont(FontFactory.getInstance().getFleetViewSpeedRangeFont());
         add(speedLabel);
-        
+
         rangeLabel = new JLabel("");
         rangeLabel.setBounds(185, 35, 120, 20);
         rangeLabel.setFont(FontFactory.getInstance().getFleetViewSpeedRangeFont());
         add(rangeLabel);
-        
+
         orderLabel = new JLabel("");
         orderLabel.setBounds(80, 55, 225, 20);
         orderLabel.setFont(FontFactory.getInstance().getHeading3());
         add(orderLabel);
-        
+
         userIcon = new JLabel();
         userIcon.setBounds(5, 5, 70, 70);
         add(userIcon);
@@ -122,9 +114,9 @@ public class FleetPanel extends JPanel implements Runnable {
         factionIcon = new JLabel();
         factionIcon.setBounds(55, 50, 39, 39);
         add(factionIcon);
-        
-        setComponentZOrder(factionIcon, getComponentZOrder(userIcon)-1);
-        
+
+        setComponentZOrder(factionIcon, getComponentZOrder(userIcon) - 1);
+
         // ORDER PANEL
         orderPanel = new FleetOrderPanel();
         JScrollPane orderPanelPane = new JScrollPane(orderPanel);
@@ -133,12 +125,12 @@ public class FleetPanel extends JPanel implements Runnable {
         orderPanelPane.setBounds(680, 0, 90, 165);
         orderPanelPane.setBorder(BorderFactory.createEmptyBorder());
         add(orderPanelPane);
-        
+
         // FLEET KPI PANEL
         fleetKPIPanel = new FleetKPIPanel();
         fleetKPIPanel.setBounds(0, 75, 305, 90);
         add(fleetKPIPanel);
-        
+
         // FLEET SHIPS PANEL
         fleetShipsPanel = new FleetShipsPanel();
         JScrollPane shipsPane = new JScrollPane(fleetShipsPanel);
@@ -146,69 +138,63 @@ public class FleetPanel extends JPanel implements Runnable {
         shipsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         shipsPane.setBounds(305, 0, 375, 165);
         add(shipsPane);
-         
+
     }
-    
+
     public void showFleet(Fleet fleet) {
         orderPanel.empty();
         Owner owner = null;
-        if(fleet.getUser().equals(Client.getInstance().getLocalUser())) {
+        if (fleet.getUser().equals(Client.getInstance().getLocalUser())) {
             owner = Owner.SELF;
             orderPanel.setFleet(fleet);
-        }
-        else {
-            if(fleet.getUser().getFaction().equals(Client.getInstance().getLocalUser().getFaction())) {
+        } else {
+            if (fleet.getUser().getFaction().equals(Client.getInstance().getLocalUser().getFaction())) {
                 owner = Owner.ALLY;
-            }
-            else {
+            } else {
                 owner = Owner.ENEMY;
             }
         }
-        
+
         fleetKPIPanel.setFleet(fleet);
-        
+
         fleetShipsPanel.setFleet(fleet);
-        
+
         // name
         fleetNameLabel.setText(fleet.getName());
-        if(owner.equals(Owner.SELF)) {
+        if (owner.equals(Owner.SELF)) {
             fleetNameLabel.setEditable(true);
             fleetNameLabel.putClientProperty("fleet", fleet);
-        }
-        else {
+        } else {
             fleetNameLabel.setEditable(false);
             fleetNameLabel.putClientProperty("fleet", null);
         }
-        
+
         // speed + Range
         speedLabel.setText(Client.getLanguage().getU("speed") + ":" + fleet.getSpeedHumanreadable());
-        if(!owner.equals(Owner.ENEMY)) {
+        if (!owner.equals(Owner.ENEMY)) {
             rangeLabel.setText(Client.getLanguage().getU("range") + ":" + fleet.getRange());
-        }
-        else {
+        } else {
             rangeLabel.setText("");
         }
-        
+
         // current order
-        if(owner.equals(Owner.SELF)) {
-            if(fleet.getOrder() == null) {
+        if (owner.equals(Owner.SELF)) {
+            if (fleet.getOrder() == null) {
                 orderLabel.setText(Client.getLanguage().getU("awaiting_orders"));
-            }
-            else {
+            } else {
                 orderLabel.setText(fleet.getOrder().toString());
             }
-        }
-        else {
+        } else {
             orderLabel.setText("");
         }
-        
+
         // user + faction icon
         userIcon.setIcon(new ImageIcon(ImageManager.getInstance().getImage("graphics/avatars/" + fleet.getUser().getAvatarFilename()).
                 getImage().getScaledInstance(70, 70, 0)));
         factionIcon.setIcon(BottomUIComponentFactory.getFactionIcon(fleet.getUser().getFaction()));
-        
+
     }
-    
+
     @Override
     public void paint(Graphics g) {
         if (offscreen == null) {
@@ -223,7 +209,7 @@ public class FleetPanel extends JPanel implements Runnable {
 
         paintComponents(g);
     }
-    
+
     @Override
     public void update(Graphics g) {
         paint(g);
@@ -237,7 +223,7 @@ public class FleetPanel extends JPanel implements Runnable {
     public void animPause() {
         doAnim = false;
     }
-    
+
     @Override
     public void run() {
         while (true) {
@@ -260,7 +246,7 @@ public class FleetPanel extends JPanel implements Runnable {
             }
         }
     }
-    
+
     private enum Owner {
         SELF,
         ALLY,

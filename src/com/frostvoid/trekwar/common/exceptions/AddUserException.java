@@ -24,23 +24,23 @@ package com.frostvoid.trekwar.common.exceptions;
  */
 public class AddUserException extends Exception {
 
-   private String message;
+    private String message;
 
-   public AddUserException() {
-      message = "Unable to add user";
-   }
+    public AddUserException() {
+        message = "Unable to add user";
+    }
 
-   public AddUserException(String message) {
-      this.message = message;
-   }
-
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public AddUserException(String message) {
+        this.message = message;
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }

@@ -15,23 +15,16 @@
  */
 package com.frostvoid.trekwar.server.turnExec;
 
-import java.util.logging.Level;
-
-import com.frostvoid.trekwar.common.Planet;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
-import com.frostvoid.trekwar.server.utils.MiscTools;
-import com.frostvoid.trekwar.common.utils.Language;
-import com.frostvoid.trekwar.common.Galaxy;
-import com.frostvoid.trekwar.common.PlanetClassification;
-import com.frostvoid.trekwar.common.SpaceObjectClassification;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.TurnReportItem;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.TurnReportItem.TurnReportSeverity;
 import com.frostvoid.trekwar.common.orders.BuildShipOrder;
+import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
 import com.frostvoid.trekwar.common.orders.Order;
+import com.frostvoid.trekwar.common.utils.Language;
 import com.frostvoid.trekwar.server.TrekwarServer;
+import com.frostvoid.trekwar.server.utils.MiscTools;
+
+import java.util.logging.Level;
 
 /**
  * Handles the tile specific upkeep actions during each new turn
@@ -93,14 +86,13 @@ public class SystemHandler implements Runnable {
                     if (order != null) {
                         TrekwarServer.getLog().log(Level.FINE, "executing build order for system: {0}", s.getName());
 
-                        if(order instanceof BuildShipOrder &&  s.getUser().hasUpkeepPenalty()
+                        if (order instanceof BuildShipOrder && s.getUser().hasUpkeepPenalty()
                                 && TrekwarServer.PRNG.nextInt(100) < StaticData.SHIP_UPKEEP_PENALTY_CONSTRUCTION_DELAY_CHANCE) {
                             TurnReportItem tr = new TurnReportItem(galaxy.getCurrentTurn(), s.getX(), s.getY(), TurnReportItem.TurnReportSeverity.MEDIUM);
                             tr.setSummary(TrekwarServer.getLanguage().get("turn_report_ship_construction_fail_upkeep_1"));
                             tr.setDetailed(Language.pop(TrekwarServer.getLanguage().get("turn_report_ship_construction_fail_upkeep_2"), s.getName()));
                             s.getUser().addTurnReport(tr);
-                        }
-                        else {
+                        } else {
                             order.execute();
                         }
                         if (order.isCompleted()) {
@@ -109,17 +101,16 @@ public class SystemHandler implements Runnable {
                             s.removeNextFromBuildQueue();
                         }
                     }
-                    
+
                     // update build queue time to completion
-                    if(s.countItemsInBuildQueue() > 0) {
-                        for(Order o : s.getBuildQueue()) {
-                            if(o instanceof BuildStructureOrder) {
-                                BuildStructureOrder bso = (BuildStructureOrder)o;
+                    if (s.countItemsInBuildQueue() > 0) {
+                        for (Order o : s.getBuildQueue()) {
+                            if (o instanceof BuildStructureOrder) {
+                                BuildStructureOrder bso = (BuildStructureOrder) o;
                                 bso.setTurnsLeft(MiscTools.calculateTurnsUntilCompletion(bso.getStructure().getCost() - bso.getIndustryInvested(), s.getSystemIndustrySurplus()));
-                            }
-                            else if (o instanceof BuildShipOrder) {
-                                BuildShipOrder bso = (BuildShipOrder)o;
-                                bso.setTurnsLeft(MiscTools.calculateTurnsUntilCompletion(bso.getTemplate().getCost()-bso.getIndustryInvested(), s.getSystemIndustrySurplus()));
+                            } else if (o instanceof BuildShipOrder) {
+                                BuildShipOrder bso = (BuildShipOrder) o;
+                                bso.setTurnsLeft(MiscTools.calculateTurnsUntilCompletion(bso.getTemplate().getCost() - bso.getIndustryInvested(), s.getSystemIndustrySurplus()));
                             }
                         }
                     }
@@ -131,9 +122,9 @@ public class SystemHandler implements Runnable {
     /**
      * Handle starsystem food shortage or surplus, will increase/decrease
      * population, troop count and morale
-     * 
+     *
      * @param galaxy The galaxy object
-     * @param s the starsystem
+     * @param s      the starsystem
      */
     private static void turnHandleStarsystemFood(Galaxy galaxy, StarSystem s) {
         TrekwarServer.getLog().fine("System food surplus: " + s.getSystemFoodSurplus());
@@ -143,7 +134,7 @@ public class SystemHandler implements Runnable {
                 if (p.getPopulation() == p.getMaximumPopulation()) {
                     continue;
                 }
-                int popAdd = (int) (((p.getPopulation() / 100) * p.getFertility()) * ((s.getMorale()+10)/100D) );
+                int popAdd = (int) (((p.getPopulation() / 100) * p.getFertility()) * ((s.getMorale() + 10) / 100D));
                 if (popAdd < 5 && s.getMorale() > 75) {
                     popAdd = 5;  // very small population, help planet out in starting phase
                 }
@@ -195,8 +186,7 @@ public class SystemHandler implements Runnable {
             tr.setSummary(Language.pop(TrekwarServer.getLanguage().get("turn_report_starvation_1"), s.getName()));
             tr.setDetailed(TrekwarServer.getLanguage().get("turn_report_starvation_2"));
             s.getUser().addTurnReport(tr);
-        }
-        else {
+        } else {
             // +1 morale if system has food/population balance
             updateSystemMorale(s, 1);
         }
@@ -204,7 +194,7 @@ public class SystemHandler implements Runnable {
 
     /**
      * Handles effects caused by starsystem power surplus/deficiency
-     * 
+     *
      * @param s the starsystem
      */
     private static void turnHandleStarsystemPower(StarSystem s) {
@@ -218,7 +208,7 @@ public class SystemHandler implements Runnable {
     /**
      * Update starsystem morale, positive to increase, negative to decrease.
      *
-     * @param s starsystem to change morale for
+     * @param s            starsystem to change morale for
      * @param moraleChange morale change
      */
     private static void updateSystemMorale(StarSystem s, int moraleChange) {
@@ -234,9 +224,9 @@ public class SystemHandler implements Runnable {
 
     /**
      * Handle a starsystems industry output (surplus/shortage)
-     * 
+     *
      * @param galaxy the galaxy object
-     * @param s the starsystem
+     * @param s      the starsystem
      */
     private static void turnHandleStarsystemIndustry(Galaxy galaxy, StarSystem s) {
         TrekwarServer.getLog().fine("System industry surplus: " + s.getSystemIndustrySurplus());
@@ -259,9 +249,9 @@ public class SystemHandler implements Runnable {
 
     /**
      * Handles starsystem research output (surplus/shortage)
-     * 
+     *
      * @param galaxy the galaxy object
-     * @param s the starsystem
+     * @param s      the starsystem
      */
     private static void turnHandleStarsystemResearch(Galaxy galaxy, StarSystem s) {
         TrekwarServer.getLog().fine("System research surplus: " + s.getSystemResearchSurplus());

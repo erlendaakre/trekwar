@@ -17,7 +17,7 @@ package com.frostvoid.trekwar.common.exceptions;
 
 /**
  * Indicates a validation failure
- * 
+ *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com

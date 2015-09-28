@@ -15,16 +15,16 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import javax.swing.ImageIcon;
-
+import com.frostvoid.trekwar.client.Colors;
+import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.client.gui.SimplePieChart;
+import com.frostvoid.trekwar.client.model.Slice;
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.client.Colors;
-import com.frostvoid.trekwar.client.ImageManager;
-import com.frostvoid.trekwar.client.model.Slice;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Has general functions to generate graphics for BottomMenu views.
@@ -37,13 +37,12 @@ public class BottomUIComponentFactory {
 
     /**
      * Adds population slices to a pie chart
-     * 
+     *
      * @param chart the pie chart (must be empty)
-     * 
-     * @param s the starsystem to show population for
+     * @param s     the starsystem to show population for
      */
     public static void addPopulationSlices(SimplePieChart chart, StarSystem s) {
-        
+
         int populationPercentage = (int) ((100D / s.getMaxPopulation()) * s.getPopulation());
 
         chart.removeSlices();
@@ -71,31 +70,26 @@ public class BottomUIComponentFactory {
         Double popDouble = ((double) s.getPopulation()) / 1000;
         chart.setToolTipText(StaticData.DECIMAL_FORMAT_2D.format(popDouble) + " / " + StaticData.DECIMAL_FORMAT_2D.format(maxPopDouble));
     }
-    
+
     /**
      * Gets the faction icon for a specific faction
-     * 
+     *
      * @param f the faction
-     * 
      * @return the ImageIcon with the faction icon
      */
     public static ImageIcon getFactionIcon(Faction f) {
-       if(f.equals(StaticData.federation)) {
+        if (f.equals(StaticData.federation)) {
             return ImageManager.getInstance().getImage("graphics/map_icons/fed.png");
-        }
-        else if(f.equals(StaticData.klingon)) {
+        } else if (f.equals(StaticData.klingon)) {
             return ImageManager.getInstance().getImage("graphics/map_icons/kli.png");
-        }
-        else if(f.equals(StaticData.romulan)) {
+        } else if (f.equals(StaticData.romulan)) {
             return ImageManager.getInstance().getImage("graphics/map_icons/rom.png");
-        }
-        else if(f.equals(StaticData.cardassian)) {
+        } else if (f.equals(StaticData.cardassian)) {
             return ImageManager.getInstance().getImage("graphics/map_icons/car.png");
-        }
-        else if(f.equals(StaticData.dominion)) {
+        } else if (f.equals(StaticData.dominion)) {
             return ImageManager.getInstance().getImage("graphics/map_icons/dom.png");
         }
-       
-       return null;
+
+        return null;
     }
 }

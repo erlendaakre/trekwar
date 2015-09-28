@@ -15,20 +15,12 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
 import com.frostvoid.trekwar.client.ImageManager;
+
+import javax.swing.*;
+import java.awt.event.*;
 
 /**
  * A internal window for displaying a zoomable minimap

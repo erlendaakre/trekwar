@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class BuildShipResponse extends Response {
     private boolean shipAddedToBuildQueue;
-    
+
     public BuildShipResponse(boolean shipAddedToBuildQueue) {
         this.shipAddedToBuildQueue = shipAddedToBuildQueue;
     }
-    
+
     public BuildShipResponse(String errorMessage) {
         shipAddedToBuildQueue = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isShipAddedToBuildQueue() {
         return shipAddedToBuildQueue;
     }

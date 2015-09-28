@@ -30,9 +30,9 @@ public class KlingonNeghvar extends HullClass {
     public KlingonNeghvar() {
         super("Negh'Var class", "A huge warship", "kli_16x16.png", "kli_neghvar.png",
                 210, 12300, 990, 1280, 0, 18, false, 1200, 22);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH8,
                 TechnologyGenerator.CONSTRUCTION_TECH10,
                 TechnologyGenerator.ENERGY_TECH9,

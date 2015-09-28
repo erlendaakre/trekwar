@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class BuildStructureResponse extends Response {
     private boolean structureAddedToBuildQueue;
-    
+
     public BuildStructureResponse(boolean structureAddedToBuildQueue) {
         this.structureAddedToBuildQueue = structureAddedToBuildQueue;
     }
-    
+
     public BuildStructureResponse(String errorMessage) {
         structureAddedToBuildQueue = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isStructureAddedToBuildQueue() {
         return structureAddedToBuildQueue;
     }

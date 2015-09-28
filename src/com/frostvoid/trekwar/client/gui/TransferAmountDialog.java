@@ -15,19 +15,15 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
+import com.frostvoid.trekwar.client.Client;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import com.frostvoid.trekwar.client.Client;
 
 /**
  * Dialog for selecting amount (troops/cargo) to transfer, using a slider
@@ -84,7 +80,7 @@ public class TransferAmountDialog extends JDialog {
         amountSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                label.setText(Client.getLanguage().get("transfer") + " " + amountSlider.getValue() +  " " + resourceType + " "
+                label.setText(Client.getLanguage().get("transfer") + " " + amountSlider.getValue() + " " + resourceType + " "
                         + Client.getLanguage().get("to") + " " + targetName);
             }
         });

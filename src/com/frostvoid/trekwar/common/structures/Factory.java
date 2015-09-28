@@ -27,7 +27,7 @@ import com.frostvoid.trekwar.common.StaticData;
 public class Factory extends Structure {
 
     public Factory(String name, String description,
-            int cost, int power, int research, int food, int industry, String imageFileName) {
+                   int cost, int power, int research, int food, int industry, String imageFileName) {
         super(name, description, cost, power, research, food, industry, imageFileName, Structure.mode.NORMAL);
 
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);

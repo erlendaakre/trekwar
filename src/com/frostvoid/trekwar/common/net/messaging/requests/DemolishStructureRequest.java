@@ -29,14 +29,14 @@ public class DemolishStructureRequest extends Request {
     private int y;
     private int planetNumber;
     private int slot;
-    
+
     public DemolishStructureRequest(int x, int y, int planetNumber, int slot) {
         this.x = x;
         this.y = y;
         this.planetNumber = planetNumber;
         this.slot = slot;
     }
-    
+
     /**
      * @return the x
      */

@@ -30,7 +30,7 @@ public class FederationGalaxy extends HullClass {
     public FederationGalaxy() {
         super("Galaxy class", "Large powerful cruiser with lots of equipment slots", "fed_16x16.png", "fed_galaxy.png",
                 320, 8400, 690, 760, 15, 22, false, 750, 20);
-        
+
         addFaction(StaticData.federation);
 
         addTechRequirement(TechnologyGenerator.BIO_TECH6,

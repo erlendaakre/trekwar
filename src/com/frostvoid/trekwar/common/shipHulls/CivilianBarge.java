@@ -29,7 +29,7 @@ public class CivilianBarge extends HullClass {
     public CivilianBarge() {
         super("Civilian Barge", "A large freighter", "civ_freighter_16x16.png", "civ_barge.png",
                 50, 3800, 390, 120, 5, 12, true, 150, 5);
-        
+
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);
 
         addTechRequirement(TechnologyGenerator.BIO_TECH2,

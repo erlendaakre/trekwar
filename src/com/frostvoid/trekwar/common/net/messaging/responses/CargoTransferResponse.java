@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class CargoTransferResponse extends Response {
     private boolean cargoTransferred;
-    
+
     public CargoTransferResponse(boolean cargoTransferred) {
         this.cargoTransferred = cargoTransferred;
     }
-    
+
     public CargoTransferResponse(String error) {
         this.cargoTransferred = false;
         setErrorMessage(error);
     }
-    
+
     public boolean isCargoTransferred() {
         return cargoTransferred;
     }

@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class MineResponse extends Response {
     private boolean miningStarted;
-    
+
     public MineResponse(boolean miningStarted) {
         this.miningStarted = miningStarted;
     }
-    
+
     public MineResponse(String errorMessage) {
         miningStarted = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isMiningStarted() {
         return miningStarted;
     }

@@ -15,18 +15,12 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.awt.Point;
+import com.frostvoid.trekwar.common.structures.*;
+
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.frostvoid.trekwar.common.structures.DeuteriumPlant;
-import com.frostvoid.trekwar.common.structures.OreRefinery;
-import com.frostvoid.trekwar.common.structures.Structure;
-import com.frostvoid.trekwar.common.structures.Bunker;
-import com.frostvoid.trekwar.common.structures.DeuteriumSilo;
-import com.frostvoid.trekwar.common.structures.MilitaryOutpost;
-import com.frostvoid.trekwar.common.structures.OreSilo;
 
 /**
  * A planet is inside a starsystem, and has a population and structures
@@ -53,15 +47,15 @@ public class Planet implements Serializable {
     /**
      * Creates a new planet object
      *
-     * @param type the type of planet
-     * @param system the system the planet is a part of
-     * @param planetNumber the number of this planet in the system
+     * @param type              the type of planet
+     * @param system            the system the planet is a part of
+     * @param planetNumber      the number of this planet in the system
      * @param maximumPopulation the maximum population on this planet
-     * @param fertility how fast the population grow
-     * @param maxStructures maximum number of structures
+     * @param fertility         how fast the population grow
+     * @param maxStructures     maximum number of structures
      */
     public Planet(PlanetClassification type, StarSystem system, int planetNumber,
-            int maximumPopulation, double fertility, int maxStructures) {
+                  int maximumPopulation, double fertility, int maxStructures) {
 
         this.type = type;
         this.starsystem = system;
@@ -77,6 +71,7 @@ public class Planet implements Serializable {
 
     /**
      * Gets the planet fertility
+     *
      * @return the fertility
      */
     public double getFertility() {
@@ -85,6 +80,7 @@ public class Planet implements Serializable {
 
     /**
      * Gets the planet classification
+     *
      * @return the classification
      */
     public PlanetClassification getType() {
@@ -93,6 +89,7 @@ public class Planet implements Serializable {
 
     /**
      * Sets the maximum population
+     *
      * @param maximumPopulation
      */
     public void setMaximumPopulation(int maximumPopulation) {
@@ -148,7 +145,7 @@ public class Planet implements Serializable {
     /**
      * Sets if a structure should be enabled or not
      *
-     * @param index the index of the structure
+     * @param index   the index of the structure
      * @param enabled true to enable, false to disable
      * @throws IndexOutOfBoundsException if invalid index is given
      */
@@ -176,10 +173,10 @@ public class Planet implements Serializable {
      */
     public void setPopulation(int population) {
         this.currentPopulation = population;
-        if(currentPopulation > maximumPopulation) {
+        if (currentPopulation > maximumPopulation) {
             currentPopulation = maximumPopulation;
         }
-        if(currentPopulation < 0) {
+        if (currentPopulation < 0) {
             currentPopulation = 0;
         }
     }
@@ -217,11 +214,12 @@ public class Planet implements Serializable {
      * @return deuterium per turn
      */
     public int getDeuteriumPerTurn() {
-            return deuteriumPerTurn;
+        return deuteriumPerTurn;
     }
 
     /**
      * Sets the deuterium per turn produced by this planet
+     *
      * @param deuteriumPerTurn
      */
     public void setDeuteriumPerTurn(int deuteriumPerTurn) {
@@ -373,15 +371,15 @@ public class Planet implements Serializable {
         for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof Bunker) {
-                    result += ((Bunker)s).getTroopCapacity();
+                if (s instanceof Bunker) {
+                    result += ((Bunker) s).getTroopCapacity();
                 }
-                if(s instanceof MilitaryOutpost) {
-                    result += ((MilitaryOutpost)s).getTroopCapacity();
+                if (s instanceof MilitaryOutpost) {
+                    result += ((MilitaryOutpost) s).getTroopCapacity();
                 }
             }
         }
-        result+= ((result / 100) * starsystem.getUser().getFaction().getGroundCombatBonus());
+        result += ((result / 100) * starsystem.getUser().getFaction().getGroundCombatBonus());
         return result;
     }
 
@@ -441,10 +439,10 @@ public class Planet implements Serializable {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
                 if (s instanceof OreRefinery) {
-                    ore += ((OreRefinery)s).getOreCapacity();
+                    ore += ((OreRefinery) s).getOreCapacity();
                 }
                 if (s instanceof OreSilo) {
-                    ore += ((OreSilo)s).getOreCapacity();
+                    ore += ((OreSilo) s).getOreCapacity();
                 }
             }
         }
@@ -461,11 +459,11 @@ public class Planet implements Serializable {
         for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof DeuteriumPlant) {
-                    deuterium += ((DeuteriumPlant)s).getDeuteriumCapacity();
+                if (s instanceof DeuteriumPlant) {
+                    deuterium += ((DeuteriumPlant) s).getDeuteriumCapacity();
                 }
-                if(s instanceof DeuteriumSilo) {
-                    deuterium += ((DeuteriumSilo)s).getDeuteriumCapacity();
+                if (s instanceof DeuteriumSilo) {
+                    deuterium += ((DeuteriumSilo) s).getDeuteriumCapacity();
                 }
             }
         }
@@ -482,8 +480,8 @@ public class Planet implements Serializable {
         for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof MilitaryOutpost) {
-                    troopProd += ((MilitaryOutpost)s).getTroopProduction();
+                if (s instanceof MilitaryOutpost) {
+                    troopProd += ((MilitaryOutpost) s).getTroopProduction();
                 }
             }
         }
@@ -501,11 +499,11 @@ public class Planet implements Serializable {
         for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof MilitaryOutpost) {
-                    troopMax += ((MilitaryOutpost)s).getTroopCapacity();
+                if (s instanceof MilitaryOutpost) {
+                    troopMax += ((MilitaryOutpost) s).getTroopCapacity();
                 }
-                if(s instanceof Bunker) {
-                    troopMax += ((Bunker)s).getTroopCapacity();
+                if (s instanceof Bunker) {
+                    troopMax += ((Bunker) s).getTroopCapacity();
                 }
             }
         }
@@ -520,18 +518,18 @@ public class Planet implements Serializable {
      */
     public int countBunkers() {
         int bunkers = 0;
-        for(int i : structures.keySet()) {
+        for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof Bunker) {
+                if (s instanceof Bunker) {
                     bunkers++;
                 }
             }
         }
-        
+
         return bunkers;
     }
-    
+
 
     /**
      * Gets the number of bunkers on this planet
@@ -540,16 +538,16 @@ public class Planet implements Serializable {
      */
     public ArrayList<Bunker> getBunkers() {
         ArrayList<Bunker> res = new ArrayList<Bunker>();
-        
-        for(int i : structures.keySet()) {
+
+        for (int i : structures.keySet()) {
             if (isStructureEnabled(i)) {
                 Structure s = structures.get(i);
-                if(s instanceof Bunker) {
-                    res.add((Bunker)s);
+                if (s instanceof Bunker) {
+                    res.add((Bunker) s);
                 }
             }
         }
-        
+
         return res;
     }
 
@@ -561,33 +559,32 @@ public class Planet implements Serializable {
     public int getPlanetNumber() {
         return planetNumber;
     }
-    
+
     /**
      * Sets this planets number
      */
     public void setPlanetNumber(int planetNumber) {
         this.planetNumber = planetNumber;
     }
-    
+
     /**
      * Gets the sort order for planets,
      * used when making a galaxy to make sure usable planets have lower
      * planet numbers than gas giants, etc..
-     * 
+     *
      * @return planet sort order
      */
     public int getSortOrder() {
         return sortOrder;
     }
-    
+
     /**
      * Sets this planets sort order
      */
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
     }
-    
-    
+
 
     /**
      * Gets the surface map (index -> x/y coordinates) used for drawing the UI
@@ -634,7 +631,7 @@ public class Planet implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * Checks if this planet has a structure of the same class as provided structure
      *
@@ -642,8 +639,8 @@ public class Planet implements Serializable {
      * @return true if a structure with the same class exists on the planet
      */
     public boolean hasStructureClass(Structure s) {
-        for(Structure o : structures.values()) {
-            if(o.getClass().equals(s.getClass())) {
+        for (Structure o : structures.values()) {
+            if (o.getClass().equals(s.getClass())) {
                 return true;
             }
         }
@@ -669,7 +666,7 @@ public class Planet implements Serializable {
     }
 
     public boolean equals(Planet secondPlanet) {
-        if(starsystem.equals(secondPlanet.getStarSystem()) &&
+        if (starsystem.equals(secondPlanet.getStarSystem()) &&
                 planetNumber == secondPlanet.planetNumber &&
                 type.equals(secondPlanet.type)) {
             return true;
@@ -679,8 +676,8 @@ public class Planet implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Planet) {
-            return equals((Planet)o);
+        if (o instanceof Planet) {
+            return equals((Planet) o);
         }
         return false;
     }

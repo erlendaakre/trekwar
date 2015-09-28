@@ -15,11 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.StaticData;
+
+import java.awt.*;
 
 /**
  * Icon for Fleets
@@ -29,31 +29,31 @@ import com.frostvoid.trekwar.common.StaticData;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuFleetIcon extends BottomMenuToolbarIcon {
-    
+
     String shipImageFilename;
-    
+
     public BottomMenuFleetIcon(Fleet f, boolean ally) {
         super(f.getName(), f.getUser().getFaction(), ally);
         String ext = "";
-        if(f.getUser().getFaction().equals(StaticData.federation)) {
+        if (f.getUser().getFaction().equals(StaticData.federation)) {
             ext = "fed";
         }
-        if(f.getUser().getFaction().equals(StaticData.klingon)) {
+        if (f.getUser().getFaction().equals(StaticData.klingon)) {
             ext = "kli";
         }
-        if(f.getUser().getFaction().equals(StaticData.romulan)) {
+        if (f.getUser().getFaction().equals(StaticData.romulan)) {
             ext = "rom";
         }
-        if(f.getUser().getFaction().equals(StaticData.cardassian)) {
+        if (f.getUser().getFaction().equals(StaticData.cardassian)) {
             ext = "car";
         }
-        if(f.getUser().getFaction().equals(StaticData.dominion)) {
+        if (f.getUser().getFaction().equals(StaticData.dominion)) {
             ext = "dom";
         }
         shipImageFilename = ext + ".png";
     }
 
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);

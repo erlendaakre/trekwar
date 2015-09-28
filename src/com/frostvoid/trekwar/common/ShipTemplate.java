@@ -15,12 +15,12 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.io.Serializable;
-
 import com.frostvoid.trekwar.common.exceptions.ShipException;
 import com.frostvoid.trekwar.common.exceptions.SlotException;
-import com.frostvoid.trekwar.common.shipHulls.HullClass;
 import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
+import com.frostvoid.trekwar.common.shipHulls.HullClass;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -35,8 +35,8 @@ public class ShipTemplate extends Ship implements Serializable {
     /**
      * Creates a new Ship template
      *
-     * @param user the owner of the template
-     * @param name the name of the tempalte
+     * @param user      the owner of the template
+     * @param name      the name of the tempalte
      * @param hullClass the hull class of the ship
      */
     public ShipTemplate(User user, String name, HullClass hullClass) {
@@ -85,9 +85,9 @@ public class ShipTemplate extends Ship implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof ShipTemplate) {
-            ShipTemplate other = (ShipTemplate)o;
-            if(getName() == other.getName() && getUser().equals(other.getUser())) {
+        if (o instanceof ShipTemplate) {
+            ShipTemplate other = (ShipTemplate) o;
+            if (getName() == other.getName() && getUser().equals(other.getUser())) {
                 return true;
             }
         }

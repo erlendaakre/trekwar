@@ -33,7 +33,7 @@ public class CargoTransferRequest extends Request {
     private int y;
     private int shipID;
     private int amount;
-    
+
     public CargoTransferRequest(CargoTransferRequestType type, CargoClassification cargoClassification, int x, int y, int shipID, int amount) {
         this.type = type;
         this.cargoClassification = cargoClassification;
@@ -77,7 +77,7 @@ public class CargoTransferRequest extends Request {
     public int getAmount() {
         return amount;
     }
-    
+
     public CargoClassification getCargoClassification() {
         return cargoClassification;
     }

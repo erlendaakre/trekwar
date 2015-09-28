@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class BuildQueueResponse extends Response {
     private boolean buildQueueActionsSuccessful;
-    
+
     public BuildQueueResponse(boolean buildQueueActionsSuccessful) {
         this.buildQueueActionsSuccessful = buildQueueActionsSuccessful;
     }
-    
+
     public BuildQueueResponse(String error) {
         buildQueueActionsSuccessful = false;
         setErrorMessage(error);
     }
-    
+
     public boolean isBuildQueueActionsSuccessful() {
         return buildQueueActionsSuccessful;
     }

@@ -15,9 +15,10 @@
  */
 package com.frostvoid.trekwar.common.net.messaging.responses;
 
-import java.util.ArrayList;
 import com.frostvoid.trekwar.common.ChatLine;
 import com.frostvoid.trekwar.common.net.messaging.Response;
+
+import java.util.ArrayList;
 
 /**
  * Sends all the chat lines for a user to the client
@@ -29,19 +30,19 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
 public class GetChatResponse extends Response {
     private boolean hasChatLines;
     private ArrayList<ChatLine> chatLines;
-    
+
     public GetChatResponse(boolean hasChatLines) {
         this.hasChatLines = hasChatLines;
     }
-    
+
     public void setChatLines(ArrayList<ChatLine> chatLines) {
         this.chatLines = chatLines;
     }
-    
+
     public boolean hasChatLines() {
         return hasChatLines;
     }
-    
+
     public ArrayList<ChatLine> getChatLines() {
         return chatLines;
     }

@@ -15,28 +15,20 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.gui.SimpleBar;
+import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.Technology;
 import com.frostvoid.trekwar.common.TurnReportItem;
-import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
-import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.orders.BuildShipOrder;
+import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Empire info for bottom menu
@@ -75,7 +67,7 @@ public class EmpirePanel extends JPanel {
         updateTurnReportTable();
         updateSystemsReportTable();
     }
-    
+
     void selectTurnReportTab() {
         tabbedPane.setSelectedComponent(turnReportPanel);
     }
@@ -139,7 +131,7 @@ public class EmpirePanel extends JPanel {
                 Client.getInstance().getBottomGuiPanel().displaySystem(s);
             }
         };
-        
+
         itemPanel.addMouseListener(selectTileListener);
 
         JLabel titleLabel = new JLabel("<html><b>" + s.getName() + "</b> @ " + s.getX() + ":" + s.getY() + "</html>");
@@ -311,7 +303,7 @@ public class EmpirePanel extends JPanel {
         sb.append(Client.getLanguage().getU("ships")).append(": ").append(shipNum).append("<br>");
         sb.append(Client.getLanguage().getU("upkeep")).append(": ").append(Client.getInstance().getLocalUser().getShipUpkeepUsed()).append(" / ").append(Client.getInstance().getLocalUser().getShipUpkeepSupply()).append("<br>");
         sb.append(Client.getLanguage().getU("upkeep_surplus")).append(": ").append(Client.getInstance().getLocalUser().getShipUpkeepSurplus()).append("<br>");
-        
+
         sb.append("<br>");
         Technology currentTech = Client.getInstance().getLocalUser().getCurrentResearch();
         String techStr = Client.getLanguage().get("nothing");

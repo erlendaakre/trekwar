@@ -26,18 +26,17 @@ public class MiscTools {
 
     /**
      * Calculates how many turns until a ship/structure is completed
-     * 
-     * @param cost the cost of the item 
+     *
+     * @param cost                  the cost of the item
      * @param systemIndustrySurplus the starsystem industry surplus
-     * 
      * @return number of turns until completion
      */
     public static int calculateTurnsUntilCompletion(int cost, int systemIndustrySurplus) {
-        int turnsLeft = (int)(Math.ceil(( (double)cost / systemIndustrySurplus)));
+        int turnsLeft = (int) (Math.ceil(((double) cost / systemIndustrySurplus)));
         if (systemIndustrySurplus <= 0) {
             turnsLeft = 99999;
         }
         return turnsLeft;
     }
-    
+
 }

@@ -30,9 +30,9 @@ public class FederationDefiant extends HullClass {
     public FederationDefiant() {
         super("Defiant class", "A small powerfull warship", "fed_16x16.png", "fed_defiant.png",
                 50, 5500, 360, 900, 60, 11, false, 380, 9);
-        
+
         addFaction(StaticData.federation);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH8,
                 TechnologyGenerator.CONSTRUCTION_TECH9,
                 TechnologyGenerator.ENERGY_TECH9,

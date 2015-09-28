@@ -36,10 +36,10 @@ public class ChatLine implements Serializable {
     /**
      * Creates a new chat line
      *
-     * @param userName the user who wrote the text
+     * @param userName  the user who wrote the text
      * @param timestamp when it was written
-     * @param channel the target channel (or user)
-     * @param message the message
+     * @param channel   the target channel (or user)
+     * @param message   the message
      */
     public ChatLine(String userName, Date timestamp, String channel, String message) {
         this.userName = userName;
@@ -87,6 +87,7 @@ public class ChatLine implements Serializable {
 
     /**
      * Gets the time at which this line was written
+     *
      * @return
      */
     public Date getTimestamp() {

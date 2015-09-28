@@ -15,6 +15,12 @@
  */
 package com.frostvoid.trekwar.server;
 
+import com.frostvoid.trekwar.common.Faction;
+import com.frostvoid.trekwar.common.Galaxy;
+import com.frostvoid.trekwar.common.StaticData;
+import com.frostvoid.trekwar.common.User;
+import com.frostvoid.trekwar.common.exceptions.AddUserException;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,12 +30,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import com.frostvoid.trekwar.common.Faction;
-import com.frostvoid.trekwar.common.Galaxy;
-import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.common.User;
-import com.frostvoid.trekwar.common.exceptions.AddUserException;
-
 /**
  * Console application to generate a new galaxy / game
  *
@@ -38,7 +38,7 @@ import com.frostvoid.trekwar.common.exceptions.AddUserException;
  * @author http://www.frostvoid.com
  */
 public class MakeGalaxy {
-    
+
     public static void main(String[] args) {
         int size = -1;
         int speed = -1;
@@ -54,26 +54,25 @@ public class MakeGalaxy {
         System.out.println("=========================");
 
         // Used for testing
-        if(args.length == 1 && args[0].equals("default")) {
-                size = 80;
-                speed = 30;
-                maxUsers = 5;
-                starCountPercent = 4;
-                asteroidFieldCount = 6;
-                nebulaCount = 6;
-                users.add(getUser(users, "x f klogd klogd"));
-                users.add(getUser(users, "x k gowron gowron"));
-                users.add(getUser(users, "x f picard picard"));
-                users.add(getUser(users, "x c dukat dukat"));
+        if (args.length == 1 && args[0].equals("default")) {
+            size = 80;
+            speed = 30;
+            maxUsers = 5;
+            starCountPercent = 4;
+            asteroidFieldCount = 6;
+            nebulaCount = 6;
+            users.add(getUser(users, "x f klogd klogd"));
+            users.add(getUser(users, "x k gowron gowron"));
+            users.add(getUser(users, "x f picard picard"));
+            users.add(getUser(users, "x c dukat dukat"));
 
-                listParams(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, users.size());
-                if(generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
-                    System.exit(0);
-                }
-                else {
-                    System.out.println("ERROR: unable to generate galaxy");
-                    System.exit(1);
-                }
+            listParams(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, users.size());
+            if (generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
+                System.exit(0);
+            } else {
+                System.out.println("ERROR: unable to generate galaxy");
+                System.exit(1);
+            }
         }
 
         String cmd = "";
@@ -82,40 +81,30 @@ public class MakeGalaxy {
             cmd = input.nextLine();
             if (cmd.equals("help")) {
                 showHelp();
-            }
-            else if (cmd.startsWith("size")) {
+            } else if (cmd.startsWith("size")) {
                 size = getSize(cmd);
-            }
-            else if (cmd.startsWith("maxuser")) {
+            } else if (cmd.startsWith("maxuser")) {
                 maxUsers = getMaxUser(cmd);
-            }
-            else if (cmd.startsWith("stars")) {
+            } else if (cmd.startsWith("stars")) {
                 starCountPercent = getStars(cmd);
-            }
-            else if (cmd.startsWith("speed")) {
+            } else if (cmd.startsWith("speed")) {
                 speed = getSpeed(cmd);
-            }
-            else if (cmd.startsWith("asteroids")) {
+            } else if (cmd.startsWith("asteroids")) {
                 asteroidFieldCount = getAsteroids(cmd);
-            }
-            else if (cmd.startsWith("nebulas")) {
+            } else if (cmd.startsWith("nebulas")) {
                 nebulaCount = getNebulas(cmd);
-            }
-            else if (cmd.startsWith("adduser")) {
+            } else if (cmd.startsWith("adduser")) {
                 User u = getUser(users, cmd);
-                if(users.size() >= maxUsers) {
+                if (users.size() >= maxUsers) {
                     System.out.println("ERROR: max users set to: " + maxUsers + " change this to add more users");
-                }
-                else {
-                    if(u != null) {
+                } else {
+                    if (u != null) {
                         users.add(u);
                     }
                 }
-            }
-            else if (cmd.equals("list")) {
+            } else if (cmd.equals("list")) {
                 listParams(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, users.size());
-            }
-            else if (cmd.equals("default")) {
+            } else if (cmd.equals("default")) {
                 size = 40;
                 speed = 60;
                 maxUsers = 5;
@@ -123,14 +112,12 @@ public class MakeGalaxy {
                 asteroidFieldCount = 6;
                 nebulaCount = 6;
                 System.out.println("Default values set (type list to show), add users and save");
-            }
-            else if (cmd.equals("save")) {
+            } else if (cmd.equals("save")) {
                 listParams(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, users.size());
-                if(users.isEmpty()) {
+                if (users.isEmpty()) {
                     System.out.println("ERROR: No users added, add some before saving");
 
-                }
-                else {
+                } else {
                     System.out.print("Filename: ");
                     filename = input.nextLine();
 
@@ -139,33 +126,27 @@ public class MakeGalaxy {
                         if (generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
                             System.exit(0);
                         }
-                    }
-                    else {
+                    } else {
                         System.out.println("WARNING: file already exist: " + f.getAbsolutePath());
                         System.out.print("Enter \"yes\" to overwrite:");
                         String overwrite = input.nextLine();
-                        if(overwrite.equalsIgnoreCase("yes")) {
+                        if (overwrite.equalsIgnoreCase("yes")) {
                             if (generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
                                 System.exit(0);
                             }
                         }
                     }
                 }
-            }
-            else if (cmd.equals("new")) {
+            } else if (cmd.equals("new")) {
                 interactive();
-            }
-            else if (cmd.equals("clear")) {
+            } else if (cmd.equals("clear")) {
                 for (int i = 0; i < 100; i++) {
                     System.out.println();
                 }
-            }
-            else if (cmd.equals("")) {
-            }
-            else if (cmd.equals("exit") || cmd.equals("quit")) {
+            } else if (cmd.equals("")) {
+            } else if (cmd.equals("exit") || cmd.equals("quit")) {
                 System.exit(0);
-            }
-            else {
+            } else {
                 System.out.println("Invalid command: \"" + cmd + "\", type \"help\" for help");
             }
         }
@@ -250,13 +231,13 @@ public class MakeGalaxy {
         System.out.println("Add users by typing <faction> <name> <password>. faction must be either f,k,r,c or d");
         System.out.println("Example: f picard 1701ftw");
         System.out.println("enter \"exit\" when done adding users");
-        while(!cmd.equals("exit") && users.size() <= maxUsers-1) {
+        while (!cmd.equals("exit") && users.size() <= maxUsers - 1) {
             cmd = input.nextLine();
-            if(cmd.equalsIgnoreCase("exit")) {
+            if (cmd.equalsIgnoreCase("exit")) {
                 break;
             }
             User u = getUser(users, "x " + cmd);
-            if(u != null) {
+            if (u != null) {
                 users.add(u);
             }
         }
@@ -269,12 +250,11 @@ public class MakeGalaxy {
             if (generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
                 System.exit(0);
             }
-        }
-        else {
+        } else {
             System.out.println("WARNING: file already exist: " + f.getAbsolutePath());
             System.out.print("Enter \"yes\" to overwrite:");
             String overwrite = input.nextLine();
-            if(overwrite.equalsIgnoreCase("yes")) {
+            if (overwrite.equalsIgnoreCase("yes")) {
                 listParams(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, users.size());
                 if (generateGalaxy(size, speed, maxUsers, starCountPercent, asteroidFieldCount, nebulaCount, filename, users)) {
                     System.exit(0);
@@ -306,7 +286,7 @@ public class MakeGalaxy {
         if (fail) {
             return false;
         }
-        
+
         // generate galaxy
         System.out.println("Generating galaxy: " + filename);
         long timer = System.currentTimeMillis();
@@ -315,24 +295,22 @@ public class MakeGalaxy {
         try {
             ug = new UniverseGenerator();
             galaxy = ug.makeGalaxy(size, size, speed, maxUser, starDensity, asteroids, nebula);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
             return false;
         }
-        if(ug == null || galaxy == null) {
+        if (ug == null || galaxy == null) {
             System.out.println("ERROR: failed to make UniverseGenerator or Galaxy object");
             return false;
         }
-	timer = System.currentTimeMillis()-timer;
-	System.out.println("Galaxy created in " + timer + " ms");
+        timer = System.currentTimeMillis() - timer;
+        System.out.println("Galaxy created in " + timer + " ms");
 
         try {
-            for(User u : users) {
+            for (User u : users) {
                 ug.initUser(galaxy, u);
             }
-        }
-        catch(AddUserException aue) {
+        } catch (AddUserException aue) {
             System.out.println("ERROR: unable to add users:");
             System.out.println(aue.getMessage());
             return false;
@@ -365,50 +343,48 @@ public class MakeGalaxy {
             factionStr = st.nextToken();
             name = st.nextToken();
             password = st.nextToken();
-        }
-        catch(NoSuchElementException nsee) {
-            if(cmd.startsWith("adduser")) {
+        } catch (NoSuchElementException nsee) {
+            if (cmd.startsWith("adduser")) {
                 System.out.println("USAGE: adduser faction name password");
                 System.out.println("EXAMPLE: adduser f picard 1701ftw");
-            }
-            else {
+            } else {
                 System.out.println("USAGE: faction name password");
                 System.out.println("EXAMPLE: f picard 1701ftw");
             }
             return null;
         }
 
-        if(factionStr.equals("f")) {
+        if (factionStr.equals("f")) {
             faction = StaticData.federation;
         }
-        if(factionStr.equals("k")) {
+        if (factionStr.equals("k")) {
             faction = StaticData.klingon;
         }
-        if(factionStr.equals("r")) {
+        if (factionStr.equals("r")) {
             faction = StaticData.romulan;
         }
-        if(factionStr.equals("c")) {
+        if (factionStr.equals("c")) {
             faction = StaticData.cardassian;
         }
-        if(factionStr.equals("d")) {
+        if (factionStr.equals("d")) {
             faction = StaticData.dominion;
         }
-        if(faction == null) {
+        if (faction == null) {
             System.out.println("ERROR: illegal faction, must be one of the following: f, k, r, c, d");
             return null;
         }
-        if(name.length() <= 1) {
+        if (name.length() <= 1) {
             System.out.println("ERROR: name to short");
             return null;
         }
-        for(User u : users) {
-            if(u.getUsername().equalsIgnoreCase(name)) {
+        for (User u : users) {
+            if (u.getUsername().equalsIgnoreCase(name)) {
                 System.out.println("ERROR: User with name \"" + name + "\" already added");
                 return null;
             }
         }
 
-        if(password.length() <= 1) {
+        if (password.length() <= 1) {
             System.out.println("ERROR: password to short");
             return null;
         }
@@ -548,7 +524,7 @@ public class MakeGalaxy {
         System.out.println("Parameters");
         System.out.println("==========");
         System.out.println("galaxy size:              " + size + "x" + size + "  (" + (size * size) + " tiles)");
-        System.out.println("turn speed:               " +speed + " seconds");
+        System.out.println("turn speed:               " + speed + " seconds");
         System.out.println("max users:                " + u + " (" + usersAdded + " added)");
         System.out.println("star density:             " + star + "%  (estimated # stars: " + starEst + ")");
         System.out.println("number of asteroids       " + astr);

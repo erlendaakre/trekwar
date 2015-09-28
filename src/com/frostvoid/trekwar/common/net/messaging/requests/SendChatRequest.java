@@ -28,11 +28,10 @@ public class SendChatRequest extends Request {
     private String destination; // channel or user
     private String message;
     private boolean privateMessage;
-    
+
     /**
-     * 
-     * @param destination a channel or user name
-     * @param message the message
+     * @param destination    a channel or user name
+     * @param message        the message
      * @param privateMessage if true, destination is a user. otherwise it's a channel
      */
     public SendChatRequest(String destination, String message, boolean privateMessage) {
@@ -60,5 +59,5 @@ public class SendChatRequest extends Request {
      */
     public boolean isPrivateMessage() {
         return privateMessage;
-    }   
+    }
 }

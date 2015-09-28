@@ -26,16 +26,16 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  */
 public class OrbitalBombardmentResponse extends Response {
     private boolean bombardmentStarted;
-    
+
     public OrbitalBombardmentResponse(boolean bombardmentStarted) {
         this.bombardmentStarted = bombardmentStarted;
     }
-    
+
     public OrbitalBombardmentResponse(String errorMessage) {
         bombardmentStarted = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isBombardmentStarted() {
         return bombardmentStarted;
     }

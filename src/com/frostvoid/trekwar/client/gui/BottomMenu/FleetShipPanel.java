@@ -15,10 +15,10 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JPanel;
 import com.frostvoid.trekwar.common.Fleet;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Shows icons + bars for all the ships in a fleet.
@@ -28,22 +28,22 @@ import com.frostvoid.trekwar.common.Fleet;
  * @author http://www.frostvoid.com
  */
 public class FleetShipPanel extends JPanel {
-    
+
     public FleetShipPanel() {
         setLayout(null);
-        
+
 //        JScrollPane shipsPane = new JScrollPane();
 //        shipsPane.setBounds(0, 50, 150, 105);
 //        add(shipsPane);
     }
-    
+
     public void setFleet(Fleet f) {
     }
-    
+
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.ORANGE);
-        g.fillRect(0,0,1000,1000);
+        g.fillRect(0, 0, 1000, 1000);
         paintComponents(g);
     }
 }

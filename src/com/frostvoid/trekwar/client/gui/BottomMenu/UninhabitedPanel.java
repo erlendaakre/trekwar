@@ -15,19 +15,15 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.client.FontFactory;
+import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.client.gui.SimplePieChart;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StaticData;
-import com.frostvoid.trekwar.client.FontFactory;
-import com.frostvoid.trekwar.client.ImageManager;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Uninhabited system info for bottom menu
@@ -45,7 +41,7 @@ public class UninhabitedPanel extends JPanel implements Runnable {
     Thread animThread;
     private boolean doAnim;
     private SensorPanel sensorPanel;
-    
+
     private JLabel nameLabel, sectorLabel, systemStatsLabel;
     SimplePieChart popChart;
 
@@ -68,26 +64,26 @@ public class UninhabitedPanel extends JPanel implements Runnable {
         sectorLabel.setFont(FontFactory.getInstance().getHeading3());
         sectorLabel.setBounds(25, 35, 200, 50);
         add(sectorLabel);
-        
+
         popChart = new SimplePieChart(80, 80, 30000);
-        popChart.setBounds(15,80, 100, 100);
+        popChart.setBounds(15, 80, 100, 100);
         add(popChart);
-        
+
         systemStatsLabel = new JLabel();
         systemStatsLabel.setVerticalAlignment(SwingConstants.TOP);
         systemStatsLabel.setBounds(110, 73, 220, 90);
         add(systemStatsLabel);
-        
+
         sensorPanel = new SensorPanel();
         sensorPanel.setLocation(340, 20);
         add(sensorPanel);
-        
+
         JLabel placeHolder = new JLabel("<html>Uninhabited system view will be extended<br> to show invididual planets in Trekwar 0.5.0</html>");
         placeHolder.setHorizontalAlignment(SwingConstants.CENTER);
         placeHolder.setOpaque(true);
         placeHolder.setBackground(Color.DARK_GRAY);
         placeHolder.setBounds(475, 30, 290, 120);
-        
+
         add(placeHolder);
     }
 
@@ -102,7 +98,7 @@ public class UninhabitedPanel extends JPanel implements Runnable {
                 + Client.getLanguage().get("structures") + ": 0 / " + s.getMaxStructures() + "<br>"
                 + Client.getLanguage().get("population") + ": 0 / " + StaticData.DECIMAL_FORMAT_2D.format(maxPopDouble) + " " + Client.getLanguage().get("billion") + "<br>"
                 + Client.getLanguage().get("deuterium") + ": " + s.getDeuteriumPerTurn() + " " + Client.getLanguage().get("per_turn") + "<br>"
-                +  Client.getLanguage().get("fertility") + ": " + StaticData.DECIMAL_FORMAT_2D.format(s.getAvgFertility()) + "%"
+                + Client.getLanguage().get("fertility") + ": " + StaticData.DECIMAL_FORMAT_2D.format(s.getAvgFertility()) + "%"
                 + "</html>");
     }
 

@@ -26,11 +26,11 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
  */
 public class InvadeRequest extends Request {
     private String fleetName;
-    
+
     public InvadeRequest(String fleetName) {
         this.fleetName = fleetName;
     }
-    
+
     public String getFleetName() {
         return fleetName;
     }

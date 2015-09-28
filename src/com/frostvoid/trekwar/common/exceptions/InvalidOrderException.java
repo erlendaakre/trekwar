@@ -24,24 +24,24 @@ package com.frostvoid.trekwar.common.exceptions;
  */
 public class InvalidOrderException extends Exception {
 
-   private String message;
+    private String message;
 
-   public InvalidOrderException() {
-      message = "Invalid Order Exception";
-   }
+    public InvalidOrderException() {
+        message = "Invalid Order Exception";
+    }
 
-   public InvalidOrderException(String message) {
-      this.message = message;
-   }
-
-    @Override
-   public String getMessage() {
-      return message;
-   }
+    public InvalidOrderException(String message) {
+        this.message = message;
+    }
 
     @Override
-   public String toString() {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 
 }

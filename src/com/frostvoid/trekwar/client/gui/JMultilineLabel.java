@@ -15,8 +15,7 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 /**
  * JTextArea styled like a JLabel, set for multiline wrapped text

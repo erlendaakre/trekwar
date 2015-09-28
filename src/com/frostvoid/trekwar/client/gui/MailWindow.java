@@ -15,15 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Dimension;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.Colors;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Allows user to read/send in-game mail
@@ -34,32 +30,32 @@ import com.frostvoid.trekwar.client.Colors;
  */
 public class MailWindow extends JInternalFrame {
 
-   public MailWindow(String name, Icon icon, int x, int y) {
-      super(name,
-            false, //resizable
-            false, //closable
-            false, //maximizable
-            false);//iconifiable
+    public MailWindow(String name, Icon icon, int x, int y) {
+        super(name,
+                false, //resizable
+                false, //closable
+                false, //maximizable
+                false);//iconifiable
 
-      setBackground(Colors.TREKWAR_BG_COLOR);
+        setBackground(Colors.TREKWAR_BG_COLOR);
 
-      JScrollPane scrollpane = new JScrollPane();
-      scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-      scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-      scrollpane.add(new JLabel(Client.getLanguage().get("mail_messages")));
-      getContentPane().add(scrollpane);
+        JScrollPane scrollpane = new JScrollPane();
+        scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollpane.add(new JLabel(Client.getLanguage().get("mail_messages")));
+        getContentPane().add(scrollpane);
 //      Border border = BorderFactory.createBevelBorder(0, new Color(166,166,166), Client.BLACK_COLOR);
 //      setBorder(border);
-      setFrameIcon(new ImageIcon(((ImageIcon)icon).getImage().getScaledInstance(-1,18,0)));
+        setFrameIcon(new ImageIcon(((ImageIcon) icon).getImage().getScaledInstance(-1, 18, 0)));
 
-      setSize(new Dimension(480,350));
+        setSize(new Dimension(480, 350));
 
-      setLocation(x, y);
-   }
+        setLocation(x, y);
+    }
 
     @Override
-   public void removeNotify() {
-      setVisible(false);
-      dispose();
-   }
+    public void removeNotify() {
+        setVisible(false);
+        dispose();
+    }
 }

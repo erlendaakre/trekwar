@@ -28,11 +28,11 @@ import com.frostvoid.trekwar.common.TechnologyGenerator;
 public class FederationOberth extends HullClass {
 
     public FederationOberth() {
-        super("Oberth class", "A small science ship", "fed_16x16.png", "fed_oberth.png", 
+        super("Oberth class", "A small science ship", "fed_16x16.png", "fed_oberth.png",
                 40, 680, 140, 105, 45, 6, false, 100, 2);
-        
+
         addFaction(StaticData.federation);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH1,
                 TechnologyGenerator.CONSTRUCTION_TECH1,
                 TechnologyGenerator.ENERGY_TECH1,

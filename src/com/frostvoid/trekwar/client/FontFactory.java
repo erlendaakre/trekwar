@@ -15,8 +15,7 @@
  */
 package com.frostvoid.trekwar.client;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -30,12 +29,12 @@ import java.util.logging.Level;
  */
 public class FontFactory {
     private static FontFactory instance;
-    
+
     private Font finalFrontierNew;
     private Font finalFrontierOld;
     private Font emuLogic;
     private Font pocketPixel;
-    
+
     private FontFactory() {
         try {
             finalFrontierNew = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/final_new.ttf"));
@@ -48,71 +47,68 @@ public class FontFactory {
             Client.LOG.log(Level.SEVERE, "Unable to load font file: {0}", ex.getMessage());
         }
     }
-    
+
     public static FontFactory getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new FontFactory();
         }
         return instance;
     }
-    
+
     /**
      * Gets a derived Final Frontier New font
-     * 
+     *
      * @param fontType Font.PLAIN, Font.BOLD, etc..
-     * @param size size of derived font
-     * 
+     * @param size     size of derived font
      * @return the derived font object
      */
     public Font getFinalFrontierNew(int fontType, float size) {
         return finalFrontierNew.deriveFont(fontType, size);
     }
-    
+
     /**
      * Gets a derived Final Frontier Old font
-     * 
+     *
      * @param fontType Font.PLAIN, Font.BOLD, etc..
-     * @param size size of derived font
-     * 
+     * @param size     size of derived font
      * @return the derived font object
      */
     public Font getFinalFrontierOld(int fontType, float size) {
         return finalFrontierOld.deriveFont(fontType, size);
     }
-    
+
     /**
      * Gets a derived EmuLogic font
-     * 
+     *
      * @param fontType Font.PLAIN, Font.BOLD, etc..
-     * @param size size of derived font
-     * 
+     * @param size     size of derived font
      * @return the derived font object
      */
     public Font getEmuLogic(int fontType, float size) {
         return emuLogic.deriveFont(fontType, size);
     }
-    
+
     public Font getPocketPixel(int fontType, float size) {
         return pocketPixel.deriveFont(fontType, size);
     }
-    
-    
+
+
     public Font getHeading1() {
         return finalFrontierOld.deriveFont(Font.BOLD, 30);
     }
-    
+
     public Font getHeading3() {
-         return finalFrontierNew.deriveFont(Font.PLAIN, 15);
+        return finalFrontierNew.deriveFont(Font.PLAIN, 15);
     }
-    
+
     public Font getTacticalBoxFont() {
         return getEmuLogic(Font.PLAIN, 8);
     }
-    
+
     public Font getFleetViewSpeedRangeFont() {
         return getEmuLogic(Font.PLAIN, 10);
     }
-    
+
     public Font getLauncherHeading() {
         return getEmuLogic(Font.BOLD, 30);
     }

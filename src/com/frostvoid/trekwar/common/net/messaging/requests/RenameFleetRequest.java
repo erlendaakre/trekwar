@@ -27,7 +27,7 @@ import com.frostvoid.trekwar.common.net.messaging.Request;
 public class RenameFleetRequest extends Request {
     private String currentName;
     private String newName;
-    
+
     public RenameFleetRequest(String currentName, String newName) {
         this.currentName = currentName.trim();
         this.newName = newName.trim();

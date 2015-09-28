@@ -15,15 +15,14 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import com.frostvoid.trekwar.client.Client;
+import com.frostvoid.trekwar.common.Fleet;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.Fleet;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * The toolbar panel over the Bottom Menu that holds the Buttons (empire, system, fleets...)
@@ -90,9 +89,9 @@ public class BottomMenuToolbarPanel extends JPanel {
         } else if (system.getStarSystemClassification().equals(StarSystemClassification.empty)) {
             systemButton = new BottomMenuEmptyIcon();
         } else if (system.getStarSystemClassification().equals(StarSystemClassification.nebula)) {
-             systemButton = new BottomMenuNebulaIcon();
+            systemButton = new BottomMenuNebulaIcon();
         } else if (system.getStarSystemClassification().equals(StarSystemClassification.asteroid)) {
-             systemButton = new BottomMenuAsteroidIcon();
+            systemButton = new BottomMenuAsteroidIcon();
         }
 
         if (systemButton != null) {

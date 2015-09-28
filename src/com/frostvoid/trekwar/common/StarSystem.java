@@ -15,13 +15,13 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.util.*;
-
-import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
-import com.frostvoid.trekwar.common.structures.Structure;
 import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
 import com.frostvoid.trekwar.common.orders.BuildShipOrder;
+import com.frostvoid.trekwar.common.orders.BuildStructureOrder;
 import com.frostvoid.trekwar.common.orders.Order;
+import com.frostvoid.trekwar.common.structures.Structure;
+
+import java.util.ArrayList;
 
 /**
  * This class represent a starsystem, and has a list of planets and fleets
@@ -47,14 +47,14 @@ public class StarSystem extends SpaceObject {
     /**
      * Constructor to make a new StarSystem
      *
-     * @param user the owner of this system (Nobody user)
-     * @param x the x location
-     * @param y the y location
-     * @param name the name of the TYPE of system
+     * @param user           the owner of this system (Nobody user)
+     * @param x              the x location
+     * @param y              the y location
+     * @param name           the name of the TYPE of system
      * @param starSystemType the type of system
      */
     public StarSystem(User user, int x, int y,
-            String name, StarSystemClassification starSystemType) {
+                      String name, StarSystemClassification starSystemType) {
         super(user, "", SpaceObjectClassification.starsystem, x, y);
 
         this.name = name;
@@ -131,6 +131,7 @@ public class StarSystem extends SpaceObject {
 
     /**
      * Sets the starsystem classification for this system
+     *
      * @param ssc the classification
      */
     public void setStarSystemClassification(StarSystemClassification ssc) {
@@ -172,15 +173,16 @@ public class StarSystem extends SpaceObject {
     public ArrayList<Planet> getPlanets() {
         return planets;
     }
-    
+
     /**
      * Gets all the habitable planets in this system
+     *
      * @return all the habitable planets
      */
     public ArrayList<Planet> getHabitablePlanets() {
         ArrayList<Planet> habitable = new ArrayList<Planet>(planets.size());
-        for(Planet p : planets) {
-            if(p.getMaximumPopulation() > 0) {
+        for (Planet p : planets) {
+            if (p.getMaximumPopulation() > 0) {
                 habitable.add(p);
             }
         }
@@ -217,9 +219,8 @@ public class StarSystem extends SpaceObject {
     /**
      * Gets a specific ship in this starsystem by user and id
      *
-     * @param u the user
+     * @param u  the user
      * @param id the ship id
-     *
      * @return the ship, or null if not found
      */
     public Ship getShipById(User u, long id) {
@@ -299,10 +300,10 @@ public class StarSystem extends SpaceObject {
         }
         return pop;
     }
-    
+
     /**
      * Gets the average fertility for the habitable planets in this system
-     * 
+     *
      * @return the average fertility (percentage)
      */
     public double getAvgFertility() {
@@ -315,7 +316,7 @@ public class StarSystem extends SpaceObject {
             }
         }
         fertility /= habitablePlanets;
-        
+
         return fertility;
     }
 
@@ -400,7 +401,7 @@ public class StarSystem extends SpaceObject {
 
     /**
      * Gets the defense rating for this system (ground combat)
-     * 
+     *
      * @return the defense rating
      */
     public int getDefenseRating() {
@@ -466,7 +467,7 @@ public class StarSystem extends SpaceObject {
      */
     public int getSystemIndustrySurplus() {
         int res = getSystemIndustryProduced() - getSystemIndustryConsumed();
-        if(getSystemPowerSurplus() < 0) {
+        if (getSystemPowerSurplus() < 0) {
             res = res / 2;
         }
         return res;
@@ -479,19 +480,19 @@ public class StarSystem extends SpaceObject {
      */
     public int getSystemResearchSurplus() {
         int totalResearch = getSystemResearchProduced() - getSystemResearchConsumed();
-        
+
         // reduce if missing power or industry
-        if(totalResearch > 1) {
-            if(getSystemPowerSurplus() < 0) {
-                totalResearch = (int)((totalResearch / 100D) * 20);
+        if (totalResearch > 1) {
+            if (getSystemPowerSurplus() < 0) {
+                totalResearch = (int) ((totalResearch / 100D) * 20);
             }
         }
-        if(totalResearch > 1) {
-            if(getSystemIndustrySurplus() < 0) {
-                totalResearch = (int)((totalResearch / 100D) * 60);
+        if (totalResearch > 1) {
+            if (getSystemIndustrySurplus() < 0) {
+                totalResearch = (int) ((totalResearch / 100D) * 60);
             }
         }
-        
+
         return totalResearch;
     }
 
@@ -502,12 +503,12 @@ public class StarSystem extends SpaceObject {
      */
     public void setMorale(int morale) {
         this.morale = morale;
-        
-        if(morale < 0) {
+
+        if (morale < 0) {
             morale = 0;
         }
-        
-        if(morale > 100) {
+
+        if (morale > 100) {
             morale = 100;
         }
     }
@@ -576,9 +577,9 @@ public class StarSystem extends SpaceObject {
     /**
      * Adds a structure to a planet
      *
-     * @param p the planet
+     * @param p          the planet
      * @param planetSlot the slot on the planet to make the structure
-     * @param s the structure
+     * @param s          the structure
      */
     public void addStructure(Planet p, int planetSlot, Structure s) {
         if (p.getStructuresMap().size() < p.getMaximumStructures()) {
@@ -599,7 +600,7 @@ public class StarSystem extends SpaceObject {
         }
         return false;
     }
-    
+
     /**
      * Checks if this starsystem has an active shipyard
      *
@@ -608,10 +609,10 @@ public class StarSystem extends SpaceObject {
     public boolean hasActiveShipyard() {
         boolean activeShipyardFound = false;
         for (Planet p : planets) {
-            for(int i : p.getStructuresMap().keySet()) {
+            for (int i : p.getStructuresMap().keySet()) {
                 Structure s = p.getStructuresMap().get(i);
-                if(s.equals(StaticData.shipyard1)) {
-                    if(p.isStructureEnabled(i)) {
+                if (s.equals(StaticData.shipyard1)) {
+                    if (p.isStructureEnabled(i)) {
                         activeShipyardFound = true;
                     }
                 }
@@ -707,16 +708,16 @@ public class StarSystem extends SpaceObject {
     /**
      * Sets the number of troops (for starsystem owner) in this system
      *
-     * @param new troop value
+     * @param troops new troop value
      */
     public void setTroopCount(int troops) {
         this.troops = troops;
 
         int max = getTroopCapacity();
-        if(this.troops > max) {
+        if (this.troops > max) {
             this.troops = max;
         }
-        if(this.troops < 0 ) {
+        if (this.troops < 0) {
             this.troops = 0;
         }
     }
@@ -728,9 +729,9 @@ public class StarSystem extends SpaceObject {
      */
     public void addTroops(int troops) {
         this.troops += troops;
-        
+
         int max = getTroopCapacity();
-        if(this.troops > max) {
+        if (this.troops > max) {
             this.troops = max;
         }
     }
@@ -750,15 +751,15 @@ public class StarSystem extends SpaceObject {
 
     /**
      * Gets the maximum number of troops this system can sustain
-
+     *
      * @return maximum number of troops
      */
     public int getTroopCapacity() {
-        int maxTroops =  3*planets.size();
+        int maxTroops = 3 * planets.size();
         for (Planet p : planets) {
             maxTroops += p.getTroopCapacity();
         }
-        if(maxTroops > 150) {
+        if (maxTroops > 150) {
             maxTroops = 150;
         }
         return maxTroops;
@@ -847,39 +848,38 @@ public class StarSystem extends SpaceObject {
      */
     public int getSystemScanStrength() {
         int strength = 0;
-        if(! getUser().equals(StaticData.nobodyUser)) {
+        if (!getUser().equals(StaticData.nobodyUser)) {
             strength += 30;
         }
-        
-        for(Planet p : getPlanets()) {
+
+        for (Planet p : getPlanets()) {
             strength += p.getScanStrength();
         }
-        if(strength < 0) {
+        if (strength < 0) {
             strength = 0;
         }
         return strength;
     }
-    
+
     /**
      * Calculates how much industry this star system contributes to the
      * ship upkeep pool each turn
-     * 
+     *
      * @return ship upkeep from this system
      */
     public int getShipUpkeepContribution() {
         int upkeep = 0;
-        
-        if(hasActiveShipyard()) {
+
+        if (hasActiveShipyard()) {
             upkeep += getSystemIndustrySurplus() / 9;
-        }
-        else {
+        } else {
             upkeep += getSystemIndustrySurplus() / 12;
         }
-        return upkeep; 
+        return upkeep;
     }
 
     public boolean equals(StarSystem otherSystem) {
-        if(x == otherSystem.x &&
+        if (x == otherSystem.x &&
                 y == otherSystem.y &&
                 classification.equals(otherSystem.classification) &&
                 user.equals(otherSystem.user)) {
@@ -889,8 +889,8 @@ public class StarSystem extends SpaceObject {
     }
 
     public boolean equals(Object o) {
-        if(o instanceof StarSystem) {
-            return equals((StarSystem)o);
+        if (o instanceof StarSystem) {
+            return equals((StarSystem) o);
         }
         return false;
     }
@@ -902,7 +902,7 @@ public class StarSystem extends SpaceObject {
      */
     public int getNumberOfBunkers() {
         int bunkers = 0;
-        for(Planet p : planets) {
+        for (Planet p : planets) {
             bunkers += p.countBunkers();
         }
         return bunkers;
@@ -911,16 +911,16 @@ public class StarSystem extends SpaceObject {
     /**
      * Removes part of system population, distributed amongst individual planets
      * used for: colony ships
-     * 
-     * @param pop million of people to remove 
+     *
+     * @param popToRemove million of people to remove
      */
     public void removePopulationDistributed(int popToRemove) {
         int systemPop = getPopulation();
-        double onePercentOfSystemPop =  systemPop / 100D;
+        double onePercentOfSystemPop = systemPop / 100D;
 
-        for(Planet p : getHabitablePlanets()) {
-            if(p.getPopulation() > 5) {
-                p.setPopulation((int)(p.getPopulation() - ((p.getPopulation() / onePercentOfSystemPop) * (popToRemove/100D) )));
+        for (Planet p : getHabitablePlanets()) {
+            if (p.getPopulation() > 5) {
+                p.setPopulation((int) (p.getPopulation() - ((p.getPopulation() / onePercentOfSystemPop) * (popToRemove / 100D))));
             }
         }
     }

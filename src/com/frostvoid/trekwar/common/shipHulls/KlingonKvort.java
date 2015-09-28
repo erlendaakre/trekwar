@@ -30,9 +30,9 @@ public class KlingonKvort extends HullClass {
     public KlingonKvort() {
         super("K'vort class", "A larger version of the B'rel class ship", "kli_16x16.png", "kli_kvort.png",
                 60, 3000, 320, 335, 30, 11, false, 280, 9);
-        
+
         addFaction(StaticData.klingon);
-        
+
         addTechRequirement(TechnologyGenerator.BIO_TECH3,
                 TechnologyGenerator.CONSTRUCTION_TECH4,
                 TechnologyGenerator.ENERGY_TECH4,

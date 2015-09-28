@@ -15,11 +15,11 @@
  */
 package com.frostvoid.trekwar.client.gui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import javax.swing.JComponent;
 import com.frostvoid.trekwar.client.model.Slice;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A simple pie chart
@@ -32,14 +32,14 @@ public class SimplePieChart extends JComponent {
     private ArrayList<Slice> slices;
     private int width;
     private int height;
-    private int total; 
-    
+    private int total;
+
     /**
      * Makes a new pie chart
-     * 
-     * @param width the width in pixels
+     *
+     * @param width  the width in pixels
      * @param height the height in pixels
-     * @param total the total value (100 for percent, 360 for degrees)
+     * @param total  the total value (100 for percent, 360 for degrees)
      */
     public SimplePieChart(int width, int height, int total) {
         slices = new ArrayList<Slice>();
@@ -50,7 +50,7 @@ public class SimplePieChart extends JComponent {
 
     @Override
     public void paint(Graphics g) {
-        drawPie((Graphics2D) g,  slices);
+        drawPie((Graphics2D) g, slices);
     }
 
     public void drawPie(Graphics2D g, ArrayList<Slice> slices) {
@@ -64,16 +64,16 @@ public class SimplePieChart extends JComponent {
             curValue += slice.getValue();
         }
     }
-    
+
     /**
      * Adds a slice to the pie chart
-     * 
+     *
      * @param slice the slice to add
      */
     public void addSlice(Slice slice) {
         slices.add(slice);
     }
-    
+
     public void removeSlices() {
         slices.clear();
     }

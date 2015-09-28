@@ -23,16 +23,16 @@ package com.frostvoid.trekwar.common.shipComponents;
  * @author http://www.frostvoid.com
  */
 public class Cargo extends ShipComponent {
-    
+
     private int capacity;
-    
+
     public Cargo(String name, String description, String iconFileName, int cost, int capacity) {
         super(name, description, iconFileName, cost, 0, true);
         this.capacity = capacity;
         icon16x16Filename = "cargo_16x16.png";
     }
-    
-    public int getCapacity () {
+
+    public int getCapacity() {
         return capacity;
     }
 

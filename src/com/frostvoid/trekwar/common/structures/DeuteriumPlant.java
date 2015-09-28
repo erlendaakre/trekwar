@@ -30,7 +30,7 @@ public class DeuteriumPlant extends Structure {
     private int capacity;
 
     public DeuteriumPlant(String name, String description,
-            int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
+                          int cost, int power, int research, int food, int industry, String imageFileName, int capacity) {
         super(name, description, cost, power, research, food, industry, imageFileName, Structure.mode.ONEPERSYSTEM);
 
         this.capacity = capacity;

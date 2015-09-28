@@ -15,27 +15,15 @@
  */
 package com.frostvoid.trekwar.common;
 
+import com.frostvoid.trekwar.common.exceptions.SlotException;
+import com.frostvoid.trekwar.common.shipComponents.*;
 import com.frostvoid.trekwar.common.shipHulls.HullClass;
-import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
+import com.frostvoid.trekwar.server.TrekwarServer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
-import com.frostvoid.trekwar.common.exceptions.SlotException;
-import com.frostvoid.trekwar.common.shipComponents.Armor;
-import com.frostvoid.trekwar.common.shipComponents.BeamEmitter;
-import com.frostvoid.trekwar.common.shipComponents.BussardCollector;
-import com.frostvoid.trekwar.common.shipComponents.Cargo;
-import com.frostvoid.trekwar.common.shipComponents.ColonizationModule;
-import com.frostvoid.trekwar.common.shipComponents.DeuteriumTank;
-import com.frostvoid.trekwar.common.shipComponents.ImpulseDrive;
-import com.frostvoid.trekwar.common.shipComponents.MiningLaser;
-import com.frostvoid.trekwar.common.shipComponents.Sensor;
-import com.frostvoid.trekwar.common.shipComponents.ShieldEmitter;
-import com.frostvoid.trekwar.common.shipComponents.TorpedoLauncher;
-import com.frostvoid.trekwar.common.shipComponents.TroopTransport;
-import com.frostvoid.trekwar.common.shipComponents.WarpCore;
-import com.frostvoid.trekwar.server.TrekwarServer;
 
 /**
  * A ship is a particular Hull with a bunch of ShipComponents.
@@ -74,10 +62,10 @@ public class Ship implements Serializable {
     /**
      * Creates a new ship object
      *
-     * @param user the owner of the ship
+     * @param user         the owner of the ship
      * @param templateName the name of the template used to build this ship
-     * @param shipId the unique (per user) ID of the ship
-     * @param hull the base hull class
+     * @param shipId       the unique (per user) ID of the ship
+     * @param hull         the base hull class
      */
     public Ship(User user, Fleet fleet, String templateName, int shipId, HullClass hull) {
         this.templateName = templateName;
@@ -88,7 +76,7 @@ public class Ship implements Serializable {
         this.xp = 0; // TODO experience from system
         this.morale = 50; // TODO get morale based on faction, starsystem buildt in
         this.components = new HashMap<Integer, ShipComponent>();
-        
+
         battle_restoreActionPoints();
     }
 
@@ -115,8 +103,8 @@ public class Ship implements Serializable {
             if (c instanceof WarpCore) {
                 numWarpcores++;
                 int addition = ((WarpCore) c).getSpeed();
-                addition -= (numWarpcores*2);
-                if(addition < 1) {
+                addition -= (numWarpcores * 2);
+                if (addition < 1) {
                     addition = 1;
                 }
                 speed += addition;
@@ -149,7 +137,7 @@ public class Ship implements Serializable {
      * Sets a component at a particular slot in this ship
      *
      * @param slot the slot
-     * @param c the component to place there
+     * @param c    the component to place there
      * @throws SlotException if invalid slot used
      */
     public void setComponent(int slot, ShipComponent c) throws SlotException {
@@ -183,18 +171,18 @@ public class Ship implements Serializable {
     public int getCurrentArmorStrength() {
         return currentArmorStrength;
     }
-    
+
     /**
      * Sets the current armor strength
-     * 
-     * @param armorStrength 
+     *
+     * @param armorStrength
      */
     public void setCurrentArmorStrength(int armorStrength) {
         currentArmorStrength = armorStrength;
-        if(currentArmorStrength < 0) {
+        if (currentArmorStrength < 0) {
             currentArmorStrength = 0;
         }
-        if(currentArmorStrength > getMaxArmor()) {
+        if (currentArmorStrength > getMaxArmor()) {
             currentArmorStrength = getMaxArmor();
         }
     }
@@ -216,18 +204,18 @@ public class Ship implements Serializable {
     public int getCurrentHullStrength() {
         return currentHullStrength;
     }
-    
+
     /**
-     * Sets the current hull strength 
-     * 
-     * @param hullStrength 
+     * Sets the current hull strength
+     *
+     * @param hullStrength
      */
     public void setCurrentHullStrength(int hullStrength) {
         currentHullStrength = hullStrength;
-        if(currentHullStrength < 0) {
+        if (currentHullStrength < 0) {
             currentHullStrength = 0;
         }
-        if(currentHullStrength > getMaxHitpoints()) {
+        if (currentHullStrength > getMaxHitpoints()) {
             currentHullStrength = getMaxHitpoints();
         }
     }
@@ -240,18 +228,18 @@ public class Ship implements Serializable {
     public int getCurrentShieldStrength() {
         return currentShieldStrength;
     }
-    
+
     /**
      * Sets the current shield strength
-     * 
-     * @param shieldStrength 
+     *
+     * @param shieldStrength
      */
     public void setCurrentShieldStrength(int shieldStrength) {
         currentShieldStrength = shieldStrength;
-        if(currentShieldStrength < 0) {
+        if (currentShieldStrength < 0) {
             currentShieldStrength = 0;
-        } 
-        if(currentShieldStrength > getMaxShield()) {
+        }
+        if (currentShieldStrength > getMaxShield()) {
             currentShieldStrength = getMaxShield();
         }
     }
@@ -297,7 +285,7 @@ public class Ship implements Serializable {
         bonus += user.getHighestTech(TechnologyGenerator.techType.propulsiontech).getLevel() / 5;
         res += hullClass.getBaseDeuteriumUseage();
         res -= bonus;
-        
+
         if (res < 1) {
             res = 1;
         }
@@ -436,13 +424,12 @@ public class Ship implements Serializable {
         for (ShipComponent c : components.values()) {
             if (c instanceof WarpCore) {
                 numWarpcores++;
-                int addition = (int)((double)c.getEnergy() - (numWarpcores*1.5D));
-                if(addition < 1) {
+                int addition = (int) ((double) c.getEnergy() - (numWarpcores * 1.5D));
+                if (addition < 1) {
                     addition = 1;
                 }
                 res += addition;
-            }
-            else {
+            } else {
                 res += c.getEnergy();
             }
         }
@@ -587,24 +574,24 @@ public class Ship implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * Gets the torpedo launchers in this fleet
-     * 
+     *
      * @return the fleets torpedo launchers
      */
     public ArrayList<TorpedoLauncher> getTorpedoLaunchers() {
         ArrayList<TorpedoLauncher> res = new ArrayList<TorpedoLauncher>();
-        
+
         for (ShipComponent c : components.values()) {
             if (c instanceof TorpedoLauncher) {
-                res.add((TorpedoLauncher)c);
+                res.add((TorpedoLauncher) c);
             }
         }
-        
+
         return res;
     }
-    
+
     /*
      * Counts the number of torpedo launchers on this ship
      * 
@@ -619,10 +606,10 @@ public class Ship implements Serializable {
         }
         return res;
     }
-    
+
     /**
      * Counts the number of beam emitters on this ship
-     * 
+     *
      * @return number of beam emitters
      */
     public int countBeamEmitters() {
@@ -634,10 +621,10 @@ public class Ship implements Serializable {
         }
         return res;
     }
-    
+
     /**
      * Checks if this ship has a beam emitter
-     * 
+     *
      * @return true if beam emitter present
      */
     public boolean hasBeamWeapons() {
@@ -781,10 +768,10 @@ public class Ship implements Serializable {
      */
     public void setXp(int xp) {
         this.xp = xp;
-        if(xp < 0) {
+        if (xp < 0) {
             this.xp = 0;
         }
-        if(xp > 100) {
+        if (xp > 100) {
             this.xp = 100;
         }
     }
@@ -797,31 +784,31 @@ public class Ship implements Serializable {
     public User getUser() {
         return user;
     }
-    
+
     /**
      * Gets the fleet this ship belongs to
-     * 
+     *
      * @return the fleet
      */
     public Fleet getFleet() {
         return fleet;
     }
-    
+
     /**
      * Puts this ship in a fleet
-     * 
+     *
      * @param fleet the fleet
      */
     public void setFleet(Fleet fleet) {
         this.fleet = fleet;
     }
-    
+
     /**
      * Destroys this ship
      */
     public void destroy() {
         TrekwarServer.LOG.log(Level.FINE, "Destroying ship {0} with ID: {1}", new Object[]{getName(), getShipId()});
-        if(fleet != null) {
+        if (fleet != null) {
             this.fleet.removeShip(this);
         }
         this.fleet = null;
@@ -918,12 +905,12 @@ public class Ship implements Serializable {
         int cap = 0;
         for (ShipComponent c : components.values()) {
             if (c instanceof TroopTransport) {
-                cap += ((TroopTransport)c).getCapacity();
+                cap += ((TroopTransport) c).getCapacity();
             }
         }
         return cap;
     }
-    
+
     /**
      * Gets the amount of Colonist this ship can carry
      *
@@ -933,7 +920,7 @@ public class Ship implements Serializable {
         int cap = 0;
         for (ShipComponent c : components.values()) {
             if (c instanceof ColonizationModule) {
-                cap += ((ColonizationModule)c).getPopulationCapacity();
+                cap += ((ColonizationModule) c).getPopulationCapacity();
             }
         }
         return cap;
@@ -956,11 +943,11 @@ public class Ship implements Serializable {
     public void setTroops(int troops) {
         this.troops = troops;
 
-        if(this.troops > getTroopCapacity()) {
+        if (this.troops > getTroopCapacity()) {
             this.troops = getTroopCapacity();
         }
     }
-    
+
     /**
      * Gets the amount of colonists currently on this ship
      *
@@ -978,7 +965,7 @@ public class Ship implements Serializable {
     public void setColonists(int colonists) {
         this.colonists = colonists;
 
-        if(this.colonists > getColonistCapacity()) {
+        if (this.colonists > getColonistCapacity()) {
             this.colonists = getColonistCapacity();
         }
     }
@@ -991,15 +978,15 @@ public class Ship implements Serializable {
     public int getActionPoints() {
         return actionPoints;
     }
-    
+
     /**
      * Spend some actions points doing battle
-     * 
+     *
      * @param points number of spoints to spend
      */
     public void spendActionPoints(int points) {
         actionPoints -= points;
-        if(actionPoints < 0) {
+        if (actionPoints < 0) {
             actionPoints = 0;
         }
     }
@@ -1009,62 +996,58 @@ public class Ship implements Serializable {
      */
     public final void battle_restoreActionPoints() {
         // base points
-        actionPoints = (hullClass.getSlots()/2) + 5;
-        
+        actionPoints = (hullClass.getSlots() / 2) + 5;
+
         // points from components
         for (ShipComponent c : components.values()) {
             if (c instanceof BeamEmitter) {
-                actionPoints += ((BeamEmitter)c).getActionPointsRequired();
-            }
-            else if (c instanceof MiningLaser) {
+                actionPoints += ((BeamEmitter) c).getActionPointsRequired();
+            } else if (c instanceof MiningLaser) {
                 actionPoints += 2;
-            }
-            else if (c instanceof TorpedoLauncher) {
-                actionPoints += ((TorpedoLauncher)c).getActionPointsRequired();
-            }
-            else if (c instanceof ImpulseDrive) {
-                actionPoints += ((ImpulseDrive)c).getActionPointBonus();
+            } else if (c instanceof TorpedoLauncher) {
+                actionPoints += ((TorpedoLauncher) c).getActionPointsRequired();
+            } else if (c instanceof ImpulseDrive) {
+                actionPoints += ((ImpulseDrive) c).getActionPointBonus();
             }
         }
-        
+
         // points from XP:
         actionPoints += (xp / 10);
-        
+
         // penalty for crew loss
-        double crewLossPercentage = (100.0D/((double)hullClass.getMaxCrew())) * ((double)crew);
-        actionPoints = (int) ((((double)actionPoints) / 100.0) * crewLossPercentage);
-        
+        double crewLossPercentage = (100.0D / ((double) hullClass.getMaxCrew())) * ((double) crew);
+        actionPoints = (int) ((((double) actionPoints) / 100.0) * crewLossPercentage);
+
         // penatly for structural damage
-        double hitpointLossPercentage = (100.0D/((double)getMaxHitpoints())) * ((double)getCurrentHullStrength());
-        
-        actionPoints = (int) ((((double)actionPoints) / 100.0) * hitpointLossPercentage);
+        double hitpointLossPercentage = (100.0D / ((double) getMaxHitpoints())) * ((double) getCurrentHullStrength());
+
+        actionPoints = (int) ((((double) actionPoints) / 100.0) * hitpointLossPercentage);
     }
 
     /**
      * Checks if this ship is armed
-     * 
+     *
      * @return true if ship has weapons
      */
     public boolean isArmed() {
         return (hasBeamWeapons() || hasTorpedoLauncher());
     }
-    
+
     /**
      * Gets the upkeep cost (industry) needed to maintain this ship each turn
-     * 
-     * @return ship upkeep cost 
+     *
+     * @return ship upkeep cost
      */
     public int getUpkeepCost() {
         return getCost() / StaticData.SHIP_UPKEEP_COST_FACTOR;
     }
-    
-    
-    
+
+
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Ship) {
-            Ship other = (Ship)o;
-            if(getShipId() == other.getShipId() && getUser().equals(other.getUser())) {
+        if (o instanceof Ship) {
+            Ship other = (Ship) o;
+            if (getShipId() == other.getShipId() && getUser().equals(other.getUser())) {
                 return true;
             }
         }

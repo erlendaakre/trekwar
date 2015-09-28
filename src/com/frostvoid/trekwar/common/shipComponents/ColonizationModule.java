@@ -24,7 +24,7 @@ package com.frostvoid.trekwar.common.shipComponents;
  */
 public class ColonizationModule extends ShipComponent {
     private int populationCapacity; // in MILLIONS
-    
+
     public ColonizationModule(String name, String description, String iconFileName, int cost, int populationCapacity, int energyRequirement) {
         super(name, description, iconFileName, cost, energyRequirement, true);
         this.populationCapacity = populationCapacity;

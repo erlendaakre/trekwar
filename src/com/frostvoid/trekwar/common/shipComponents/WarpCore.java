@@ -25,13 +25,13 @@ package com.frostvoid.trekwar.common.shipComponents;
  */
 public class WarpCore extends ShipComponent {
     private int baseSpeed;
-    
+
     public WarpCore(String name, String description, String iconFileName, int cost, int energy, int speed) {
         super(name, description, iconFileName, cost, energy, false);
         this.baseSpeed = speed;
         icon16x16Filename = "warpcore_16x16.png";
     }
-    
+
     public int getSpeed() {
         return baseSpeed;
     }

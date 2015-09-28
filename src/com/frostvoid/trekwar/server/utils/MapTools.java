@@ -15,10 +15,11 @@
  */
 package com.frostvoid.trekwar.server.utils;
 
-import java.util.ArrayList;
 import com.frostvoid.trekwar.common.Galaxy;
 import com.frostvoid.trekwar.common.StarSystem;
 import com.frostvoid.trekwar.common.User;
+
+import java.util.ArrayList;
 
 /**
  * Methods for doing stuff on the map (sensors, line of sight, etc..)
@@ -29,17 +30,17 @@ import com.frostvoid.trekwar.common.User;
  */
 public class MapTools {
 
-    
+
     /**
      * Does Line Of Sight for a starsystem, ship or other space entity
      *
-     * @param user the user to do LOS for (updates this user fog of war)
-     * @param sourceX the source x coordinate
-     * @param sourceY the source y coordinate
+     * @param user           the user to do LOS for (updates this user fog of war)
+     * @param sourceX        the source x coordinate
+     * @param sourceY        the source y coordinate
      * @param sensorStrength the sensor strength
      */
     public static void doLOS(Galaxy galaxy, User user, int sourceX, int sourceY, int sensorStrength) {
-        ArrayList<StarSystem> boundingBox = getBoundingBox(galaxy.getMap(), galaxy.getMap()[sourceX][sourceY], sensorStrength/10);
+        ArrayList<StarSystem> boundingBox = getBoundingBox(galaxy.getMap(), galaxy.getMap()[sourceX][sourceY], sensorStrength / 10);
 
         // ALWAYS remove fog of war in adjacent spaces
         ArrayList<StarSystem> box = getBoundingBox(galaxy.getMap(), galaxy.getMap()[sourceX][sourceY], 1);
@@ -56,28 +57,27 @@ public class MapTools {
             int strength = sensorStrength;
             updateTileSensorStrength(user, sourceX, sourceY, strength - galaxy.getMap()[sourceX][sourceY].getSensorCost());
             strength -= galaxy.getMap()[sourceX][sourceY].getSensorCost();
-            
+
             while (b.next()) {
                 strength -= galaxy.getMap()[b.getX()][b.getY()].getSensorCost();
                 if (strength <= 0) {
                     break;
-                }
-                else {
+                } else {
                     updateTileSensorStrength(user, b.getX(), b.getY(), strength);
                 }
             }
         }
     }
-    
+
     /**
      * Updates the sensor strength of a tile, IF new value is higher than existing one
-     * 
-     * @param user the user to update sensor strength map for
-     * @param x tile x coordinate
-     * @param y tile y coordinate
+     *
+     * @param user     the user to update sensor strength map for
+     * @param x        tile x coordinate
+     * @param y        tile y coordinate
      * @param strength sensor strength for tile
      */
-    private static void updateTileSensorStrength(User user, int x, int y,  int strength) {
+    private static void updateTileSensorStrength(User user, int x, int y, int strength) {
         user.getSensorOverlay()[x][y] = Math.max(user.getSensorOverlay()[x][y], strength);
     }
 
@@ -86,9 +86,8 @@ public class MapTools {
      * Used by the LineOfSight method (doLOS(...))
      *
      * @param map the map
-     * @param s the starsystem (sensor source)
-     * @param r the radius of the box (from the source)
-     *
+     * @param s   the starsystem (sensor source)
+     * @param r   the radius of the box (from the source)
      * @return A list of all systems that make up the bounding box
      */
     public static ArrayList<StarSystem> getBoundingBox(StarSystem[][] map, StarSystem s, int r) {
@@ -96,10 +95,10 @@ public class MapTools {
 
         // top
         int x = s.getX() - r;
-        if(x < 0)
+        if (x < 0)
             x = 0;
         int y = s.getY() - r;
-        if(y < 0)
+        if (y < 0)
             y = 0;
         while (x < s.getX() + r && x < map.length) {
             bounds.add(map[x][y]);
@@ -108,10 +107,10 @@ public class MapTools {
 
         //left
         x = s.getX() + r;
-        if(x >= map.length)
-            x = map.length-1;
+        if (x >= map.length)
+            x = map.length - 1;
         y = s.getY() - r;
-        if(y < 0)
+        if (y < 0)
             y = 0;
         while (y < s.getY() + r && y < map[x].length) {
             bounds.add(map[x][y]);
@@ -120,11 +119,11 @@ public class MapTools {
 
         // bottom
         x = s.getX() - r;
-        if(x < 0)
+        if (x < 0)
             x = 0;
         y = s.getY() + r;
-        if(y >= map[x].length)
-            y = map[x].length-1;
+        if (y >= map[x].length)
+            y = map[x].length - 1;
         while (x <= s.getX() + r && x < map.length) {
             bounds.add(map[x][y]);
             x += 1;
@@ -132,10 +131,10 @@ public class MapTools {
 
         //right
         x = s.getX() - r;
-        if(x < 0)
+        if (x < 0)
             x = 0;
         y = s.getY() - r;
-        if(y < 0)
+        if (y < 0)
             y = 0;
         while (y < s.getY() + r && y < map[x].length) {
             bounds.add(map[x][y]);

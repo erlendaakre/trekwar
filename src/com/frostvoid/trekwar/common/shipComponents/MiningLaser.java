@@ -24,13 +24,13 @@ package com.frostvoid.trekwar.common.shipComponents;
  */
 public class MiningLaser extends ShipComponent {
     private int capacity;
-    
+
     public MiningLaser(String name, String description, String iconFileName, int cost, int energy, int capacity) {
         super(name, description, iconFileName, cost, energy, true);
         this.capacity = capacity;
         icon16x16Filename = "mining_16x16.png";
     }
-    
+
     public int getCapacity() {
         return capacity;
     }

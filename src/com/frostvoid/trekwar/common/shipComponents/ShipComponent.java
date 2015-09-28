@@ -15,14 +15,13 @@
  */
 package com.frostvoid.trekwar.common.shipComponents;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 import com.frostvoid.trekwar.common.Faction;
 import com.frostvoid.trekwar.common.Technology;
 import com.frostvoid.trekwar.common.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Base class for all starship components, a component can be put in a slot
@@ -65,6 +64,7 @@ public class ShipComponent implements Serializable {
 
     /**
      * Checks if a given faction can use this component
+     *
      * @param f the faction to check
      * @return true if faction can use this component
      */

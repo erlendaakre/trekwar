@@ -15,12 +15,12 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.common.Fleet;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Handles clicks on the toolbar icons (empire, starsystem, fleets)
@@ -30,24 +30,22 @@ import com.frostvoid.trekwar.common.Fleet;
  * @author http://www.frostvoid.com
  */
 public class ToolbarActionListener implements ActionListener {
-    
+
     public static enum Actions {
         VIEW_EMPIRE,
         VIEW_STARSYSTEM,
         VIEW_FLEET
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(Actions.VIEW_EMPIRE.toString())) {
+        if (e.getActionCommand().equals(Actions.VIEW_EMPIRE.toString())) {
             Client.getInstance().getBottomGuiPanel().showEmpireView();
-        }
-        else if(e.getActionCommand().equals(Actions.VIEW_STARSYSTEM.toString())) {
+        } else if (e.getActionCommand().equals(Actions.VIEW_STARSYSTEM.toString())) {
             Client.getInstance().getBottomGuiPanel().showStarsystem();
-        }
-        else if(e.getActionCommand().equals(Actions.VIEW_FLEET.toString())) {
-            Fleet fleet = ((Fleet)( ((JButton)e.getSource()).getClientProperty("fleet")) );
+        } else if (e.getActionCommand().equals(Actions.VIEW_FLEET.toString())) {
+            Fleet fleet = ((Fleet) (((JButton) e.getSource()).getClientProperty("fleet")));
             Client.getInstance().getBottomGuiPanel().showFleet(fleet);
         }
-    }   
+    }
 }

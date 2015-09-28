@@ -28,8 +28,8 @@ import com.frostvoid.trekwar.common.StaticData;
 public class Shipyard extends Structure {
 
     public Shipyard(String name, String description,
-            int cost, int power, int research, int food, int industry, String imageFileName) {
-        super(name, description, cost,  power,  research,  food,  industry, imageFileName, Structure.mode.ONEPERSYSTEM);
+                    int cost, int power, int research, int food, int industry, String imageFileName) {
+        super(name, description, cost, power, research, food, industry, imageFileName, Structure.mode.ONEPERSYSTEM);
 
         setSpecial("allows starship construction");
         addFaction(StaticData.federation, StaticData.klingon, StaticData.romulan, StaticData.cardassian, StaticData.dominion);

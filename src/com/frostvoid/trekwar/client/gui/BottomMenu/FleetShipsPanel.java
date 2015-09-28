@@ -15,15 +15,14 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
+import com.frostvoid.trekwar.common.Fleet;
+import com.frostvoid.trekwar.common.Ship;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.swing.JPanel;
-
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Ship;
 
 /**
  * The area that holds all the ship panels for a single fleet
@@ -33,20 +32,20 @@ import com.frostvoid.trekwar.common.Ship;
  * @author http://www.frostvoid.com
  */
 public class FleetShipsPanel extends JPanel {
-    
+
     private Dimension size;
-    
+
     public FleetShipsPanel() {
         setLayout(null);
     }
-    
+
     public void setFleet(Fleet f) {
         removeAll();
-        
+
         int i = 0;
-        int x = 0; 
+        int x = 0;
         int y = 3;
-        
+
         ArrayList<Ship> ships = f.getShips();
         Comparator<Ship> shipSorter = new Comparator<Ship>() {
 
@@ -54,50 +53,50 @@ public class FleetShipsPanel extends JPanel {
             public int compare(Ship o1, Ship o2) {
                 int s1 = sum(o1);
                 int s2 = sum(o2);
-                if(s1 < s2) return 1;
-                if(s1 > s2) return -1;
+                if (s1 < s2) return 1;
+                if (s1 > s2) return -1;
                 return 0;
             }
-            
+
             public int sum(Ship s) {
                 int sum = 0;
-                sum += s.getTroops() *  5000;
-                sum += (s.getCargoDeuterium() + s.getCargoOre()*10);
+                sum += s.getTroops() * 5000;
+                sum += (s.getCargoDeuterium() + s.getCargoOre() * 10);
                 sum += s.getCost();
                 sum += s.getShipId();
                 return sum;
             }
         };
-        
+
         Collections.sort(ships, shipSorter);
-        
-        for(Ship ship : ships) {
+
+        for (Ship ship : ships) {
             FleetShipsPanelShipComponent b = new FleetShipsPanelShipComponent(ship);
-            b.setLocation(x,y);
+            b.setLocation(x, y);
             add(b);
-            
+
             i++;
-            x+= 95;
-            if(ship.canLoadUnloadCargo()) {
+            x += 95;
+            if (ship.canLoadUnloadCargo()) {
                 x += 12;
             }
-            if(ship.hasTroopTransport()) {
+            if (ship.hasTroopTransport()) {
                 x += 12;
             }
-            if(i % 3 == 0) {
+            if (i % 3 == 0) {
                 x = 0;
                 y += 48;
             }
         }
-        
+
         size = new Dimension(375, y + 48);
     }
-    
+
     @Override
     public void paint(Graphics g) {
         paintComponents(g);
     }
-    
+
     @Override
     public Dimension getPreferredSize() {
         return size;

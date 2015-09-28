@@ -23,12 +23,12 @@ package com.frostvoid.trekwar.common;
  * @author http://www.frostvoid.com
  */
 public enum PlanetClassification {
-   gasGiant,
-   arctic,
-   desert,
-   terran,
-   volcanic,
-   jungle,
-   barren,
-   oceanic
+    gasGiant,
+    arctic,
+    desert,
+    terran,
+    volcanic,
+    jungle,
+    barren,
+    oceanic
 };

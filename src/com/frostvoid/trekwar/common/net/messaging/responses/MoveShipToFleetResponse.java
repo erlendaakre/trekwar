@@ -25,18 +25,18 @@ import com.frostvoid.trekwar.common.net.messaging.Response;
  * @author http://www.frostvoid.com
  */
 public class MoveShipToFleetResponse extends Response {
-    
+
     private boolean shipMovedSuccessfully;
-    
+
     public MoveShipToFleetResponse(boolean shipMovedSuccessfully) {
         this.shipMovedSuccessfully = shipMovedSuccessfully;
     }
-    
+
     public MoveShipToFleetResponse(String errorMessage) {
         this.shipMovedSuccessfully = false;
         setErrorMessage(errorMessage);
     }
-    
+
     public boolean isShipMovedSuccessfully() {
         return shipMovedSuccessfully;
     }

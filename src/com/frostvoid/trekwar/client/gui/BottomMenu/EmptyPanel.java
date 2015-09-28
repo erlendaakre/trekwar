@@ -15,14 +15,13 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.client.FontFactory;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.StarSystem;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Empty space system info for bottom menu
@@ -62,7 +61,7 @@ public class EmptyPanel extends JPanel implements Runnable {
         sectorLabel.setFont(FontFactory.getInstance().getHeading3());
         sectorLabel.setBounds(25, 35, 200, 50);
         add(sectorLabel);
-        
+
         sensorPanel = new SensorPanel();
         sensorPanel.setLocation(340, 20);
         add(sensorPanel);

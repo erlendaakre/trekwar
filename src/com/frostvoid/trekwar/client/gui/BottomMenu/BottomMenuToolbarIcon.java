@@ -15,18 +15,12 @@
  */
 package com.frostvoid.trekwar.client.gui.BottomMenu;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import javax.swing.DefaultButtonModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import com.frostvoid.trekwar.common.StaticData;
 import com.frostvoid.trekwar.client.ImageManager;
 import com.frostvoid.trekwar.common.Faction;
+import com.frostvoid.trekwar.common.StaticData;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Base class for icons used in the toolbar
@@ -36,30 +30,30 @@ import com.frostvoid.trekwar.common.Faction;
  * @author http://www.frostvoid.com
  */
 public class BottomMenuToolbarIcon extends JButton {
-    
+
     Image buttonImage;
 
     public BottomMenuToolbarIcon(String text, Faction faction, boolean ally) {
         String ext = "";
-        if(faction.equals(StaticData.federation)) {
+        if (faction.equals(StaticData.federation)) {
             ext = "_fed";
         }
-        if(faction.equals(StaticData.klingon)) {
+        if (faction.equals(StaticData.klingon)) {
             ext = "_kli";
         }
-        if(faction.equals(StaticData.romulan)) {
+        if (faction.equals(StaticData.romulan)) {
             ext = "_rom";
         }
-        if(faction.equals(StaticData.cardassian)) {
+        if (faction.equals(StaticData.cardassian)) {
             ext = "_car";
         }
-        if(faction.equals(StaticData.dominion)) {
+        if (faction.equals(StaticData.dominion)) {
             ext = "_dom";
         }
-        if(ally) {
+        if (ally) {
             ext = "_ally";
         }
-        
+
         buttonImage = ImageManager.getInstance().getImage("graphics/bottommenutoolbar" + ext + ".png").getImage();
         setLayout(null);
         setSize(new Dimension(60, 60));
@@ -70,10 +64,10 @@ public class BottomMenuToolbarIcon extends JButton {
             textLabel.setHorizontalAlignment(SwingConstants.CENTER);
             add(textLabel);
         }
-        
+
         setModel(new DefaultButtonModel());
     }
-    
+
     public void setButtonImage(Image img) {
         buttonImage = img;
     }

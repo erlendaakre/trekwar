@@ -15,22 +15,17 @@
  */
 package com.frostvoid.trekwar.server.turnExec;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.Level;
-
-import com.frostvoid.trekwar.common.Faction;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.TechnologyGenerator.techType;
-import com.frostvoid.trekwar.common.TurnReportItem;
-import com.frostvoid.trekwar.common.User;
 import com.frostvoid.trekwar.common.shipComponents.BeamEmitter;
 import com.frostvoid.trekwar.common.shipComponents.MiningLaser;
 import com.frostvoid.trekwar.common.shipComponents.ShipComponent;
 import com.frostvoid.trekwar.common.shipComponents.TorpedoLauncher;
 import com.frostvoid.trekwar.server.TrekwarServer;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * Resolves space combat

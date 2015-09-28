@@ -15,15 +15,14 @@
  */
 package com.frostvoid.trekwar.common;
 
-import java.io.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-
 import com.frostvoid.trekwar.client.Client;
 import com.frostvoid.trekwar.common.exceptions.AddUserException;
 import com.frostvoid.trekwar.common.exceptions.UserNotFoundException;
 import com.frostvoid.trekwar.common.utils.Language;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A huge super awesome object that holds all the static stuff (structures, hulls, technologies)
@@ -49,9 +48,9 @@ public class Galaxy implements Serializable {
     /**
      * Create a new galaxy
      *
-     * @param map the actual game map
+     * @param map       the actual game map
      * @param turnSpeed time between turns (in seconds)
-     * @param maxUsers maximum number of users allowed
+     * @param maxUsers  maximum number of users allowed
      */
     public Galaxy(StarSystem[][] map, long turnSpeed, int maxUsers) {
         this.map = map;
@@ -60,14 +59,13 @@ public class Galaxy implements Serializable {
 
         this.currentTurn = 0;
 
-        
-        
+
         users = new ArrayList<User>();
         users.add(StaticData.nobodyUser);
 
         loggedInUsers = new ArrayList<User>();
     }
-    
+
     /**
      * This method is called every time a galaxy object is started
      * (deserialized from disk).
@@ -105,7 +103,7 @@ public class Galaxy implements Serializable {
      *
      * @param username which user object to get
      * @return the appropriate user object
-     * @throws NoSuchUserException if the user is not found
+     * @throws UserNotFoundException if the user is not found
      */
     public User getUser(String username) throws UserNotFoundException {
         for (int i = 0; i < users.size(); i++) {
@@ -159,7 +157,6 @@ public class Galaxy implements Serializable {
      *
      * @param x x coordinate
      * @param y y coordinate
-     *
      * @return the starsystem at given coordinates, or null if invalid coordinates
      */
     public StarSystem getSystem(int x, int y) {
@@ -221,7 +218,7 @@ public class Galaxy implements Serializable {
      * @param u the user to add
      */
     public void loginUser(User u, String ipString) {
-        TurnReportItem tr = new TurnReportItem(currentTurn, -1,-1, TurnReportItem.TurnReportSeverity.HIGH);
+        TurnReportItem tr = new TurnReportItem(currentTurn, -1, -1, TurnReportItem.TurnReportSeverity.HIGH);
         tr.setSummary(Client.getLanguage().get("turn_report_login1"));
         tr.setDetailed(Language.pop(Client.getLanguage().get("turn_report_login2"), new Date(), ipString));
         u.addTurnReport(tr);
@@ -254,20 +251,20 @@ public class Galaxy implements Serializable {
     public long getCurrentTurn() {
         return currentTurn;
     }
-    
+
     public void incrementCurrentTurn() {
         currentTurn++;
     }
 
-    
+
     public void setExecutingTurn(boolean executingTurn) {
         this.executingTurn = executingTurn;
     }
-    
+
     public boolean getExecutingTurn() {
         return executingTurn;
     }
-    
+
     public long getTurnSpeed() {
         return turnSpeed;
     }

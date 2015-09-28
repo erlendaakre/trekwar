@@ -25,21 +25,21 @@ package com.frostvoid.trekwar.common.shipComponents;
 public class BeamEmitter extends ShipComponent {
     private int baseDamage;
     private int actionPointsRequired;
-    
+
     public BeamEmitter(String name, String description, String iconFileName, int cost, int energy, int damage, int actionPointsRequired) {
         super(name, description, iconFileName, cost, energy, false);
         this.baseDamage = damage;
         this.actionPointsRequired = actionPointsRequired;
         icon16x16Filename = "beamemitter_16x16.png";
     }
-    
+
     public int getDamage() {
         return baseDamage;
     }
-    
+
     /**
      * Gets the number of AP's required to fire this weapon
-     * 
+     *
      * @return ap's required to fire
      */
     public int getActionPointsRequired() {

@@ -15,19 +15,15 @@
  */
 package com.frostvoid.trekwar.common.orders;
 
-import java.util.logging.Level;
-
 import com.frostvoid.trekwar.client.Client;
-import com.frostvoid.trekwar.common.Fleet;
-import com.frostvoid.trekwar.common.Ship;
-import com.frostvoid.trekwar.common.StarSystem;
-import com.frostvoid.trekwar.common.StarSystemClassification;
-import com.frostvoid.trekwar.common.User;
+import com.frostvoid.trekwar.common.*;
 import com.frostvoid.trekwar.common.exceptions.InvalidOrderException;
 import com.frostvoid.trekwar.server.TrekwarServer;
 
+import java.util.logging.Level;
+
 /**
- * Makes all ships in a fleet with mining lasers mine asteroid ore into 
+ * Makes all ships in a fleet with mining lasers mine asteroid ore into
  * the ships cargo bay
  *
  * @author Erlend Aakre
@@ -48,10 +44,10 @@ public class MiningOrder extends Order {
         this.fleet = fleet;
 
 
-        if(! fleet.canMine()) {
+        if (!fleet.canMine()) {
             throw new InvalidOrderException("The fleet is not equipped to mine asteroid belts");
         }
-        if(! starsystem.getStarSystemClassification().equals(StarSystemClassification.asteroid)) {
+        if (!starsystem.getStarSystemClassification().equals(StarSystemClassification.asteroid)) {
             throw new InvalidOrderException("Not a asteroid belt: " + starsystem.getStarSystemClassification());
         }
     }
@@ -60,28 +56,28 @@ public class MiningOrder extends Order {
     public void execute() {
         if (!orderCompleted) {
             int amountMined = 0;
-            for(Ship s : fleet.getShips()) {
-                if(starsystem.getResourcesLeft() <= 0) {
+            for (Ship s : fleet.getShips()) {
+                if (starsystem.getResourcesLeft() <= 0) {
                     starsystem.setStarSystemClassification(StarSystemClassification.empty);
                     orderCompleted = true;
                     break;
                 }
-                if(s.canMine() && s.getAvailableCargoSpace() > 0) {
+                if (s.canMine() && s.getAvailableCargoSpace() > 0) {
                     int amount = s.getMiningOutput();
-                    if(amount > starsystem.getResourcesLeft())
+                    if (amount > starsystem.getResourcesLeft())
                         amount = starsystem.getResourcesLeft();
-                    if(amount > s.getAvailableCargoSpace())
+                    if (amount > s.getAvailableCargoSpace())
                         amount = s.getAvailableCargoSpace();
 
                     s.setCargoOre(s.getCargoOre() + amount);
-                    starsystem.setResourcesLeft(starsystem.getResourcesLeft()-amount);
+                    starsystem.setResourcesLeft(starsystem.getResourcesLeft() - amount);
                     amountMined += amount;
 
                 }
             }
             totalAmountMined += amountMined;
 
-            if(amountMined <= 0) {
+            if (amountMined <= 0) {
                 orderCompleted = true;
             }
         }

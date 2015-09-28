@@ -17,12 +17,11 @@ package com.frostvoid.trekwar.common.net.messaging;
 
 /**
  * Modes for StructureStateChangeRequests
- * 
- * @see StructureStateChangeRequest
  *
  * @author Erlend Aakre
  * @author FrostVoid Software
  * @author http://www.frostvoid.com
+ * @see StructureStateChangeRequest
  */
 public enum StructureStateChangeRequestType {
     ENABLE,
