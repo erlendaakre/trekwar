@@ -1,0 +1,12 @@
+/build/
+/.gradle/
+/manifest.mf
+/build.xml
+/.idea/
+/out
+/jars
+run.bat
+run.sh
+client.log*
+gal.dat*
+trekwar.iml

@@ -1,0 +1,527 @@
+#ERROR MESSAGES.. Not sure if these need to be translated, they should never show up ;D
+tried_to_load_unsupported_audio_file=tried to load unsupported audio file
+io_error_while_loading_audio_file=IO error while loading audio file
+unable_to_open_audio_device=unable to open audio device
+invalid_data_in_properties_file,_window_x=Invalid data in properties file, window.x
+data_missing_in_properties_file,_window_x=Data missing in properties file, window.x
+substance_raven_graphite_failed_to_initialize=Substance Raven Graphite failed to initialize
+io_error_while_trying_to_save_properties_file=IO error while trying to save properties file
+unable_to_connect_to_server,_host_not_found=Unable to connect to server, host not found
+io_error_while_trying_to_connect_to_server=IO Error while trying to connect to server
+error_while_trying_to_connect_to_server=Error while trying to connect to server
+unable_to_locate_your_user_object_in_local_galaxy_object=Unable to locate your user object in local galaxy object
+io_error_while_downloading_galaxy_from_server=IO Error while downloading galaxy from server
+error_while_downloading_galaxy_from_server=Error while downloading galaxy from server
+io_error_while_downloading_userlist_from_server=IO Error while downloading userlist from server
+io_error_while_telling_server_to_set_research=IO error while telling server to set research
+io_error_while_sending_template_to_server=IO error while sending template to server
+error_while_deleting_template=Error while deleting template
+io_error_while_telling_server_to_send_chat_message=IO error while telling server to send chat message
+io_error_while_telling_server_to_delete_template=IO error while telling server to delete template
+io_error_while_telling_server_to_move_fleet=IO error while telling server to move fleet
+io_error_while_telling_server_to_build_structure_in_system=IO error while telling server to build structure in system
+io_error_while_telling_server_to_demolish_structure_in_systemIO error while telling server to demolish structure in system
+io_error_while_disconnecting_from_server=IO error while disconnecting from server
+io_error_while_telling_server_to_enable_or_disable_structure=IO error while telling server to enable or disable a structure in system
+io_error_while_telling_server_to_build_ship=IO error while telling server to build a ship
+io_error_while_telling_server_to_update_item_in_build_queue=IO error while telling server to update item in build queue
+io_error_while_telling_server_to_hurry_production=IO error while telling server to hurry production
+io_error_while_telling_server_to_colonize_system=IO error while telling server to colonize system
+io_error_while_telling_server_to_invade_system=IO error while telling server to invade system
+io_error_while_telling_server_to_bomb_system=IO error while telling server to bomb system
+io_error_while_telling_server_to_rename_fleet=IO error while telling server to rename fleet
+io_error_while_telling_server_to_create_new_fleet=IO error while telling server to create new fleet
+io_error_while_telling_server_to_mine_asteroids=IO error while telling server to mine asteroids
+io_error_while_telling_server_to_harvest_nebula=IO error while telling server to harvest nebula
+io_error_while_telling_server_to_transfer_cargo_from_ship_to_system=IO error while telling server to transfer cargo from ship to starsystem
+io_error_while_telling_server_to_transfer_cargo_from_system_to_ship=IO error while telling server to transfer cargo from starsystem to ship
+io_error_while_telling_server_to_transfer_troops_from_ship_to_system=IO error while telling server to transfer troops from ship to starsystem
+io_error_while_telling_server_to_transfer_troops_from_system_to_ship=IO error while telling server to transfer troops from starsystem to ship
+io_error_while_telling_server_to_cancel_fleet_orders=IO error while telling server to cancel fleet orders
+server_did_not_update_research=Server did not update research
+server_client_communication_problem=Server/Client communication problem
+
+
+
+#CLIENT - GENERAL (SORTED)
+all=all
+armor=armor
+asteroid=asteroid
+asteroid_field=asteroid field
+attack=attack
+attacker=attacker
+awaiting_orders=awaiting orders
+billion=billion
+blackHole=black hole
+bomb=bomb
+bomb_starsystem=orbital bombardment
+build=build
+bunkers=bunkers
+cancel=cancel
+cancel_current_order_for_this_fleet=cancel current order for this fleet
+cargo=cargo
+casualties=casualties
+chat=chat
+colonize=colonize
+confirm_exit=confirm exit
+confirm_order=confirm order
+connect=connect
+connect_to_server=connect to server
+constr_tech=constr.tech
+cost=cost
+components_researched=components researched
+decommission=Decommission
+defender=defender
+defense=defense
+defense_rating=defense rating
+delete=delete
+deuterium=deuterium
+deuterium_available=deuterium available
+do_you_want_to_quit_the_game?=do you want to quit the game?
+empty_space=empty space
+enemy_ships=enemy ships
+error=error
+fertility=growth rate
+fleet=fleet
+fleets=fleets
+fleet_strength=fleet strength
+food=food
+from_bonus=from faction bonus
+fuel=fuel
+full=full
+harvest=harvest
+harvest_raw_deuterium=harvest raw deuterium
+hitpoints=hitpoints
+hp=hp
+hull=hull
+hulls_researched=hulls researched
+industry=industry
+info=info
+invade=invade
+invade_starsystem=invade starsystem
+invading=invading
+invalid_port_number=invalid port number
+login=login
+login_error=login error
+mail=mail
+manage_system=manage system
+max=max
+mine=mine
+mine_asteroid_field_for_resources=mine asteroid field for resources
+minimap=minimap
+morale=morale
+move_fleet=move fleet
+move_this_fleet_to_another_system=move this fleet to another system
+move_to_fleet=Move to fleet
+name_must_be_between_2_and_20_characters=name must be between 2 and 20 characters
+name_of_fleet_contains_invalid_characters=name of fleet contains invalid characters
+name_of_fleet_must_be_unique=name_of_fleet_must_be_unique
+name_of_fleet_to_short_must_be_3_characters_or_more=name of fleet to short, must be 3 characters or more
+name_of_the_new_fleet=name of the new fleet
+nebula=nebula
+neutronStar=neutron star
+new=new
+next_turn_in=next turn in
+no=no
+not_enough_population_in_system_to_fill_colonyship=Not enough population in system to fill colonyship to capacity (%1 million people), only %2 million people will board the colonyship when constructed, and the amount of people left in the system will be low
+not_enough_population_in_system_to_fill_colonyship_and_have_500m_extra=This colonyship will leave the system with a population of % 1 million, (500 million is recommended)
+not_enough_population_in_system_to_make_colonyship=Not enough population in system to make colonyship (need minimum 20 million, system only has %1, and 200 million of those must remain in the system)
+nothing=nothing
+no_research_goal=no research goal
+number_of_ships=number of ships
+ore=ore
+owner=owner
+ok=ok
+options=options
+password=password
+per_turn=per turn
+planets=planets
+population=population
+port=port
+power=power
+producing=producing
+pulsar=pulsar
+quit=quit
+range=range
+research=research
+researching=researching
+resources_left=resources left
+reports=reports
+seconds=seconds
+sector=sector
+self_destruct=Self destruct
+sensor_strength=sensor strength
+server=server
+shields=shields
+ship=ship
+ships=ships
+ship_designer=ship designer
+ship_info=Ship info
+speed=speed
+starsystems=starsystems
+starsystem_morale=starsystem morale
+start_a_new_colony_in_this_system=Start a new colony in this system
+strength=strength
+structures=structures
+structures_researched=structures researched
+summary=summary
+surplus=surplus
+system=system
+system_control=system control
+s_empire='s empire
+tactical=tactical
+tech_level=tech level
+template_info=template info
+there_is_already_a_fleet_with_that_name=there is already a fleet with that name
+transfer=transfer
+transfer_cargo_between_ship_and_system=transfer cargo between ship and system
+transfer_troops_between_ship_and_system=transfer troops between ship and system
+to=to
+troops=troops
+troops_per_turn=troops per turn
+turn=turn
+turns_left=turns left
+turns_until_research_complete=turns until research complete
+turn_report=turn report
+unable_to_rename_fleet=unable to rename fleet
+uninhabited_system=uninhabited system
+upkeep=upkeep
+upkeep_surplus=surplus upkeep
+upkeep_contribution=upkeep contribution
+username=username
+using=using
+warning=warning
+weapons=weapons
+wep_tech=wep.Tech
+yes=yes
+
+
+
+#TURN REPORTS (SORTED)
+turn_report_buildqueue_cant_build_ship_1=Unable to build ship
+turn_report_buildqueue_cant_build_ship_2=The %1 system no longer has an active shipyard, production halted
+turn_report_colonized_1=We have colonized the %1 system
+turn_report_colonized_2=Our newly founded colony has a thriving population of %1 million, safeguarded by %2 troops
+turn_report_login1=Login on your account
+turn_report_login2=Your user logged in on %1 from ip: %2
+turn_report_oreloss_1=Loss of ore in the %1 system
+turn_report_oreloss_2=%1 units of ore has been lost due to insufficient maintenance to our industrial facilities
+turn_report_recrew_fail_upkeep_1=Crew rotation delayed
+turn_report_recrew_fail_upkeep_2=Due to logistical problems caused by insufficient maintenance all planned crew rotations for the %1 fleet in the %2 system has been delayed
+turn_report_refuel_fail_upkeep_1=Refueling failed
+turn_report_refuel_fail_upkeep_2=Due to insufficient supply ship maintenance in the %2 system, the %1 fleet could not be refueled
+turn_report_repair_fail_upkeep_1=Ship repair failed
+turn_report_repair_fail_upkeep_2=Insufficient ship maintenance has caused repairs to the %1 fleet to be delayed in the %2 system
+turn_report_repair_fail_upkeep_3=Insufficient ship maintenance has caused deep space repairs to the %1 fleet to be delayed
+turn_report_research_1=Research completed
+turn_report_research_2=Our scientists have completed their %1 research: %2
+turn_report_researchloss_1=Research disaster in the %1 system
+turn_report_researchloss_2=Our research into %2 was delayed (%1 research points lost) because of poor research funding
+turn_report_sensor_fail_upkeep_1=Sensor malfunction
+turn_report_sensor_fail_upkeep_2=Insufficient ship maintenance has caused a failing navigation deflector in the %1 fleet to completely jam the fleets sensors
+turn_report_ship_constructed_1=Starship constructed
+turn_report_ship_constructed_2=A %1 class Starship has been constructed in the %2 system
+turn_report_ship_construction_fail_upkeep_1=Ship construction delayed
+turn_report_ship_construction_fail_upkeep_2=Construction of a starship in the %1 system has been delayed due to insufficient ship maintenance
+turn_report_ship_damage_upkeep_1=Ship damaged
+turn_report_ship_damage_upkeep_2=Due to insufficient maintenance, an accident aboard a %2 class ship in the %1 fleet has suffered %3 armor damage and %4 hull damage
+turn_report_ship_decommissioned_1=Ship decommissioned
+turn_report_ship_decommissioned_2=A %1 class ship in the %2 fleet was decommissioned in the %3 system
+turn_report_ship_decommissioned_3=A %1 class ship in the %2 fleet was decommissioned in the %3 system, %4 industry reclaimed and added to the construction of a new %5 class ship
+turn_report_ship_decommissioned_4=A %1 class ship in the %2 fleet was decommissioned in the %3 system, %4 industry reclaimed and added to the construction of a %5 structure
+turn_report_ship_self_destruct_1=Ship abandoned
+turn_report_ship_self_destruct_2=A %1 class ship in the %2 fleet was successfully abandoned and its self destruct activated
+turn_report_ship_too_few_colonists_1=Colonyship scrapped
+turn_report_ship_too_few_colonists_2=The construction of a colonyship in the %1 system was cancelled due to insufficient colonists available (at least 20 million required)
+turn_report_starvation_1=Starvation in the %1 system
+turn_report_starvation_2=The system is suffering a food shortage, people and troops are dying
+turn_report_structure_1=Structure completed
+turn_report_structure_2=The %1 system has completed construction of a %2
+turn_report_system_bombed_0=We have bombed the %1 system
+turn_report_system_bombed_1=The enemy is bombarding the %1 system
+turn_report_system_bombed_2=%1 million people killed
+turn_report_system_bombed_3=%1 troops killed
+turn_report_system_bombed_4=Structure destroyed:
+turn_report_system_bombed_5=system morale has fallen to %1
+
+
+
+# LAUNCHER (SORTED)
+checking_version=checking version
+error_checking_latest_version_on_server=Error checking latest version on server
+error_unable_to_load_page_from_trekwar_server=Error: unable to load page from Trekwar server
+error_while_trying_to_open_browser_to_url=Error while trying to open browser to url
+have_not_contacted_server_yet=Have not contacted server yet
+launch=Launch
+loading...=loading...
+remote_version=remote version
+status=Status
+trekwar_launcher=trekwar launcher
+up_to_date=up to date
+update_available=update available
+your_java_version_does_not_support_opening_links_using_the_desktop_api=Your Java version does not support opening links using the Desktop API
+
+
+
+# SERVER STRINGS (SORTED)
+bind_to_port=bind to port
+default=default
+invalid_port_number_specified=Invalid port number specified
+port_number_out_of_range=Port number out of range
+trekwar_server=Trekwar server
+
+
+
+
+############ STUFF BELOW THIS LINE IS CLIENT STRINGS THAT HAVE NOT BEEN SORTED PROPERLY YET
+
+#CHAT  +  MAIL
+chat_by=by
+chat_send=Send
+chat_menu_chat=chat
+chat_menu_send_mail=send mail
+chat_menu_ignore=ignore
+chat_tab_galaxy=Galaxy
+chat_tab_faction=Faction
+mail_messages=Messages
+
+
+#FLEETBOX
+fleetbox_fleets_at=fleets at
+fleetbox_movement_points=movement points
+fleetbox_rename_fleet=Rename
+fleetbox_new_name=New name
+fleetbox_shipinfo=Ship Info
+fleetbox_new_fleet_name=Enter the name of the new fleet
+fleetbox_unique_and_3_chars_long=Fleet names must be longer than 3 characters, unique\nand only contain letters numbers or the - and _ characters
+fleetbox_cargo=Cargo
+fleetbox_transfer_cargo=Transfer Cargo
+fleetbox_transfer_troops=Transfer Troops
+fleetbox_colonize_system_failure=Colonization failure, system already being colonized
+fleetbox_transfer_troops=Transfer troops
+fleetbox_invade_system=Invade System
+fleetbox_rank_crewman=crewman
+fleetbox_rank_ensign=ensign
+fleetbox_rank_lt=lieutenant
+fleetbox_rank_ltcom=lieutenant commander
+fleetbox_rank_com=commander
+fleetbox_rank_captain=captain
+fleetbox_rank_admiral=admiral
+
+
+#CARGO TRANSFER WINDOW
+cargotransferwindow_title=Cargo Transfer
+cargotransferwindow_amount_dialog=Transfer resources
+
+
+#TROOP TRANSFER WINDOW
+trooptransferwindow_title=Troop Transfer
+trooptransferwindow_amount_dialog=Transfer troops
+
+#SELF DESTRUCT WINDOW
+confirm_self_destruct=Confirm self destruct
+confirm_self_destruct_text=Press the self destruct button to immediately destroy this ship (you will no longer have pay %1 industry upkeep per turn)
+confirm_decommission=Confirm decommission
+confirm_decommission_text=Press the decommission button to immediately decommission this ship (you will no longer have pay %1 industry upkeep per turn, and %2 industry will be used towards hurrying production in the %3 system
+
+#SHIPDESIGNER
+shipdesign_new_template=New template
+shipdesign_select_a_hull_and_enter_a_template_name=Select a hull and enter a template name
+shipdesign_unique_and_3_chars_long=Template names must be unique, and only contain the following characters\na-z A-Z 0-9 - _
+shipdesign_error_name_short=Error - Template name to short
+shipdesign_error_name_unique=Error - Template name must be unique
+shipdesign_the_name_of_the_template_must_be_at_least_3_characters=The name of the template must be at least 3 characters
+shipdesign_you_allready_have_a_template_named=you allready have a template named
+shipdesign_save=Save
+shipdesign_error_saving_template=Error while saving template
+shipdesign_slots=Slots
+shipdesign_crew=Crew
+shipdesign_upkeep=Upkeep (per turn)
+shipdesign_cargo=Cargo capacity
+shipdesign_deuterium_capacity=Deuterium capacity
+shipdesign_deuterium_usage=Deuterium usage
+shipdesign_hitpoints=Hitpoints
+shipdesign_troopcapacity=Troop capacity
+shipdesign_agility=Agility
+shipdesign_sensors=Sensors
+shipdesign_signature=Signature
+shipdesign_energy=Energy
+shipdesign_power=Power
+shipdesign_weapons=Weapons
+shipdesign_cost=Cost
+shipdesign_name=Name
+shipdesign_hull=Hull
+shipdesign_hull_info=Hull info
+shipdesign_duplicate_button=duplicate
+shipdesign_confirm_new_template=Do you wish to create a new template?\n(unsaved changed will be lost)
+shipdesign_unsaved_changes=Unsaved changes
+shipdesign_invalid_hull_selected=Invalid hull selected
+shipdesign_enter_new_template_name=Enter a name for the new template
+shipdesign_duplicate=Duplicate
+shipdesign_confirm_delete=Confirm delete
+shipdesign_confirm_delete_this_template=Do you really want to delete this template
+shipdesign_armor_strength=Armor Strength
+shipdesign_shield_strength=Shield Strength
+shipdesign_weapon_strength=Weapon Strength
+shipdesign_civilian=Civilian
+shipdesign_move_to_new_template=Do you wish to move to a new template?\n(unsaved changed will be lost)
+shipdesign_new_template=New template
+shipdesign_select_a_hull_and_enter_a_template_name=Select a hull and enter a template name
+shipdesign_error_name_short=Error - Template name to short
+shipdesign_error_name_unique=Error - Template name must be unique
+shipdesign_the_name_of_the_template_must_be_at_least_3_characters=The name of the template must be at least 3 characters
+shipdesign_you_allready_have_a_template_named=you allready have a template named
+shipdesign_mining_present_cargo_missing=Your design has a mining laser, but no cargo space\nMining will not be possible without a cargo module
+
+
+#RESEARCH WINDOW
+researchwindow_lvl=Lvl
+researchwindow_biological=Biological
+researchwindow_computer=Computer
+researchwindow_energy=Energy
+researchwindow_propulsion=Propulsion
+researchwindow_construction=Construction
+researchwindow_weapons=Weapons
+researchwindow_no_reserach_set=No reseaarch set
+researchwindow_start_researching=Start researching
+researchwindow_current_research_will_be_lost=Current research will be lost
+researchwindow_confirm_research_change=Confirm research change
+researchwindow_no_research_goal_set=No research goal set
+researchwindow_level=level
+
+
+#TURNREPORT WINDOW
+turn_report_building=Building
+turn_report_industry=Relative industrial output
+turn_report_research=Relative research output
+turn_report_troops=Relative troop count
+turn_report_population=Relative population
+
+
+#HULLINFO + SHIPINFO + PLANETINFO WINDOWS
+hullinfo_stat=stat
+hullinfo_value=value
+hullinfo_slots=Slots
+hullinfo_cost=Cost
+hullinfo_hp=HP (Hitpoints)
+hullinfo_armor=Armor
+hullinfo_manoeuvrability=Manoeuvrability
+hullinfo_deuterium_usage=Deuterium usage
+hullinfo_deuterium_storage
+hullinfo_crew=Crew
+hullinfo_requires_tech=Requires tech
+hullinfo_level=level
+hullinfo_usable_by=Usable by
+shipinfo_name=Name
+shipinfo_owner=Owner
+shipinfo_faction=Faction
+shipinfo_fleet=Fleet
+shipinfo_crew=Crew
+shipinfo_xp=XP
+shipinfo_morale=Morale
+shipinfo_hp=HP (Hitpoints)
+shipinfo_shields=Shields
+shipinfo_armor=Armor
+shipinfo_deuterium=Deuterium
+shipinfo_deuterium_usage=Deuterium usage
+shipinfo_cargo=Cargo
+shipinfo_cargo_ore=Ore in cargo bay
+shipinfo_cargo_deuterium=Deuterium in cargo bay
+shipinfo_troops=Troops
+shipinfo_speed=Speed
+shipinfo_manouverability=Manouverability
+shipinfo_sensorstrength=Sensor strength
+shipinfo_signature=Sensor signature
+shipinfo_upkeep=Maintenance cost (upkeep)
+shipinfo_cost=Cost (industry)
+shipinfo_id=Ship ID
+planetinfo_planet_info=Planet info
+planetinfo_stat
+planetinfo_value
+planetinfo_type=Type
+planetinfo_max_population=Max population
+planetinfo_population=Population
+planetinfo_fertility=Growth rate
+planetinfo_max_structures=Max structures
+planetinfo_structures=Structures
+planetinfo_deuterium_per_turn=Deuterium per turn
+
+
+
+
+#RESEARCH WINDOW
+researchwindow_lvl=Lvl
+researchwindow_biological=Biological
+researchwindow_computer=Computer
+researchwindow_energy=Energy
+researchwindow_propulsion=Propulsion
+researchwindow_construction=Construction
+researchwindow_weapons=Weapons
+researchwindow_no_reserach_set=No research set
+researchwindow_start_researching=Start researching
+researchwindow_current_research_will_be_lost=Current research will be lost
+researchwindow_confirm_research_change=Confirm research change
+researchwindow_no_research_goal_set=No research goal set
+researchwindow_level=level
+researchwindow_research_completed=Research completed
+researchwindow_turns_until_research_complete=turns until research complete
+researchwindow_turns_to_research=Turns to research
+
+
+
+#STARSYSTEM CONTROL WINDOW
+systemcontrol_build_queue=Build queue
+systemcontrol_turns_left=turns left
+systemcontrol_industry=industry
+systemcontrol_food=food
+systemcontrol_groundcombat=ground combat
+systemcontrol_turns=turns
+systemcontrol_warning_research=This system has insufficient research to support it's structures
+systemcontrol_warning_industry=This system has insufficient industry to support it's structures
+systemcontrol_warning_power=There is a power shortage in this system
+systemcontrol_warning_food=There is a food shortage in this system
+systemcontrol_cost=Cost to build
+systemcontrol_power=Power required/generated
+systemcontrol_industry_req=Industry required/generated
+systemcontrol_research=Research required/generated
+systemcontrol_ground_combat=Ground combat required/generated
+systemcontrol_intel=Intel required/generated
+systemcontrol_hurry=Hurry Production
+systemcontrol_no_ore=There is no ore available to hurry production
+systemcontrol_ore_amount=Amount of ore to use
+systemcontrol_delete=Delete
+systemcontrol_delete=Delete
+systemcontrol_moveup=Move Up
+systemcontrol_moveto=Move To
+systemcontrol_movedown=Move Down
+systemcontrol_new_pos_in_queue= New position in queue
+systemcontrol_bad_value_or_invalid_index=Not a number or invalid index
+systemcontrol_invalid_value=Invalid value
+systemcontrol_demolish=Demolish
+systemcontrol_enable=Enable
+systemcontrol_disable=Disable
+systemcontrol_confirm_demolish=Confirm demolish structure
+systemcontrol_confirm_demolish2=Are you sure you want to demolish this structure?\nThis can not be undone
+systemcontrol_sensor=Sensor strength
+systemcontrol_speed=Speed
+systemcontrol_range=Range
+systemcontrol_weapon=Weapons
+systemcontrol_hull=Hull strenght
+systemcontrol_armor=Armor points
+systemcontrol_shield=Shield points
+
+
+
+#MINIMAP
+minimap_minimap=Minimap
+minimap_mode_faction=Faction
+minimap_mode_population=Population
+minimap_mode_own=Your systems
+
+
+#ORDERS
+order_colonizing=Colonizing
+order_mining=Mining
+order_harvestingdeuterium=Harvesting Deuterium
+order_invading_system=Invading system
+order_orbital_bombardment=Planetary bombardment

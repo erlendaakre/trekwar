@@ -1,0 +1,8 @@
+easyogg.jar		???     http://www.cokeandcode.com/index.html?page=libs  -  Kevin Glass
+
+jogg			LGPL	http://www.jcraft.com/jorbis/
+jorbis			LGPL	http://www.jcraft.com/jorbis/
+
+Commons CLI		APACHE2	http://commons.apache.org/proper/commons-cli/
+
+substance		BSD	http://java.net/projects/substance/

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Trekwar2 user profile</comment>
+<entry key="fullscreen">false</entry>
+<entry key="window.PlanetInfoWindow.y">566</entry>
+<entry key="window.PlanetInfoWindow.x">649</entry>
+<entry key="window.MailWindow.y">128</entry>
+<entry key="window.MailWindow.x">415</entry>
+<entry key="debug.ShipDesigner.showSlotBackground">false</entry>
+<entry key="window.width">1590</entry>
+<entry key="window.SystemBox.y">165</entry>
+<entry key="window.SystemBox.x">1287</entry>
+<entry key="sfx-enabled">true</entry>
+<entry key="window.CargoTransferWindow.y">532</entry>
+<entry key="window.TroopTransferWindow.y">529</entry>
+<entry key="window.CargoTransferWindow.x">457</entry>
+<entry key="window.TroopTransferWindow.x">456</entry>
+<entry key="music-enabled">true</entry>
+<entry key="window.ShipDesignerWindow.y">18</entry>
+<entry key="window.MapWindow.y">27</entry>
+<entry key="window.ShipDesignerWindow.x">195</entry>
+<entry key="window.MapWindow.x">15</entry>
+<entry key="window.MinimapWindow.y">64</entry>
+<entry key="window.MinimapWindow.x">464</entry>
+<entry key="window.ChatWindow.y">69</entry>
+<entry key="window.ChatWindow.x">363</entry>
+<entry key="window.y">31</entry>
+<entry key="window.x">179</entry>
+<entry key="window.height">921</entry>
+<entry key="window.SystemControlWindow.y">36</entry>
+<entry key="window.SystemControlWindow.x">97</entry>
+<entry key="window.ReportWindow.y">71</entry>
+<entry key="window.ReportWindow.x">391</entry>
+<entry key="window.HullInfoWindow.y">303</entry>
+<entry key="window.HullInfoWindow.x">353</entry>
+<entry key="window.chatWindow.y">100</entry>
+<entry key="window.chatWindow.x">100</entry>
+<entry key="window.MapWindow.height">748</entry>
+<entry key="window.ResearchWindow.y">115</entry>
+<entry key="window.ResearchWindow.x">343</entry>
+<entry key="preventMoveWindowsOutOfDesktop">false</entry>
+<entry key="window.FleetBox.y">112</entry>
+<entry key="window.MapWindow.width">1073</entry>
+<entry key="window.FleetBox.x">140</entry>
+<entry key="window.ShipInfoWindow.y">171</entry>
+<entry key="window.ShipInfoWindow.x">1154</entry>
+<entry key="window.JInternalFrame.y">249</entry>
+<entry key="window.JInternalFrame.x">545</entry>
+</properties>

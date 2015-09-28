@@ -1,0 +1,24 @@
+STARSHIP COMPONENTS
+===================
+
+32x32, +16x16 general icon.
+
+text = Courier new - regular - 12pt aa:none
+
+
+STARSHIP SLOTS
+==============
+
+Blocks are 36x36 pixels..
+
+filled with color: 6c6c6c
+opacity: 75%.
+
+Inner shadow: black, distance 3px, size 3px, .. 120 degrees 100 opacity
+
+Stroke color: 
+5 pixels.. 75% opacity
+
+civillian: 946e42
+federation: 005aff
+klingon: 
