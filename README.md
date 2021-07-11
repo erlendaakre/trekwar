@@ -13,4 +13,4 @@ Due to lack of time and interest in using Java development on this game has been
 
 ![Hull Info view](screenshots/hullinfo.jpg)
 
-![Invasion view](screenshots/invasion.jpg)
+![Invasion view](screenshots/attack.jpg)
